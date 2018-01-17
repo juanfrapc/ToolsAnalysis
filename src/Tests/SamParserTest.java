@@ -8,19 +8,20 @@ import java.io.File;
 import java.io.IOException;
 import java.util.stream.Stream;
 
-public class BamParserTest {
+public class SamParserTest {
 
     @Test
     public void test() {
-        final File file = new File("/media/uichuimi/DiscoInterno/GENOME_DATA/CONTROLS/DAM/C7BDUACXX_8_3ss.bam");
+        final File file = new File("../ejemplo.sam");
         final Stream<Alignment> stream;
         try {
-            stream = new BamParser().parseBam(file);
+            stream = new BamParser().parseSam(file);
             stream.parallel().forEach(alignment -> {
-
+                System.out.println(alignment);
             });
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 }
