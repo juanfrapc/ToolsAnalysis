@@ -10,7 +10,7 @@ public class Alignment implements Iterable<Object>{
     public static final int FLAG = 1;
     public static final int RNAME = 2;
     public static final int POS = 3;
-    public static final int MAP = 4;
+    public static final int MAPQ = 4;
     public static final int CIGAR = 5;
     public static final int RNEXT = 6;
     public static final int PNEXT = 7;
@@ -27,6 +27,10 @@ public class Alignment implements Iterable<Object>{
 
     public String getParam(int param) {
         return params[param];
+    }
+
+    public int getSize() {
+        return nParam;
     }
 
     @Override
@@ -48,6 +52,6 @@ public class Alignment implements Iterable<Object>{
 
     @Override
     public String toString() {
-        return "Alignment: " + Arrays.toString(params);
+        return "Alignment: Alignment" + Arrays.toString(params);
     }
 }
