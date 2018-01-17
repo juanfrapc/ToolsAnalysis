@@ -1,4 +1,4 @@
-package Tests;
+package parser;
 
 import Model.Alignment;
 import org.junit.Test;
