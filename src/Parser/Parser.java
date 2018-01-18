@@ -6,9 +6,9 @@ import Model.AlignmentFactory;
 import java.io.*;
 import java.util.stream.Stream;
 
-class Parser {
+public class Parser {
 
-    Stream<Alignment> parseBam(File file) throws IOException {
+    public Stream<Alignment> parseBam(File file) throws IOException {
         final ProcessBuilder pb = new ProcessBuilder("samtools", "view", file.getAbsolutePath());
         final Process process = pb.start();
         final BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
