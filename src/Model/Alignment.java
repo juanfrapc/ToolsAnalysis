@@ -3,7 +3,7 @@ package Model;
 import java.util.Arrays;
 import java.util.Iterator;
 
-public class Alignment implements Iterable<Object>{
+public class Alignment implements Iterable<String>{
 
 
     public static final int QNAME = 0;
@@ -21,7 +21,7 @@ public class Alignment implements Iterable<Object>{
     private final int nParam = 11;
     private String[] params;
 
-    public Alignment(String[] values) {
+    Alignment(String[] values) {
         params = values;
     }
 
@@ -34,8 +34,8 @@ public class Alignment implements Iterable<Object>{
     }
 
     @Override
-    public Iterator<Object> iterator() {
-        return new Iterator<Object>() {
+    public Iterator<String> iterator() {
+        return new Iterator<String>() {
             int i = 0;
 
             @Override
@@ -44,7 +44,7 @@ public class Alignment implements Iterable<Object>{
             }
 
             @Override
-            public Object next() {
+            public String next() {
                 return params[i++];
             }
         };
