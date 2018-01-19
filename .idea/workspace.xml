@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a4ed4dc5-58d8-4ef1-a0bf-053d836a38b1" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Tests/Application/ProcessFileStatsTest.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Application/ProcessFileStats.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Model/AlignmentStatistics.java" />
+    <list default="true" id="a4ed4dc5-58d8-4ef1-a0bf-053d836a38b1" name="Default" comment="Parsing files and stablishing stats. Test filling and example.bam">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ejemplo.bam" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ejemplo.sam" afterPath="$PROJECT_DIR$/ejemplo.sam" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Parser/Parser.java" afterPath="$PROJECT_DIR$/src/Parser/Parser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tests/Application/ProcessFileStatsTest.java" afterPath="$PROJECT_DIR$/Tests/Application/ProcessFileStatsTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tests/Parser/SamBamParserTest.java" afterPath="$PROJECT_DIR$/Tests/Parser/SamBamParserTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ToolsAnalysis.iml" afterPath="$PROJECT_DIR$/ToolsAnalysis.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Model/Alignment.java" afterPath="$PROJECT_DIR$/src/Model/Alignment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Model/AlignmentStatistics.java" afterPath="$PROJECT_DIR$/src/Model/AlignmentStatistics.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -34,18 +35,92 @@
       <file leaf-file-name="ProcessFileStatsTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Tests/Application/ProcessFileStatsTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="309">
-              <caret line="28" column="80" lean-forward="true" selection-start-line="28" selection-start-column="80" selection-end-line="28" selection-end-column="80" />
+            <state relative-caret-position="465">
+              <caret line="35" column="5" lean-forward="true" selection-start-line="35" selection-start-column="5" selection-end-line="35" selection-end-column="5" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#337#338#0" expanded="true" />
+                <element signature="e#391#392#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ejemplo.sam" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ejemplo.sam">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="80">
+              <caret line="5" column="302" lean-forward="false" selection-start-line="5" selection-start-column="300" selection-end-line="5" selection-end-column="302" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ejemplo.sam" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/ejemplo.sam">
+      <file leaf-file-name="ProcessFileStats.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Application/ProcessFileStats.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="112">
-              <caret line="7" column="46" lean-forward="false" selection-start-line="7" selection-start-column="46" selection-end-line="7" selection-end-column="46" />
+            <state relative-caret-position="272">
+              <caret line="17" column="4" lean-forward="true" selection-start-line="17" selection-start-column="4" selection-end-line="17" selection-end-column="4" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SamBamParserTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Tests/Parser/SamBamParserTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="176">
+              <caret line="17" column="16" lean-forward="false" selection-start-line="17" selection-start-column="16" selection-end-line="17" selection-end-column="16" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AlignmentStatistics.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Model/AlignmentStatistics.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="439">
+              <caret line="62" column="46" lean-forward="true" selection-start-line="62" selection-start-column="46" selection-end-line="62" selection-end-column="46" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1266#1267#0" expanded="true" />
+                <element signature="e#1340#1341#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Parser.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Parser/Parser.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="208">
+              <caret line="17" column="11" lean-forward="false" selection-start-line="17" selection-start-column="11" selection-end-line="17" selection-end-column="11" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Alignment.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Model/Alignment.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="225">
+              <caret line="52" column="9" lean-forward="true" selection-start-line="52" selection-start-column="9" selection-end-line="52" selection-end-column="9" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#641#642#0" expanded="true" />
+                <element signature="e#672#673#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AlignmentFactory.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Model/AlignmentFactory.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="14" lean-forward="false" selection-start-line="0" selection-start-column="14" selection-end-line="0" selection-end-column="14" />
               <folding />
             </state>
           </provider>
@@ -67,6 +142,7 @@
     <findStrings>
       <find>public</find>
       <find>\</find>
+      <find>XA</find>
     </findStrings>
     <replaceStrings>
       <replace>private</replace>
@@ -75,6 +151,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="SET_USER_NAME_GLOBALLY" value="false" />
   </component>
   <component name="GradleLocalSettings">
     <option name="externalProjectsViewState">
@@ -116,9 +193,7 @@
         <option value="$PROJECT_DIR$/Tests/Application/BWAlignerTest.java" />
         <option value="$PROJECT_DIR$/src/Model/Aligner.java" />
         <option value="$PROJECT_DIR$/src/Application/BWAligner.java" />
-        <option value="$PROJECT_DIR$/src/Model/Alignment.java" />
         <option value="$PROJECT_DIR$/src/Application/Main.java" />
-        <option value="$PROJECT_DIR$/Tests/Parser/SamBamParserTest.java" />
         <option value="$PROJECT_DIR$/ejemplo.sam" />
         <option value="$PROJECT_DIR$/src/Model/Statistics.java" />
         <option value="$PROJECT_DIR$/src/Model/AllignmentStatictics.java" />
@@ -128,6 +203,8 @@
         <option value="$PROJECT_DIR$/src/Application/ProcessFileStats.java" />
         <option value="$PROJECT_DIR$/src/Model/AlignmentStatistics.java" />
         <option value="$PROJECT_DIR$/Tests/Application/ProcessFileStatsTest.java" />
+        <option value="$PROJECT_DIR$/Tests/Parser/SamBamParserTest.java" />
+        <option value="$PROJECT_DIR$/src/Model/Alignment.java" />
       </list>
     </option>
   </component>
@@ -159,6 +236,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -174,12 +253,6 @@
             <path>
               <item name="ToolsAnalysis" type="b2602c69:ProjectViewProjectNode" />
               <item name="ToolsAnalysis" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Application" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ToolsAnalysis" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ToolsAnalysis" type="462c0819:PsiDirectoryNode" />
               <item name="Tests" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -187,21 +260,25 @@
               <item name="ToolsAnalysis" type="462c0819:PsiDirectoryNode" />
               <item name="Tests" type="462c0819:PsiDirectoryNode" />
               <item name="Application" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ToolsAnalysis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ToolsAnalysis" type="462c0819:PsiDirectoryNode" />
+              <item name="Tests" type="462c0819:PsiDirectoryNode" />
+              <item name="Parser" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
       <pane id="Scope" />
-      <pane id="Scratches" />
-      <pane id="PackagesPane" />
       <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
     <property name="create.test.in.the.same.root" value="true" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/src" />
@@ -233,7 +310,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.ProcessFileStatsTest">
+  <component name="RunManager" selected="JUnit.SamBamParserTest.bamTestFileShow">
     <configuration name="All in ToolsAnalysis" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="ToolsAnalysis" />
@@ -257,45 +334,6 @@
         <option name="Make" enabled="false" />
       </method>
     </configuration>
-    <configuration name="BWAlignerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="Model.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="ToolsAnalysis" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="Application" />
-      <option name="MAIN_CLASS_NAME" value="Application.BWAlignerTest" />
-      <option name="METHOD_NAME" value="" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" value="" />
-      <option name="WORKING_DIRECTORY" value="file://$MODULE_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
-    </configuration>
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="MAIN_CLASS_NAME" value="Application.Main" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="ToolsAnalysis" />
-      <envs />
-    </configuration>
     <configuration name="ProcessFileStatsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -310,6 +348,56 @@
       <option name="MAIN_CLASS_NAME" value="Application.ProcessFileStatsTest" />
       <option name="METHOD_NAME" value="" />
       <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+    </configuration>
+    <configuration name="ProcessFileStatsTest.processBam" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="Application.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="ToolsAnalysis" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="Application" />
+      <option name="MAIN_CLASS_NAME" value="Application.ProcessFileStatsTest" />
+      <option name="METHOD_NAME" value="processBam" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+    </configuration>
+    <configuration name="ProcessFileStatsTest.processSam" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="Application.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="ToolsAnalysis" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="Application" />
+      <option name="MAIN_CLASS_NAME" value="Application.ProcessFileStatsTest" />
+      <option name="METHOD_NAME" value="processSam" />
+      <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="file://$MODULE_DIR$" />
@@ -348,6 +436,31 @@
       <method>
         <option name="Make" enabled="false" />
       </method>
+    </configuration>
+    <configuration name="SamBamParserTest.bamTestFileShow" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="Parser.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="ToolsAnalysis" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="Parser" />
+      <option name="MAIN_CLASS_NAME" value="Parser.SamBamParserTest" />
+      <option name="METHOD_NAME" value="bamTestFileShow" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
     </configuration>
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="HTML_USED" value="false" />
@@ -430,19 +543,21 @@
       <properties />
       <listeners />
     </configuration>
-    <list size="5">
+    <list size="6">
       <item index="0" class="java.lang.String" itemvalue="JUnit.All in ToolsAnalysis" />
-      <item index="1" class="java.lang.String" itemvalue="Application.Main" />
-      <item index="2" class="java.lang.String" itemvalue="JUnit.SamBamParserTest" />
-      <item index="3" class="java.lang.String" itemvalue="JUnit.BWAlignerTest" />
-      <item index="4" class="java.lang.String" itemvalue="JUnit.ProcessFileStatsTest" />
+      <item index="1" class="java.lang.String" itemvalue="JUnit.SamBamParserTest" />
+      <item index="2" class="java.lang.String" itemvalue="JUnit.ProcessFileStatsTest" />
+      <item index="3" class="java.lang.String" itemvalue="JUnit.ProcessFileStatsTest.processBam" />
+      <item index="4" class="java.lang.String" itemvalue="JUnit.ProcessFileStatsTest.processSam" />
+      <item index="5" class="java.lang.String" itemvalue="JUnit.SamBamParserTest.bamTestFileShow" />
     </list>
     <recent_temporary>
-      <list size="4">
-        <item index="0" class="java.lang.String" itemvalue="JUnit.ProcessFileStatsTest" />
-        <item index="1" class="java.lang.String" itemvalue="Application.Main" />
-        <item index="2" class="java.lang.String" itemvalue="JUnit.BWAlignerTest" />
+      <list size="5">
+        <item index="0" class="java.lang.String" itemvalue="JUnit.SamBamParserTest.bamTestFileShow" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.ProcessFileStatsTest.processBam" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.ProcessFileStatsTest.processSam" />
         <item index="3" class="java.lang.String" itemvalue="JUnit.SamBamParserTest" />
+        <item index="4" class="java.lang.String" itemvalue="JUnit.ProcessFileStatsTest" />
       </list>
     </recent_temporary>
   </component>
@@ -466,6 +581,7 @@
       <workItem from="1516102475824" duration="2123000" />
       <workItem from="1516196126374" duration="8612000" />
       <workItem from="1516352374335" duration="5429000" />
+      <workItem from="1516360242333" duration="4786000" />
     </task>
     <task id="LOCAL-00001" summary="Project structure commit">
       <created>1516104821239</created>
@@ -520,65 +636,66 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="BWAlignerTest - 2018.01.18 at 12h 20m 02s.xml">
-      <configuration name="BWAlignerTest" configurationId="JUnit" />
+    <history-entry file="ProcessFileStatsTest_processBam - 2018.01.19 at 12h 56m 01s.xml">
+      <configuration name="ProcessFileStatsTest.processBam" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="BWAlignerTest - 2018.01.18 at 12h 20m 24s.xml">
-      <configuration name="BWAlignerTest" configurationId="JUnit" />
+    <history-entry file="ProcessFileStatsTest_processSam - 2018.01.19 at 12h 55m 57s.xml">
+      <configuration name="ProcessFileStatsTest.processSam" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="BWAlignerTest - 2018.01.18 at 12h 21m 08s.xml">
-      <configuration name="BWAlignerTest" configurationId="JUnit" />
+    <history-entry file="SamBamParserTest - 2018.01.19 at 12h 49m 14s.xml">
+      <configuration name="SamBamParserTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="BWAlignerTest - 2018.01.18 at 12h 21m 35s.xml">
-      <configuration name="BWAlignerTest" configurationId="JUnit" />
+    <history-entry file="SamBamParserTest - 2018.01.19 at 12h 49m 58s.xml">
+      <configuration name="SamBamParserTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="BWAlignerTest - 2018.01.18 at 12h 26m 09s.xml">
-      <configuration name="BWAlignerTest" configurationId="JUnit" />
+    <history-entry file="SamBamParserTest - 2018.01.19 at 12h 51m 34s.xml">
+      <configuration name="SamBamParserTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ProcessFileStatsTest - 2018.01.19 at 09h 54m 17s.xml">
-      <configuration name="ProcessFileStatsTest" configurationId="JUnit" />
+    <history-entry file="SamBamParserTest - 2018.01.19 at 12h 52m 15s.xml">
+      <configuration name="SamBamParserTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ProcessFileStatsTest - 2018.01.19 at 09h 57m 24s.xml">
-      <configuration name="ProcessFileStatsTest" configurationId="JUnit" />
+    <history-entry file="SamBamParserTest - 2018.01.19 at 12h 52m 57s.xml">
+      <configuration name="SamBamParserTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ProcessFileStatsTest - 2018.01.19 at 09h 59m 17s.xml">
-      <configuration name="ProcessFileStatsTest" configurationId="JUnit" />
+    <history-entry file="SamBamParserTest - 2018.01.19 at 12h 54m 11s.xml">
+      <configuration name="SamBamParserTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ProcessFileStatsTest - 2018.01.19 at 10h 00m 39s.xml">
-      <configuration name="ProcessFileStatsTest" configurationId="JUnit" />
+    <history-entry file="SamBamParserTest - 2018.01.19 at 12h 55m 05s.xml">
+      <configuration name="SamBamParserTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ProcessFileStatsTest - 2018.01.19 at 10h 00m 56s.xml">
-      <configuration name="ProcessFileStatsTest" configurationId="JUnit" />
+    <history-entry file="SamBamParserTest_bamTestFileShow - 2018.01.19 at 12h 56m 40s.xml">
+      <configuration name="SamBamParserTest.bamTestFileShow" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="33531000" />
+    <option name="totallyTimeSpent" value="38317000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="10" y="15" width="1368" height="744" extended-state="6" />
+    <frame x="-1" y="0" width="1922" height="1055" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3275862" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32665965" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3291536" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3275862" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3291536" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32665965" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24963397" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24947916" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Dynamic Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -600,10 +717,13 @@
     <MESSAGE value="Sam parser and tests" />
     <MESSAGE value="BWA Aligner and tests implementation. Model improvement." />
     <MESSAGE value="Initializing stats." />
-    <option name="LAST_COMMIT_MESSAGE" value="Initializing stats." />
+    <MESSAGE value="Parsing files and stablishing stats. Test filling and example.bam" />
+    <option name="LAST_COMMIT_MESSAGE" value="Parsing files and stablishing stats. Test filling and example.bam" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
@@ -678,13 +798,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar:///usr/lib/jvm/default-jdk1.8/src.zip!/java/util/function/Function.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="48" column="6" lean-forward="false" selection-start-line="48" selection-start-column="6" selection-end-line="48" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="jar:///usr/lib/jvm/default-jdk1.8/src.zip!/java/util/function/Function.java" />
     <entry file="file://$PROJECT_DIR$/src/parse/BamParserTest.java" />
     <entry file="file://$PROJECT_DIR$/src/Parser/Parser.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -768,20 +882,12 @@
     <entry file="file://$PROJECT_DIR$/src/parse/SamParser.java" />
     <entry file="file://$PROJECT_DIR$/src/Tests/BamParserTestTest.java" />
     <entry file="file://$PROJECT_DIR$/Tests/parser/BamParserTest.java" />
-    <entry file="jar:///usr/lib/jvm/default-jdk1.8/src.zip!/java/util/function/Consumer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="134">
-          <caret line="48" column="9" lean-forward="false" selection-start-line="48" selection-start-column="9" selection-end-line="48" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="jar:///usr/lib/jvm/default-jdk1.8/src.zip!/java/util/function/Consumer.java" />
     <entry file="file://$PROJECT_DIR$/Tests/Alligner/BWAlignerTest.java" />
     <entry file="file://$PROJECT_DIR$/src/Model/Parameter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="224">
           <caret line="14" column="52" lean-forward="false" selection-start-line="14" selection-start-column="52" selection-end-line="14" selection-end-column="52" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -819,40 +925,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Model/Alignment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="23" column="4" lean-forward="false" selection-start-line="23" selection-start-column="4" selection-end-line="23" selection-end-column="4" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#641#642#0" expanded="true" />
-            <element signature="e#672#673#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="48">
           <caret line="3" column="6" lean-forward="false" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Tests/Parser/SamBamParserTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="30" column="20" lean-forward="false" selection-start-line="30" selection-start-column="20" selection-end-line="30" selection-end-column="20" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Model/AlignmentFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="6" column="36" lean-forward="false" selection-start-line="6" selection-start-column="36" selection-end-line="6" selection-end-column="36" />
           <folding />
         </state>
       </provider>
@@ -865,36 +941,40 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Model/AlignmentStatistics.java">
+    <entry file="file://$PROJECT_DIR$/src/Model/AlignmentFactory.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="864">
-          <caret line="54" column="67" lean-forward="false" selection-start-line="54" selection-start-column="67" selection-end-line="54" selection-end-column="67" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#776#777#0" expanded="true" />
-            <element signature="e#816#817#0" expanded="true" />
-            <element signature="e#849#850#0" expanded="true" />
-            <element signature="e#892#893#0" expanded="true" />
-            <element signature="e#931#932#0" expanded="true" />
-            <element signature="e#980#981#0" expanded="true" />
-            <element signature="e#1014#1015#0" expanded="true" />
-            <element signature="e#1058#1059#0" expanded="true" />
-            <element signature="e#1095#1096#0" expanded="true" />
-            <element signature="e#1142#1143#0" expanded="true" />
-            <element signature="e#1179#1180#0" expanded="true" />
-            <element signature="e#1226#1227#0" expanded="true" />
-            <element signature="e#1264#1265#0" expanded="true" />
-            <element signature="e#1338#1339#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="0">
+          <caret line="0" column="14" lean-forward="false" selection-start-line="0" selection-start-column="14" selection-end-line="0" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ejemplo.sam">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="5" column="302" lean-forward="false" selection-start-line="5" selection-start-column="300" selection-end-line="5" selection-end-column="302" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Application/ProcessFileStats.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="10" column="18" lean-forward="false" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="18" />
+        <state relative-caret-position="272">
+          <caret line="17" column="4" lean-forward="true" selection-start-line="17" selection-start-column="4" selection-end-line="17" selection-end-column="4" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model/AlignmentStatistics.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="439">
+          <caret line="62" column="46" lean-forward="true" selection-start-line="62" selection-start-column="46" selection-end-line="62" selection-end-column="46" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1266#1267#0" expanded="true" />
+            <element signature="e#1340#1341#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -911,17 +991,33 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Tests/Application/ProcessFileStatsTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="309">
-          <caret line="28" column="80" lean-forward="true" selection-start-line="28" selection-start-column="80" selection-end-line="28" selection-end-column="80" />
+        <state relative-caret-position="465">
+          <caret line="35" column="5" lean-forward="true" selection-start-line="35" selection-start-column="5" selection-end-line="35" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#337#338#0" expanded="true" />
+            <element signature="e#391#392#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Tests/Parser/SamBamParserTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="17" column="16" lean-forward="false" selection-start-line="17" selection-start-column="16" selection-end-line="17" selection-end-column="16" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ejemplo.sam">
+    <entry file="file://$PROJECT_DIR$/src/Model/Alignment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="7" column="46" lean-forward="false" selection-start-line="7" selection-start-column="46" selection-end-line="7" selection-end-column="46" />
-          <folding />
+        <state relative-caret-position="225">
+          <caret line="52" column="9" lean-forward="true" selection-start-line="52" selection-start-column="9" selection-end-line="52" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#641#642#0" expanded="true" />
+            <element signature="e#672#673#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

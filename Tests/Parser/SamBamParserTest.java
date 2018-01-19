@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 public class SamBamParserTest {
 
     private final File samFile = new File("ejemplo.sam");
-    private final File bamFile = new File("/media/uichuimi/DiscoInterno/GENOME_DATA/CONTROLS/DAM/C7BDUACXX_8_3ss.bam");
+    private final File bamFile = new File("ejemplo.bam");
     private Stream<Alignment> samStream;
     private Stream<Alignment> bamStream;
 

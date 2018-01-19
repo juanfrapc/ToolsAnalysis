@@ -23,7 +23,7 @@ public class AlignmentStatistics {
         multiplyMapped = new AtomicLong();
 
         totalMapQ = new AtomicLong();
-        unmappedMapQ= new AtomicLong();
+        unmappedMapQ = new AtomicLong();
         multiplyMapQ = new AtomicLong();
     }
 
@@ -51,26 +51,32 @@ public class AlignmentStatistics {
         return multiplyMapQ.longValue();
     }
 
-    public long getUniquelyMapped(){
+    public long getUniquelyMapped() {
         return total.get() - unmapped.get() - multiplyMapped.get();
     }
 
     public void update(Alignment alignment) {
         String flag = toBinaryString(parseInt(alignment.getParam(FLAG)));
-        if (flag.charAt(flag.length() - 3) == '1') increaseUnmapped(parseInt(alignment.getParam(MAPQ)));
-        else increaseMultiplyMapped(parseInt(alignment.getParam(MAPQ)));
+        int mapQ = parseInt(alignment.getParam(MAPQ));
+
+        if (flag.charAt(flag.length() - 3) == '1') increaseUnmapped(mapQ);
+        else if (alignment.checkOptionalParm("XA:Z:")) increaseMultiplyMapped(mapQ);
+        else increaseTotal(mapQ);
+    }
+
+    private void increaseTotal(int mapQ) {
+        total.incrementAndGet();
+        totalMapQ.addAndGet(mapQ);
     }
 
     private void increaseUnmapped(int mapQ) {
-        total.incrementAndGet();
-        totalMapQ.addAndGet(mapQ);
+        increaseTotal(mapQ);
         unmapped.incrementAndGet();
         unmappedMapQ.addAndGet(mapQ);
     }
 
     private void increaseMultiplyMapped(int mapQ) {
-        total.incrementAndGet();
-        totalMapQ.addAndGet(mapQ);
+        increaseTotal(mapQ);
         multiplyMapped.incrementAndGet();
         multiplyMapQ.addAndGet(mapQ);
     }

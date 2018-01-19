@@ -1,6 +1,5 @@
 package Application;
 
-import Model.Alignment;
 import Model.AlignmentStatistics;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,17 +15,24 @@ class ProcessFileStatsTest {
 
     @BeforeEach
     void setUp() {
-        file = new File("ejemplo.sam");
         statistics = new AlignmentStatistics();
-        ProcessFileStats.process(file, statistics);
     }
 
     @Test
     void processSam() {
-        assertEquals(10, statistics.getTotal(), "Error in total count");
-        assertEquals(131, statistics.getTotalMapQ(), "Error in total Mapq");
+        file = new File("ejemplo.sam");
+        ProcessFileStats.process(file, statistics);
+        assertEquals(131, statistics.getTotalMapQ(), "Error in total MAPQ");
         assertEquals(4, statistics.getUnmapped(), "Error in unmapped count");
-        assertEquals(0, statistics.getUnmappedMapQ(), "Error in unMapped Mapq");
+        assertEquals(0, statistics.getUnmappedMapQ(), "Error in unmapped MAPQ");
+        assertEquals(1, statistics.getMultiplyMapped(), "Error in multiply mapped count");
+        assertEquals(33, statistics.getMultiplyMapQ(), "Error in multiply mapped Mapq");
+    }
+    @Test
+    void processBam(){
+        file = new File("ejemplo.bam");
+        ProcessFileStats.process(file, statistics);
+        assertEquals(10, statistics.getTotal(), "Error in total count");
     }
 
 }

@@ -50,6 +50,20 @@ public class Alignment implements Iterable<String>{
         };
     }
 
+    public boolean checkOptionalParm(String flag){
+        for (int i = nParam; i < params.length; i++) {
+            if (params[i].startsWith(flag)) return true;
+        }
+        return false;
+    }
+
+    public String getOptionalParam(String flag){
+        for (int i = nParam; i < params.length; i++) {
+            if (params[i].startsWith(flag)) return params[i];
+        }
+        return null;
+    }
+
     @Override
     public String toString() {
         return "Alignment: Alignment" + Arrays.toString(params);
