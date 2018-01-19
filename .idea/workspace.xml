@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a4ed4dc5-58d8-4ef1-a0bf-053d836a38b1" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -586,7 +585,7 @@
       <workItem from="1516102475824" duration="2123000" />
       <workItem from="1516196126374" duration="8612000" />
       <workItem from="1516352374335" duration="5429000" />
-      <workItem from="1516360242333" duration="5111000" />
+      <workItem from="1516360242333" duration="5317000" />
     </task>
     <task id="LOCAL-00001" summary="Project structure commit">
       <created>1516104821239</created>
@@ -644,7 +643,14 @@
       <option name="project" value="LOCAL" />
       <updated>1516366750073</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Parsing files and stablishing stats. Test filling and example.bam">
+      <created>1516367073122</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1516367073122</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -680,7 +686,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="38642000" />
+    <option name="totallyTimeSpent" value="38848000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="0" width="1922" height="1055" extended-state="6" />
