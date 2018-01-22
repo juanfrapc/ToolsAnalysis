@@ -1,6 +1,7 @@
 package Parser;
 
 import Model.Alignment;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -15,8 +16,8 @@ public class SamBamParserTest {
     private Stream<Alignment> samStream;
     private Stream<Alignment> bamStream;
 
-    @BeforeClass
-    public void init() {
+    @Before
+    public void initialize() {
         try {
             samStream = new Parser().parseSam(samFile);
             bamStream = new Parser().parseBam(bamFile);
@@ -58,12 +59,12 @@ public class SamBamParserTest {
 
     @Test
     public void bamTestFileShow() {
-        bamStream.parallel().limit(5).forEach(System.out::println);
+        bamStream.parallel().forEach(System.out::println);
     }
 
     @Test
     public void bamParamTest() {
-        bamStream.limit(50).parallel().forEach(alignment -> {
+        bamStream.parallel().forEach(alignment -> {
             assert (checkParam(alignment));
         });
     }

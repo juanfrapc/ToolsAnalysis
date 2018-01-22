@@ -33,6 +33,10 @@ class ProcessFileStatsTest {
         file = new File("ejemplo.bam");
         ProcessFileStats.process(file, statistics);
         assertEquals(10, statistics.getTotal(), "Error in total count");
+        assertEquals(0, statistics.getUnmapped(), "Error in unmapped count");
+        assertEquals(0, statistics.getUnmappedMapQ(), "Error in unmapped MAPQ");
+        assertEquals(1, statistics.getMultiplyMapped(), "Error in multiply mapped count");
+        assertEquals(33, statistics.getMultiplyMapQ(), "Error in multiply mapped Mapq");
     }
 
 }
