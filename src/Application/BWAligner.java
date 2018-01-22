@@ -16,10 +16,14 @@ public class BWAligner implements Aligner {
     private Parameter[] parameters;
     private int cores = Runtime.getRuntime().availableProcessors();
 
-    BWAligner(File forward, File reverse, File genome, Parameter[] parameters) {
+    private BWAligner(File forward, File reverse, File genome) {
         this.forward = forward;
         this.reverse = reverse;
         this.genome = genome;
+    }
+
+    BWAligner(String forward, String reverse, String genome, Parameter[] parameters) {
+        this(new File(forward), new File(reverse), new File(genome));
         this.parameters = parameters;
     }
 

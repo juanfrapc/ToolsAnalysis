@@ -9,12 +9,13 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 public class BWAlignerTest {
 
-    private File genome = new File("/media/uichuimi/DiscoInterno/references/GRCh38/GRCh38.fa");
-    private File forward = new File("/media/uichuimi/DiscoInterno/GENOME_DATA/HCF/HCF001/EX51_HCF_01_S8_L001_R1_001.fastq.gz");
-    private File reverse = new File("/media/uichuimi/DiscoInterno/GENOME_DATA/HCF/HCF001/EX51_HCF_01_S8_L001_R2_001.fastq.gz");
+    private String genome = "/media/uichuimi/DiscoInterno/references/GRCh38/GRCh38.fa";
+    private String forward = "/media/uichuimi/DiscoInterno/GENOME_DATA/HCF/HCF001/EX51_HCF_01_S8_L001_R1_001.fastq.gz";
+    private String reverse = "/media/uichuimi/DiscoInterno/GENOME_DATA/HCF/HCF001/EX51_HCF_01_S8_L001_R2_001.fastq.gz";
     private static Parameter[] parameters;
     private Aligner aligner;
 
@@ -24,6 +25,7 @@ public class BWAlignerTest {
                 new Parameter((char) 0, "mem"),
                 new Parameter('M', ""),
                 new Parameter('R', "@RG\\tPL:ILLUMINA\\tSM:DAM\\tID:C7BDUACXX.8\\tPU:C7BDUACXX.8.262\\tLB:TTAGGC"),
+                //new Parameter((char) 0, ">> /media/uichuimi/DiscoInterno/Juanfra/BWAdefault.bam")
         };
     }
 
@@ -37,9 +39,10 @@ public class BWAlignerTest {
         // Check if starts running
         try {
             Process process = aligner.run();
-            process.destroyForcibly();
-            assert(true);
-        } catch (IOException e) {
+            boolean status = process.waitFor(10, TimeUnit.SECONDS);
+            if (status) assert(false);
+            else assert(true);
+        } catch (Exception e) {
             assert(false);
         }
     }

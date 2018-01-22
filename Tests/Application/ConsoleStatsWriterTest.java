@@ -1,8 +1,8 @@
 package Application;
 
 import Model.AlignmentStatistics;
+import Parser.ProcessFileStats;
 import View.ConsoleStatsWriter;
-import View.StatWriter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

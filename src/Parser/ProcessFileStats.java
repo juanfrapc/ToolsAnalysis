@@ -1,4 +1,4 @@
-package Application;
+package Parser;
 
 import Model.Alignment;
 import Model.AlignmentStatistics;
@@ -13,7 +13,7 @@ public class ProcessFileStats {
     public static boolean process(File file, AlignmentStatistics stats) {
 
         Parser parser = new Parser();
-        Stream<Alignment> stream = null;
+        Stream<Alignment> stream;
         try {
             stream = file.getName().endsWith("sam") ? parser.parseSam(file) : parser.parseBam(file);
             stream.parallel().forEach(stats::update);
