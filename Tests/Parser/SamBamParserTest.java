@@ -11,8 +11,8 @@ import java.util.stream.Stream;
 
 public class SamBamParserTest {
 
-    private final File samFile = new File("ejemplo.sam");
-    private final File bamFile = new File("ejemplo.bam");
+    private final File samFile = new File("Tests/ejemplo.sam");
+    private final File bamFile = new File("Tests/ejemplo.bam");
     private Stream<Alignment> samStream;
     private Stream<Alignment> bamStream;
 

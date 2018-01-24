@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ToolsAnalysis:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ToolsAnalysis_jar</output-path>
+    <root id="archive" name="ToolsAnalysis.jar">
+      <element id="module-output" name="ToolsAnalysis" />
+    </root>
+  </artifact>
+</component>

@@ -21,7 +21,7 @@ class ProcessFileStatsTest {
 
     @Test
     void processSam() {
-        file = new File("ejemplo.sam");
+        file = new File("Tests/ejemplo.sam");
         ProcessFileStats.process(file, statistics);
         assertEquals(131, statistics.getTotalMapQ(), "Error in total MAPQ");
         assertEquals(4, statistics.getUnmapped(), "Error in unmapped count");
@@ -29,9 +29,10 @@ class ProcessFileStatsTest {
         assertEquals(1, statistics.getMultiplyMapped(), "Error in multiply mapped count");
         assertEquals(33, statistics.getMultiplyMapQ(), "Error in multiply mapped Mapq");
     }
+
     @Test
     void processBam(){
-        file = new File("ejemplo.bam");
+        file = new File("Tests/ejemplo.bam");
         ProcessFileStats.process(file, statistics);
         assertEquals(10, statistics.getTotal(), "Error in total count");
         assertEquals(0, statistics.getUnmapped(), "Error in unmapped count");

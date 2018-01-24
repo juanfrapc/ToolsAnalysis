@@ -14,8 +14,8 @@ import java.util.stream.Stream;
 class FileStatsWriterTest {
 
     private AlignmentStatistics statistics;
-    private String pathOrigin = "ejemplo.sam";
-    private String pathSave = "ejemplo.stat";
+    private String pathOrigin = "Tests/ejemplo.sam";
+    private String pathSave = "Tests/ejemplo.stat";
 
     @BeforeEach
     void init() throws IOException {
