@@ -22,6 +22,7 @@ public class Main {
         BWATask task = new BWATask(name, forwardPath, reversePath, reference, parameters);
         task.run();
 
+
     }
 
 }

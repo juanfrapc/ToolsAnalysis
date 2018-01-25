@@ -6,6 +6,7 @@ import View.StatWriter;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Map;
 
 public class FileStatsWriter implements StatWriter {
 
@@ -33,8 +34,28 @@ public class FileStatsWriter implements StatWriter {
             writer.write(String.format("Número de alineamientos múltiples: %d (%.2f %%)\n",
                     multiplyMapped, multiplyMapped/(double)total * 100));
             writer.write("--------------------------------------------\n");
+            writer.write("Distribuciónes de MapQ\n");
+
+            writer.write("\t");
+            for (int i = 0; i <50; i++) {
+                writer.write("\t" + i);
+            }
+            writeDistribution(writer, "Total", statistics.getTotalMapQDistribution());
+            writeDistribution(writer, "Unmap", statistics.getUnmappedMapQDistribution());
+            writeDistribution(writer, "Multi", statistics.getMultiplyMapQDistribution());
+            writeDistribution(writer, "Uniq", statistics.getUniquelyMapQDistribution());
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void writeDistribution(BufferedWriter writer, String name,  Map<Integer, Long> distribution) throws IOException {
+
+        writer.write("\n");
+        writer.write(name);
+        for (int i = 0; i <50; i++) {
+            writer.write("\t" + (distribution.containsKey(i)?distribution.get(i):0));
+        }
+
     }
 }
