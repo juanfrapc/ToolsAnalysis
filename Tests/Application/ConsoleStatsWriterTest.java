@@ -1,6 +1,6 @@
 package Application;
 
-import Model.AlignmentStatistics;
+import Model.AlignmentsStatistics;
 import Parser.ProcessFileStats;
 import View.ConsoleStatsWriter;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,12 +11,12 @@ import java.io.IOException;
 
 class ConsoleStatsWriterTest {
 
-    private AlignmentStatistics statistics;
+    private AlignmentsStatistics statistics;
     private String path = "ejemplo.sam";
 
     @BeforeEach
     void init() throws IOException {
-        statistics = new AlignmentStatistics();
+        statistics = new AlignmentsStatistics();
         File file = new File(path);
         ProcessFileStats.process(file, statistics);
     }

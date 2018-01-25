@@ -1,6 +1,6 @@
 package Application;
 
-import Model.AlignmentStatistics;
+import Model.AlignmentsStatistics;
 import Parser.ProcessFileStats;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,13 +13,13 @@ import java.util.stream.Stream;
 
 class FileStatsWriterTest {
 
-    private AlignmentStatistics statistics;
+    private AlignmentsStatistics statistics;
     private String pathOrigin = "Tests/ejemplo.sam";
     private String pathSave = "Tests/ejemplo.stat";
 
     @BeforeEach
     void init() throws IOException {
-        statistics = new AlignmentStatistics();
+        statistics = new AlignmentsStatistics();
         File file = new File(pathOrigin);
         ProcessFileStats.process(file, statistics);
     }

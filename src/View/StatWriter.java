@@ -1,9 +1,9 @@
 package View;
 
-import Model.AlignmentStatistics;
+import Model.AlignmentsStatistics;
 
 public interface StatWriter {
 
-    void write(AlignmentStatistics statistics);
+    void write(AlignmentsStatistics statistics);
 
 }

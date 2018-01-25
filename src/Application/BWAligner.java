@@ -6,7 +6,6 @@ import Model.Aligner;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class BWAligner implements Aligner {
 
@@ -33,7 +32,7 @@ public class BWAligner implements Aligner {
     private ProcessBuilder buildCmd() {
         ArrayList<String> command = new ArrayList<>();
         command.add("bwa");
-        for (Parameter parameter : parameters) {
+        for (Parameter parameter : this.getParameterS()) {
             if (parameter.getName() != 0) command.add("-" + parameter.getName());
             if (!parameter.getValue().equals("")) command.add(parameter.getValue());
         }
@@ -47,19 +46,24 @@ public class BWAligner implements Aligner {
 
 
     @Override
-    public Process run() throws IOException {
+    public Process run() {
         ProcessBuilder pb = buildCmd();
         pb.redirectOutput(output);
-        return pb.start();
+        try {
+            return pb.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
     public String getID() {
-        return "Burrows-Wheeler Aligner";
+        return "Burrows-Wheeler-Aligner";
     }
 
     @Override
-    public Parameter[] getParameter() {
+    public Parameter[] getParameterS() {
         return parameters;
     }
 }

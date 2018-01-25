@@ -1,13 +1,15 @@
 package Model;
 
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
-import static Model.Alignment.*;
-import static java.lang.Integer.*;
+import static Model.Alignment.FLAG;
+import static Model.Alignment.MAPQ;
 import static java.lang.Integer.parseInt;
+import static java.lang.Integer.toBinaryString;
 
-public class AlignmentStatistics {
+public class AlignmentsStatistics {
 
     private AtomicLong total;
     private AtomicLong unmapped;
@@ -17,7 +19,9 @@ public class AlignmentStatistics {
     private AtomicLong unmappedMapQ;
     private AtomicLong multiplyMapQ;
 
-    public AlignmentStatistics() {
+    private Map<Integer, Long> totalMapQDistribution;
+
+    public AlignmentsStatistics() {
         total = new AtomicLong();
         unmapped = new AtomicLong();
         multiplyMapped = new AtomicLong();
@@ -25,7 +29,10 @@ public class AlignmentStatistics {
         totalMapQ = new AtomicLong();
         unmappedMapQ = new AtomicLong();
         multiplyMapQ = new AtomicLong();
+        totalMapQDistribution = new HashMap<>();
     }
+
+    public Map<Integer, Long> getTotalMapQDistribution() { return totalMapQDistribution; }
 
     public long getTotal() {
         return total.longValue();
@@ -64,9 +71,10 @@ public class AlignmentStatistics {
         else increaseTotal(mapQ);
     }
 
-    private void increaseTotal(int mapQ) {
+    private synchronized void increaseTotal(int mapQ) {
         total.incrementAndGet();
         totalMapQ.addAndGet(mapQ);
+        totalMapQDistribution.compute(mapQ, (integer, aLong) -> aLong == null ? 1 : aLong + 1);
     }
 
     private void increaseUnmapped(int mapQ) {

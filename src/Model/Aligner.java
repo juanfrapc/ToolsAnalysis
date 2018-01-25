@@ -1,13 +1,9 @@
 package Model;
 
-import java.io.IOException;
-
 public interface Aligner {
 
-    Process run() throws IOException;
+    Process run();
     String getID();
-    Parameter[] getParameter();
-
-
+    Parameter[] getParameterS();
 
 }

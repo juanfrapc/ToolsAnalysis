@@ -1,10 +1,7 @@
 package Application;
 
-import Model.AlignmentStatistics;
 import Model.Parameter;
-import Parser.ProcessFileStats;
 
-import java.io.File;
 import java.io.IOException;
 
 public class Main {
@@ -22,7 +19,7 @@ public class Main {
                 new Parameter('R', "@RG\\tPL:ILLUMINA\\tSM:DAM\\tID:C7BDUACXX.8\\tPU:C7BDUACXX.8.262\\tLB:TTAGGC"),
         };
 
-        AlignerTask task = new AlignerTask(name, forwardPath, reversePath, reference, parameters);
+        BWATask task = new BWATask(name, forwardPath, reversePath, reference, parameters);
         task.run();
 
     }

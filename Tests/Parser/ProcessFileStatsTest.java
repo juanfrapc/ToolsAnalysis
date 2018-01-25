@@ -1,7 +1,6 @@
 package Parser;
 
-import Model.AlignmentStatistics;
-import Parser.ProcessFileStats;
+import Model.AlignmentsStatistics;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -12,11 +11,11 @@ import static org.junit.jupiter.api.Assertions.*;
 class ProcessFileStatsTest {
 
     private File file;
-    private AlignmentStatistics statistics;
+    private AlignmentsStatistics statistics;
 
     @BeforeEach
     void setUp() {
-        statistics = new AlignmentStatistics();
+        statistics = new AlignmentsStatistics();
     }
 
     @Test

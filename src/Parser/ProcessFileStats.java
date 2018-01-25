@@ -1,8 +1,7 @@
 package Parser;
 
 import Model.Alignment;
-import Model.AlignmentStatistics;
-import Parser.Parser;
+import Model.AlignmentsStatistics;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,7 +9,7 @@ import java.util.stream.Stream;
 
 public class ProcessFileStats {
 
-    public static boolean process(File file, AlignmentStatistics stats) {
+    public static boolean process(File file, AlignmentsStatistics stats) {
 
         Parser parser = new Parser();
         Stream<Alignment> stream;

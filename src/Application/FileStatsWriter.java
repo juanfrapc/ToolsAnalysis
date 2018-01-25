@@ -1,6 +1,6 @@
 package Application;
 
-import Model.AlignmentStatistics;
+import Model.AlignmentsStatistics;
 import View.StatWriter;
 
 import java.io.*;
@@ -16,7 +16,7 @@ public class FileStatsWriter implements StatWriter {
     }
 
     @Override
-    public void write(AlignmentStatistics statistics) {
+    public void write(AlignmentsStatistics statistics) {
         try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(path))){
             writer.write("Estadísitcas:\n");
             writer.write("-------------------------\n");

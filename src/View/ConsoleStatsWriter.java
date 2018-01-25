@@ -1,13 +1,12 @@
 package View;
 
-import Model.AlignmentStatistics;
-import View.StatWriter;
+import Model.AlignmentsStatistics;
 
 public class ConsoleStatsWriter  implements StatWriter{
 
 
     @Override
-    public void write(AlignmentStatistics statistics) {
+    public void write(AlignmentsStatistics statistics) {
         System.out.println("Estadísitcas:");
         System.out.println("-------------------------");
         long total = statistics.getTotal();
