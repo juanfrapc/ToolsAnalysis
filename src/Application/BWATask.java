@@ -6,6 +6,7 @@ import Model.Timer;
 import Parser.ProcessFileStats;
 
 import java.io.File;
+import java.util.Date;
 
 public class BWATask implements Runnable {
 
@@ -31,12 +32,12 @@ public class BWATask implements Runnable {
 
     @Override
     public void run() {
-
+        Timer timer = new Timer();
         BWAligner bwa = new BWAligner(forwardPath, reversePath, reference, outFile, parameters);
         this.name = bwa.getID() + "-" + name;
-        Timer timer = new Timer();
         timer.start();
-        System.out.println(name + ": Start running");
+
+        System.out.println("(" + new Date().toString() + ") " + name + ": Start running");
         Process run;
         try {
             run = bwa.run();

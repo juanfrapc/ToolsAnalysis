@@ -1,8 +1,12 @@
 package Model;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static Model.Alignment.FLAG;
 import static Model.Alignment.MAPQ;
@@ -20,6 +24,8 @@ public class AlignmentsStatistics {
     private AtomicLong multiplyMapQ;
 
     private Map<Integer, Long> totalMapQDistribution;
+    private Map<Integer, Long> unmappedMapQDistribution;
+    private Map<Integer, Long> multiplyMapQDistribution;
 
     public AlignmentsStatistics() {
         total = new AtomicLong();
@@ -29,10 +35,44 @@ public class AlignmentsStatistics {
         totalMapQ = new AtomicLong();
         unmappedMapQ = new AtomicLong();
         multiplyMapQ = new AtomicLong();
+
         totalMapQDistribution = new HashMap<>();
+        unmappedMapQDistribution = new HashMap<>();
+        multiplyMapQDistribution = new HashMap<>();
     }
 
-    public Map<Integer, Long> getTotalMapQDistribution() { return totalMapQDistribution; }
+    public Map<Integer, Long> getTotalMapQDistribution() {
+        return totalMapQDistribution;
+    }
+
+    public Map<Integer, Long> getUnmappedMapQDistribution() {
+        return unmappedMapQDistribution;
+    }
+
+    public Map<Integer, Long> getMultiplyMapQDistribution() {
+        return multiplyMapQDistribution;
+    }
+
+    public Map<Integer, Long> getUniquelyMapQDistribution() {
+        Map<Integer, Long> intermediate = Stream.concat(totalMapQDistribution.entrySet().stream(), unmappedMapQDistribution.entrySet().stream())
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey, // The key
+                        Map.Entry::getValue, // The value
+                        // The "merger"
+                        (value1, value2) -> value1 - value2
+                        )
+                );
+        intermediate = Stream.concat(intermediate.entrySet().stream(), multiplyMapQDistribution.entrySet().stream())
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey, // The key
+                        Map.Entry::getValue, // The value
+                        // The "merger"
+                        (value1, value2) -> value1 - value2
+                        )
+                );
+        intermediate.values().removeAll(Collections.singleton(0L));
+        return intermediate;
+    }
 
     public long getTotal() {
         return total.longValue();
@@ -44,6 +84,10 @@ public class AlignmentsStatistics {
 
     public long getMultiplyMapped() {
         return multiplyMapped.longValue();
+    }
+
+    public long getUniquelyMapped() {
+        return total.get() - unmapped.get() - multiplyMapped.get();
     }
 
     public long getTotalMapQ() {
@@ -58,8 +102,8 @@ public class AlignmentsStatistics {
         return multiplyMapQ.longValue();
     }
 
-    public long getUniquelyMapped() {
-        return total.get() - unmapped.get() - multiplyMapped.get();
+    public long getUniquelyMapQ() {
+        return totalMapQ.get() - unmappedMapQ.get() - multiplyMapQ.get();
     }
 
     public void update(Alignment alignment) {
@@ -77,16 +121,18 @@ public class AlignmentsStatistics {
         totalMapQDistribution.compute(mapQ, (integer, aLong) -> aLong == null ? 1 : aLong + 1);
     }
 
-    private void increaseUnmapped(int mapQ) {
+    private synchronized void increaseUnmapped(int mapQ) {
         increaseTotal(mapQ);
         unmapped.incrementAndGet();
         unmappedMapQ.addAndGet(mapQ);
+        unmappedMapQDistribution.compute(mapQ, (integer, aLong) -> aLong == null ? 1 : aLong + 1);
     }
 
-    private void increaseMultiplyMapped(int mapQ) {
+    private synchronized void increaseMultiplyMapped(int mapQ) {
         increaseTotal(mapQ);
         multiplyMapped.incrementAndGet();
         multiplyMapQ.addAndGet(mapQ);
+        multiplyMapQDistribution.compute(mapQ, (integer, aLong) -> aLong == null ? 1 : aLong + 1);
     }
 
 
