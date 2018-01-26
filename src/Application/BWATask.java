@@ -15,6 +15,7 @@ public class BWATask implements Runnable {
     private String reversePath;
     private String reference;
     private String outFile;
+    private String logFile;
     private String statsFile;
     private AlignmentsStatistics statistics;
     private Parameter[] parameters;
@@ -25,7 +26,8 @@ public class BWATask implements Runnable {
         this.reversePath = reversePath;
         this.reference = reference;
         this.parameters = parameters;
-        this.outFile = "/media/uichuimi/DiscoInterno/Juanfra/" + name + ".bam";
+        this.outFile = "/media/uichuimi/DiscoInterno/Juanfra/" + name + ".sam";
+        this.logFile = "/media/uichuimi/DiscoInterno/Juanfra/" + name + ".log";
         this.statsFile = "/media/uichuimi/DiscoInterno/Juanfra/" + name + ".stat";
         this.statistics = new AlignmentsStatistics();
     }
@@ -33,7 +35,7 @@ public class BWATask implements Runnable {
     @Override
     public void run() {
         Timer timer = new Timer();
-        BWAligner bwa = new BWAligner(forwardPath, reversePath, reference, outFile, parameters);
+        BWAligner bwa = new BWAligner(forwardPath, reversePath, reference, outFile, logFile, parameters);
         this.name = bwa.getID() + "-" + name;
         timer.start();
 

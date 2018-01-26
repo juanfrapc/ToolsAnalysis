@@ -1,6 +1,8 @@
 package Application;
 
+import Model.AlignmentsStatistics;
 import Model.Parameter;
+import Parser.ProcessFileStats;
 
 import java.io.IOException;
 
@@ -19,10 +21,13 @@ public class Main {
                 new Parameter('R', "@RG\\tPL:ILLUMINA\\tSM:DAM\\tID:C7BDUACXX.8\\tPU:C7BDUACXX.8.262\\tLB:TTAGGC"),
         };
 
-        BWATask task = new BWATask(name, forwardPath, reversePath, reference, parameters);
-        task.run();
+//        BWATask task = new BWATask(name, forwardPath, reversePath, reference, parameters);
+//        task.run();
 
-
+        AlignmentsStatistics stat = new AlignmentsStatistics();
+        ProcessFileStats.process(new java.io.File("/media/uichuimi/DiscoInterno/Juanfra/default.sam"), stat);
+        FileStatsWriter writer = new FileStatsWriter("/media/uichuimi/DiscoInterno/Juanfra/default.stat");
+        writer.write(stat);
     }
 
 }

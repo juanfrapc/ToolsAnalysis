@@ -14,18 +14,20 @@ public class BWAligner implements Aligner {
     private File reverse;
     private File genome;
     private File output;
+    private File log;
     private Parameter[] parameters;
     private int cores = Runtime.getRuntime().availableProcessors();
 
-    private BWAligner(File forward, File reverse, File genome, File output) {
+    private BWAligner(File forward, File reverse, File genome, File output, File log) {
         this.forward = forward;
         this.reverse = reverse;
         this.genome = genome;
         this.output = output;
+        this.log = log;
     }
 
-    BWAligner(String forward, String reverse, String genome, String outputPath, Parameter[] parameters) {
-        this(new File(forward), new File(reverse), new File(genome), new File(outputPath));
+    BWAligner(String forward, String reverse, String genome, String outputPath, String logPath, Parameter[] parameters) {
+        this(new File(forward), new File(reverse), new File(genome), new File(outputPath), new File(logPath));
         this.parameters = parameters;
     }
 
@@ -48,7 +50,8 @@ public class BWAligner implements Aligner {
     @Override
     public Process run() {
         ProcessBuilder pb = buildCmd();
-        pb.redirectOutput(output);
+        pb = pb.redirectOutput(output);
+        pb = pb.redirectError(log);
         try {
             return pb.start();
         } catch (IOException e) {

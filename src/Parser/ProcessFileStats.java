@@ -15,7 +15,7 @@ public class ProcessFileStats {
         Stream<Alignment> stream;
         try {
             stream = file.getName().endsWith("sam") ? parser.parseSam(file) : parser.parseBam(file);
-            stream.parallel().forEach(stats::update);
+            stream.parallel().forEach(alignment -> {if (alignment != null) stats.update(alignment);});
         } catch (IOException e) {
             System.err.println(e.getMessage());
             return false;

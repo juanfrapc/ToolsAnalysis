@@ -16,6 +16,7 @@ public class BWAlignerTest {
     private String forward = "/media/uichuimi/Elements/GENOME_DATA/CONTROLS/DAM/FASTQ/DAM_forward.fastq.gz";
     private String reverse = "/media/uichuimi/Elements/GENOME_DATA/CONTROLS/DAM/FASTQ/DAM_reverse.fastq.gz";
     private String output = "/media/uichuimi/DiscoInterno/Juanfra/.test.bam";
+    private String log = "/media/uichuimi/DiscoInterno/Juanfra/.logTest.bam";
     private static Parameter[] parameters;
     private Aligner aligner;
 
@@ -31,7 +32,7 @@ public class BWAlignerTest {
 
     @Before
     public void initAligner() {
-        aligner = new BWAligner(forward, reverse, genome, output, parameters);
+        aligner = new BWAligner(forward, reverse, genome, output, log, parameters);
     }
 
     @Test

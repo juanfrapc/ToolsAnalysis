@@ -44,6 +44,7 @@ public class FileStatsWriter implements StatWriter {
             writeDistribution(writer, "Unmap", statistics.getUnmappedMapQDistribution());
             writeDistribution(writer, "Multi", statistics.getMultiplyMapQDistribution());
             writeDistribution(writer, "Uniq", statistics.getUniquelyMapQDistribution());
+            writer.write("\n--------------------------------------------\n");
         } catch (IOException e) {
             e.printStackTrace();
         }
