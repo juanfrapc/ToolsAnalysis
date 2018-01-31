@@ -4,10 +4,9 @@ import Model.Parameter;
 import Model.Aligner;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
-public class BWAligner implements Aligner {
+public class BWAMEMligner implements Aligner {
 
 
     private File forward;
@@ -18,7 +17,7 @@ public class BWAligner implements Aligner {
     private Parameter[] parameters;
     private int cores = Runtime.getRuntime().availableProcessors();
 
-    private BWAligner(File forward, File reverse, File genome, File output, File log) {
+    private BWAMEMligner(File forward, File reverse, File genome, File output, File log) {
         this.forward = forward;
         this.reverse = reverse;
         this.genome = genome;
@@ -26,12 +25,13 @@ public class BWAligner implements Aligner {
         this.log = log;
     }
 
-    BWAligner(String forward, String reverse, String genome, String outputPath, String logPath, Parameter[] parameters) {
+    BWAMEMligner(String forward, String reverse, String genome, String outputPath, String logPath, Parameter[] parameters) {
         this(new File(forward), new File(reverse), new File(genome), new File(outputPath), new File(logPath));
         this.parameters = parameters;
     }
 
-    private ProcessBuilder buildCmd() {
+    @Override
+    public ProcessBuilder buildCmd() {
         ArrayList<String> command = new ArrayList<>();
         command.add("bwa");
         for (Parameter parameter : this.getParameterS()) {
@@ -46,18 +46,14 @@ public class BWAligner implements Aligner {
         return new ProcessBuilder(command);
     }
 
+    @Override
+    public File getOutputPath() {
+        return output;
+    }
 
     @Override
-    public Process run() {
-        ProcessBuilder pb = buildCmd();
-        pb = pb.redirectOutput(output);
-        pb = pb.redirectError(log);
-        try {
-            return pb.start();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
+    public File getLogPath() {
+        return log;
     }
 
     @Override

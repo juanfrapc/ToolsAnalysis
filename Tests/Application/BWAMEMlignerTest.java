@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertFalse;
 
-public class BWAlignerTest {
+public class BWAMEMlignerTest {
 
     private String genome = "/media/uichuimi/DiscoInterno/references/GRCh38/GRCh38.fa";
     private String forward = "/media/uichuimi/Elements/GENOME_DATA/CONTROLS/DAM/FASTQ/DAM_forward.fastq.gz";
@@ -32,7 +32,7 @@ public class BWAlignerTest {
 
     @Before
     public void initAligner() {
-        aligner = new BWAligner(forward, reverse, genome, output, log, parameters);
+        aligner = new BWAMEMligner(forward, reverse, genome, output, log, parameters);
     }
 
     @Test

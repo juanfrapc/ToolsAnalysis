@@ -37,7 +37,7 @@ public class FileStatsWriter implements StatWriter {
             writer.write("Distribuciónes de MapQ\n");
 
             writer.write("\t");
-            for (int i = 0; i <50; i++) {
+            for (int i = 0; i <254; i++) {
                 writer.write("\t" + i);
             }
             writeDistribution(writer, "Total", statistics.getTotalMapQDistribution());
@@ -54,7 +54,7 @@ public class FileStatsWriter implements StatWriter {
 
         writer.write("\n");
         writer.write(name);
-        for (int i = 0; i <50; i++) {
+        for (int i = 0; i <distribution.size(); i++) {
             writer.write("\t" + (distribution.containsKey(i)?distribution.get(i):0));
         }
 

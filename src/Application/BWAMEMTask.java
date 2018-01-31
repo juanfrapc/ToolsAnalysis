@@ -3,12 +3,12 @@ package Application;
 import Model.AlignmentsStatistics;
 import Model.Parameter;
 import Model.Timer;
-import Parser.ProcessFileStats;
+import Parser.ParseFileStats;
 
 import java.io.File;
 import java.util.Date;
 
-public class BWATask implements Runnable {
+public class BWAMEMTask extends Thread{
 
     private String name;
     private String forwardPath;
@@ -20,7 +20,7 @@ public class BWATask implements Runnable {
     private AlignmentsStatistics statistics;
     private Parameter[] parameters;
 
-    BWATask(String name, String forwardPath, String reversePath, String reference, Parameter[] parameters) {
+    BWAMEMTask(String name, String forwardPath, String reversePath, String reference, Parameter[] parameters) {
         this.name = name;
         this.forwardPath = forwardPath;
         this.reversePath = reversePath;
@@ -35,7 +35,7 @@ public class BWATask implements Runnable {
     @Override
     public void run() {
         Timer timer = new Timer();
-        BWAligner bwa = new BWAligner(forwardPath, reversePath, reference, outFile, logFile, parameters);
+        BWAMEMligner bwa = new BWAMEMligner(forwardPath, reversePath, reference, outFile, logFile, parameters);
         this.name = bwa.getID() + "-" + name;
         timer.start();
 
@@ -56,7 +56,7 @@ public class BWATask implements Runnable {
 
         timer.reset();
         System.out.println(name + ": Obtaining stats");
-        boolean process = ProcessFileStats.process(new File(outFile), statistics);
+        boolean process = ParseFileStats.process(new File(outFile), statistics);
         timer.stop();
         if (process) System.out.println(name + ": Procesamiento terminado con éxito. " + timer.report());
         else System.err.println(name + ": Error de procesado de estadisticas");

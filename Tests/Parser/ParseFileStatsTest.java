@@ -1,7 +1,6 @@
 package Parser;
 
 import Model.AlignmentsStatistics;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +10,7 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class ProcessFileStatsTest {
+class ParseFileStatsTest {
 
     private File file;
     private AlignmentsStatistics statistics;
@@ -40,7 +39,7 @@ class ProcessFileStatsTest {
     @Test
     void processSamFreq() {
         file = new File("Tests/ejemplo.sam");
-        ProcessFileStats.process(file, statistics);
+        ParseFileStats.process(file, statistics);
         assertEquals(10, statistics.getTotal(), "Error in total count");
         assertEquals(131, statistics.getTotalMapQ(), "Error in total MAPQ");
         assertEquals(4, statistics.getUnmapped(), "Error in unmapped count");
@@ -54,7 +53,7 @@ class ProcessFileStatsTest {
     @Test
     void processSamDistribution(){
         file = new File("Tests/ejemplo.sam");
-        ProcessFileStats.process(file, statistics);
+        ParseFileStats.process(file, statistics);
         assertEquals(totalMapQDistribution, statistics.getTotalMapQDistribution(), "Error in total MapQ distribution");
         assertEquals(unmappedMapQDistribution, statistics.getUnmappedMapQDistribution(), "Error in Unmapped MapQ distribution");
         assertEquals(multiplyMapQDistribution, statistics.getMultiplyMapQDistribution(), "Error in Multiply MapQ distribution");
@@ -64,7 +63,7 @@ class ProcessFileStatsTest {
     @Test
     void processBamFreq(){
         file = new File("Tests/ejemplo.bam");
-        ProcessFileStats.process(file, statistics);
+        ParseFileStats.process(file, statistics);
         assertEquals(10, statistics.getTotal(), "Error in total count");
         assertEquals(131, statistics.getTotalMapQ(), "Error in total MAPQ");
         assertEquals(0, statistics.getUnmapped(), "Error in unmapped count");
@@ -78,7 +77,7 @@ class ProcessFileStatsTest {
     @Test
     void processBamDistribution(){
         file = new File("Tests/ejemplo.bam");
-        ProcessFileStats.process(file, statistics);
+        ParseFileStats.process(file, statistics);
         assertEquals(totalMapQDistribution, statistics.getTotalMapQDistribution(), "Error in total MapQ distribution");
         assertEquals(new HashMap<>(), statistics.getUnmappedMapQDistribution(), "Error in Unmapped MapQ distribution");
         assertEquals(multiplyMapQDistribution, statistics.getMultiplyMapQDistribution(), "Error in Multiply MapQ distribution");

@@ -7,7 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.stream.Stream;
 
-public class ProcessFileStats {
+public class ParseFileStats {
 
     public static boolean process(File file, AlignmentsStatistics stats) {
 

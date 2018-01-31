@@ -1,7 +1,7 @@
 package Application;
 
 import Model.AlignmentsStatistics;
-import Parser.ProcessFileStats;
+import Parser.ParseFileStats;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,7 +21,7 @@ class FileStatsWriterTest {
     void init() throws IOException {
         statistics = new AlignmentsStatistics();
         File file = new File(pathOrigin);
-        ProcessFileStats.process(file, statistics);
+        ParseFileStats.process(file, statistics);
     }
 
 

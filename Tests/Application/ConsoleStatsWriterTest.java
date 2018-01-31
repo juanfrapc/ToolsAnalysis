@@ -1,7 +1,7 @@
 package Application;
 
 import Model.AlignmentsStatistics;
-import Parser.ProcessFileStats;
+import Parser.ParseFileStats;
 import View.ConsoleStatsWriter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,7 +18,7 @@ class ConsoleStatsWriterTest {
     void init() throws IOException {
         statistics = new AlignmentsStatistics();
         File file = new File(path);
-        ProcessFileStats.process(file, statistics);
+        ParseFileStats.process(file, statistics);
     }
 
     @Test

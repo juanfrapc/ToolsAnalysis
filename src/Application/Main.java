@@ -14,36 +14,36 @@ public class Main {
 
         String name = "default";
         Parameter[] parameters = new Parameter[]{
-                new Parameter((char) 0, "mem"),
+                new Parameter("mem"),
                 new Parameter('M', ""),
                 new Parameter('R', "@RG\\tPL:ILLUMINA\\tSM:DAM\\tID:C7BDUACXX.8\\tPU:C7BDUACXX.8.262\\tLB:TTAGGC"),
         };
-        BWATask task = new BWATask(name, forwardPath, reversePath, reference, parameters);
-        task.run();
+        BWAMEMTask task = new BWAMEMTask(name, forwardPath, reversePath, reference, parameters);
+        task.start();
 
         name = "mem1";
         parameters = new Parameter[]{
-                new Parameter((char) 0, "mem"),
+                new Parameter("mem"),
                 new Parameter('r', "1"),
                 new Parameter('w', "100"),
                 new Parameter('A', "10"),
                 new Parameter('O', "4"),
                 new Parameter('E', "1"),
         };
-        task = new BWATask(name, forwardPath, reversePath, reference, parameters);
-        task.run();
+        task = new BWAMEMTask(name, forwardPath, reversePath, reference, parameters);
+        task.start();
 
         name = "mem2";
         parameters = new Parameter[]{
-                new Parameter((char) 0, "mem"),
+                new Parameter("mem"),
                 new Parameter('r', "1"),
                 new Parameter('w', "50"),
                 new Parameter('A', "6"),
                 new Parameter('O', "4"),
                 new Parameter('E', "2"),
         };
-        task = new BWATask(name, forwardPath, reversePath, reference, parameters);
-        task.run();
+        task = new BWAMEMTask(name, forwardPath, reversePath, reference, parameters);
+        task.start();
 
     }
 

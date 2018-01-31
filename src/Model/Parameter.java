@@ -10,6 +10,10 @@ public class Parameter {
         this.value = value;
     }
 
+    public Parameter(String value){
+        this((char) 0, value);
+    }
+
     public char getName() {
         return name;
     }
