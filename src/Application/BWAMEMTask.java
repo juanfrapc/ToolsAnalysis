@@ -20,7 +20,7 @@ public class BWAMEMTask extends Thread{
     private AlignmentsStatistics statistics;
     private Parameter[] parameters;
 
-    BWAMEMTask(String name, String forwardPath, String reversePath, String reference, Parameter[] parameters) {
+    public BWAMEMTask(String name, String forwardPath, String reversePath, String reference, Parameter[] parameters) {
         this.name = name;
         this.forwardPath = forwardPath;
         this.reversePath = reversePath;
@@ -35,7 +35,7 @@ public class BWAMEMTask extends Thread{
     @Override
     public void run() {
         Timer timer = new Timer();
-        BWAMEMligner bwa = new BWAMEMligner(forwardPath, reversePath, reference, outFile, logFile, parameters);
+        BWAMEMAligner bwa = new BWAMEMAligner(forwardPath, reversePath, reference, outFile, logFile, parameters);
         this.name = bwa.getID() + "-" + name;
         timer.start();
 

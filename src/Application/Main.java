@@ -45,6 +45,18 @@ public class Main {
         task = new BWAMEMTask(name, forwardPath, reversePath, reference, parameters);
         task.start();
 
+        name = "mem2";
+        parameters = new Parameter[]{
+                new Parameter("mem"),
+                new Parameter('r', "1"),
+                new Parameter('w', "50"),
+                new Parameter('A', "6"),
+                new Parameter('O', "4"),
+                new Parameter('E', "2"),
+        };
+        task = new BWAMEMTask(name, forwardPath, reversePath, reference, parameters);
+        task.start();
+
     }
 
 }

@@ -32,7 +32,7 @@ public class BWAMEMlignerTest {
 
     @Before
     public void initAligner() {
-        aligner = new BWAMEMligner(forward, reverse, genome, output, log, parameters);
+        aligner = new BWAMEMAligner(forward, reverse, genome, output, log, parameters);
     }
 
     @Test

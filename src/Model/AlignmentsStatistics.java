@@ -3,6 +3,8 @@ package Model;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -22,9 +24,9 @@ public class AlignmentsStatistics {
     private AtomicLong unmappedMapQ;
     private AtomicLong multiplyMapQ;
 
-    private Map<Integer, Long> totalMapQDistribution;
-    private Map<Integer, Long> unmappedMapQDistribution;
-    private Map<Integer, Long> multiplyMapQDistribution;
+    private ConcurrentMap<Integer, Long> totalMapQDistribution;
+    private ConcurrentMap<Integer, Long> unmappedMapQDistribution;
+    private ConcurrentMap<Integer, Long> multiplyMapQDistribution;
 
     public AlignmentsStatistics() {
         total = new AtomicLong();
@@ -35,9 +37,9 @@ public class AlignmentsStatistics {
         unmappedMapQ = new AtomicLong();
         multiplyMapQ = new AtomicLong();
 
-        totalMapQDistribution = new HashMap<>();
-        unmappedMapQDistribution = new HashMap<>();
-        multiplyMapQDistribution = new HashMap<>();
+        totalMapQDistribution = new ConcurrentHashMap<>();
+        unmappedMapQDistribution = new ConcurrentHashMap<>();
+        multiplyMapQDistribution = new ConcurrentHashMap<>();
     }
 
     public Map<Integer, Long> getTotalMapQDistribution() {

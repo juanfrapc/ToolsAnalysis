@@ -22,6 +22,10 @@ public class Parameter {
         return value;
     }
 
+    public void setValue(String value) {
+        this.value = value;
+    }
+
     @Override
     public String toString() {
         String ret = ((name == 0) ? "" : ("-" + name + " "));

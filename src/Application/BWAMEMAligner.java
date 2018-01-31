@@ -6,7 +6,7 @@ import Model.Aligner;
 import java.io.File;
 import java.util.ArrayList;
 
-public class BWAMEMligner implements Aligner {
+public class BWAMEMAligner implements Aligner {
 
 
     private File forward;
@@ -17,7 +17,7 @@ public class BWAMEMligner implements Aligner {
     private Parameter[] parameters;
     private int cores = Runtime.getRuntime().availableProcessors();
 
-    private BWAMEMligner(File forward, File reverse, File genome, File output, File log) {
+    private BWAMEMAligner(File forward, File reverse, File genome, File output, File log) {
         this.forward = forward;
         this.reverse = reverse;
         this.genome = genome;
@@ -25,7 +25,7 @@ public class BWAMEMligner implements Aligner {
         this.log = log;
     }
 
-    BWAMEMligner(String forward, String reverse, String genome, String outputPath, String logPath, Parameter[] parameters) {
+    BWAMEMAligner(String forward, String reverse, String genome, String outputPath, String logPath, Parameter[] parameters) {
         this(new File(forward), new File(reverse), new File(genome), new File(outputPath), new File(logPath));
         this.parameters = parameters;
     }
