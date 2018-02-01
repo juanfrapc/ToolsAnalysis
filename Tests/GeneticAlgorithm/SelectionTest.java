@@ -1,5 +1,7 @@
 package GeneticAlgorithm;
 
+import GeneticAlgorithm.Model.Individual;
+import GeneticAlgorithm.Model.Population;
 import Model.Parameter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,11 +15,11 @@ class SelectionTest {
     private final int n = 20000;
 
     @BeforeEach
-    public void initFake() {
+    void initFake() {
         population = new Population();
         Parameter fakeParm[] = {new Parameter("nulo")};
         for (int i = 1; i < 11; i++) {
-            Individual fakeInd = new Individual(fakeParm);
+            Individual fakeInd = new Individual(fakeParm, individual -> 0);
             fakeInd.setFitness(i);
             population.addIndividual(fakeInd);
         }

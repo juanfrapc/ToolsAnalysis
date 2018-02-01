@@ -1,4 +1,4 @@
-package GeneticAlgorithm;
+package GeneticAlgorithm.Model;
 
 
 import java.util.ArrayList;
@@ -14,8 +14,8 @@ public class Population implements Iterable<Individual>{
         list = new ArrayList<>();
     }
 
-    public boolean addIndividual(Individual ind){
-        return list.add(ind);
+    public void addIndividual(Individual ind){
+        list.add(ind);
     }
 
     public int size() {

@@ -26,9 +26,9 @@ public class BWAMEMTask extends Thread{
         this.reversePath = reversePath;
         this.reference = reference;
         this.parameters = parameters;
-        this.outFile = "/media/uichuimi/DiscoInterno/Juanfra/" + name + ".sam";
-        this.logFile = "/media/uichuimi/DiscoInterno/Juanfra/" + name + ".log";
-        this.statsFile = "/media/uichuimi/DiscoInterno/Juanfra/" + name + ".stat";
+        this.outFile = "/media/uichuimi/DiscoInterno/Juanfra/sams/" + name + ".sam";
+        this.logFile = "/media/uichuimi/DiscoInterno/Juanfra/logs/" + name + ".log";
+        this.statsFile = "/media/uichuimi/DiscoInterno/Juanfra/stats/" + name + ".stat";
         this.statistics = new AlignmentsStatistics();
     }
 

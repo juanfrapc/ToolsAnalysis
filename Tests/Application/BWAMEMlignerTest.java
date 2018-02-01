@@ -15,8 +15,8 @@ public class BWAMEMlignerTest {
     private String genome = "/media/uichuimi/DiscoInterno/references/GRCh38/GRCh38.fa";
     private String forward = "/media/uichuimi/Elements/GENOME_DATA/CONTROLS/DAM/FASTQ/DAM_forward.fastq.gz";
     private String reverse = "/media/uichuimi/Elements/GENOME_DATA/CONTROLS/DAM/FASTQ/DAM_reverse.fastq.gz";
-    private String output = "/media/uichuimi/DiscoInterno/Juanfra/.test.bam";
-    private String log = "/media/uichuimi/DiscoInterno/Juanfra/.logTest.bam";
+    private String output = "/media/uichuimi/DiscoInterno/Juanfra/.test.sam";
+    private String log = "/media/uichuimi/DiscoInterno/Juanfra/.logTest.log";
     private static Parameter[] parameters;
     private Aligner aligner;
 

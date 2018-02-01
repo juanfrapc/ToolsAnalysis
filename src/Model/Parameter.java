@@ -1,6 +1,6 @@
 package Model;
 
-public class Parameter {
+public class Parameter implements Cloneable{
 
     private char name;
     private String value;
@@ -23,7 +23,7 @@ public class Parameter {
     }
 
     public void setValue(String value) {
-        this.value = value;
+        this.value = this.name=='r'? value: ((int) Double.parseDouble(value)) + "";
     }
 
     @Override
@@ -32,4 +32,21 @@ public class Parameter {
         ret += value;
         return ret;
     }
+
+    @Override
+    public Parameter clone() throws CloneNotSupportedException {
+        return (Parameter) super.clone();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Parameter)) return false;
+
+        Parameter parameter = (Parameter) o;
+
+        return getName() == parameter.getName() && (getValue() != null ?
+                getValue().equals(parameter.getValue()) : parameter.getValue() == null);
+    }
+
 }

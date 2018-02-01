@@ -19,7 +19,7 @@ public class Main {
                 new Parameter('R', "@RG\\tPL:ILLUMINA\\tSM:DAM\\tID:C7BDUACXX.8\\tPU:C7BDUACXX.8.262\\tLB:TTAGGC"),
         };
         BWAMEMTask task = new BWAMEMTask(name, forwardPath, reversePath, reference, parameters);
-        task.start();
+        task.run();
 
         name = "mem1";
         parameters = new Parameter[]{
@@ -31,7 +31,7 @@ public class Main {
                 new Parameter('E', "1"),
         };
         task = new BWAMEMTask(name, forwardPath, reversePath, reference, parameters);
-        task.start();
+        task.run();
 
         name = "mem2";
         parameters = new Parameter[]{
@@ -55,7 +55,7 @@ public class Main {
                 new Parameter('E', "2"),
         };
         task = new BWAMEMTask(name, forwardPath, reversePath, reference, parameters);
-        task.start();
+        task.run();
 
     }
 

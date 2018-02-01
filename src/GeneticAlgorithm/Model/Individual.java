@@ -1,7 +1,8 @@
-package GeneticAlgorithm;
+package GeneticAlgorithm.Model;
 
 import Model.Parameter;
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class Individual implements Comparable, Cloneable {
@@ -9,11 +10,12 @@ public class Individual implements Comparable, Cloneable {
     private Parameter[] parameters;
     private float fitness;
 
-    public Individual(Parameter[] parameters) {
+    public Individual(Parameter[] parameters, Fitness fitness) {
         this.parameters = parameters;
+        this.fitness = fitness.eval(this);
     }
 
-    public static Individual getInitialRamdom(String name) {
+    public static Individual getInitialRamdom(String name, Fitness fitness) {
         Parameter[] values = new Parameter[]{
                 new Parameter("mem"),
                 new Parameter('k', "19"),
@@ -29,10 +31,13 @@ public class Individual implements Comparable, Cloneable {
                 new Parameter('U', "9"),
         };
         Random random = new Random();
-        for (int i = 0; i < values.length; i++) values[i].setValue(values[i].getValue() + random.nextGaussian());
-        Individual individual = new Individual(values);
-        individual.setFitness(Fitness.eval(name, individual));
-        return individual;
+        for (int i = 1; i < values.length; i++) {
+            double old = Double.parseDouble(values[i].getValue());
+            double v = random.nextGaussian();
+            double ne = old + v > 0 ? old + v : 0;
+            values[i].setValue(ne +"");
+        }
+        return new Individual(values, fitness);
     }
 
     public Parameter[] getParameters() {
@@ -56,8 +61,12 @@ public class Individual implements Comparable, Cloneable {
     }
 
     @Override
-    protected Individual clone() throws CloneNotSupportedException {
-        Individual individual = new Individual(this.parameters);
+    public Individual clone() throws CloneNotSupportedException {
+        Parameter[] nParam = new Parameter[this.parameters.length];
+        for (int i = 0; i < nParam.length; i++) {
+            nParam[i] = parameters[i].clone();
+        }
+        Individual individual = new Individual(nParam, subject -> 0);
         individual.setFitness(this.fitness);
         return individual;
     }
