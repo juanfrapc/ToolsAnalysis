@@ -4,6 +4,8 @@ import GeneticAlgorithm.Model.Individual;
 import GeneticAlgorithm.Model.Population;
 import GeneticAlgorithm.Operators.*;
 
+import java.util.Arrays;
+
 public class Algorithm {
 
     public static void main(String[] args) throws CloneNotSupportedException {
@@ -11,12 +13,12 @@ public class Algorithm {
         int selectionSize = 6;
         float mutationProbability = (float) 0.05;
 
-        //FreqFitness fitness = new FreqFitness("GeneticAlgorithm");
+        FreqFitness fitness = new FreqFitness("GeneticAlgorithm");
         Population population = new Population();
-        Crossover crossover = new SPCrossover(individual -> Float.parseFloat(individual.getParameters()[1].getValue()));
+        Crossover crossover = new SPCrossover(fitness);
         Mutator mutator = new GaussianMutator(mutationProbability);
         PopulationMerger merger = new HallOfFameMerger();
-        population.initilize(populationSize, individual -> Float.parseFloat(individual.getParameters()[1].getValue()));
+        population.initilize(populationSize, fitness);
         boolean flag = true;
 
         while(flag) {
@@ -36,7 +38,9 @@ public class Algorithm {
             if (population.equals(merge)) flag = false;
             else population=merge;
         }
-
+        for (Individual ind : population) {
+            System.out.println(ind.getFitness() + "->" + Arrays.toString(ind.getParameters()));
+        }
 
     }
 }

@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ToolsAnalysis:GeneticAlgorithm:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ToolsAnalysis_GeneticAlgorithm_jar</output-path>
+    <root id="archive" name="ToolsAnalysis.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/src/META-INF/Genetic/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="module-output" name="ToolsAnalysis" />
+    </root>
+  </artifact>
+</component>
