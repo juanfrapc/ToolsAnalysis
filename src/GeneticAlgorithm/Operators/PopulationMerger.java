@@ -1,4 +1,4 @@
-package GeneticAlgorithm;
+package GeneticAlgorithm.Operators;
 
 import GeneticAlgorithm.Model.Population;
 

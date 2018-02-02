@@ -1,4 +1,4 @@
-package GeneticAlgorithm;
+package GeneticAlgorithm.Operators;
 
 import GeneticAlgorithm.Model.Individual;
 import Model.Parameter;
@@ -9,7 +9,7 @@ public class GaussianMutator implements Mutator {
 
     private final float probability;
 
-    GaussianMutator(float probability) {
+    public GaussianMutator(float probability) {
         this.probability = probability;
     }
 

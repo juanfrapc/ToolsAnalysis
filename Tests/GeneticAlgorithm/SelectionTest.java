@@ -2,6 +2,7 @@ package GeneticAlgorithm;
 
 import GeneticAlgorithm.Model.Individual;
 import GeneticAlgorithm.Model.Population;
+import GeneticAlgorithm.Operators.Selection;
 import Model.Parameter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

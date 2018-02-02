@@ -12,7 +12,7 @@ import java.io.IOException;
 class ConsoleStatsWriterTest {
 
     private AlignmentsStatistics statistics;
-    private String path = "ejemplo.sam";
+    private String path = "Tests/ejemplo.sam";
 
     @BeforeEach
     void init() throws IOException {

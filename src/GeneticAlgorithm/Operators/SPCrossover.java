@@ -1,4 +1,4 @@
-package GeneticAlgorithm;
+package GeneticAlgorithm.Operators;
 
 import GeneticAlgorithm.Model.Fitness;
 import GeneticAlgorithm.Model.Individual;
@@ -10,7 +10,7 @@ public class SPCrossover implements Crossover{
 
     private Fitness fitness;
 
-    SPCrossover(Fitness fitness) {
+    public SPCrossover(Fitness fitness) {
         this.fitness = fitness;
     }
 

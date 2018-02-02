@@ -1,12 +1,12 @@
-package GeneticAlgorithm;
+package GeneticAlgorithm.Operators;
 
 import GeneticAlgorithm.Model.Population;
 
 import java.util.Random;
 
-class Selection {
+public class Selection {
 
-    static Population roulette(Population origin, int size) throws CloneNotSupportedException {
+    public static Population roulette(Population origin, int size) throws CloneNotSupportedException {
 
         Population selected = new Population();
         final float[] totalFitness = {0};

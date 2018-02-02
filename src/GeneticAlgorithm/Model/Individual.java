@@ -15,7 +15,7 @@ public class Individual implements Comparable, Cloneable {
         this.fitness = fitness.eval(this);
     }
 
-    public static Individual getInitialRamdom(String name, Fitness fitness) {
+    public static Individual getInitialRamdom(Fitness fitness) {
         Parameter[] values = new Parameter[]{
                 new Parameter("mem"),
                 new Parameter('k', "19"),
@@ -48,7 +48,7 @@ public class Individual implements Comparable, Cloneable {
     public int compareTo(Object o) {
         Individual ind = (Individual) o;
         if (this.getFitness() - ind.getFitness() < 0) return -1;
-        if (this.getFitness() - ind.getFitness() < 0) return 1;
+        if (this.getFitness() - ind.getFitness() > 0) return 1;
         return 0;
     }
 

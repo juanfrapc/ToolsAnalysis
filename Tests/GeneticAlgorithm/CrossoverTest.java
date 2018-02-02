@@ -1,12 +1,10 @@
 package GeneticAlgorithm;
 
 import GeneticAlgorithm.Model.Individual;
-import GeneticAlgorithm.Model.Population;
+import GeneticAlgorithm.Operators.SPCrossover;
 import Model.Parameter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,8 +15,8 @@ class CrossoverTest {
 
     @BeforeEach
     void initFake() {
-        father = Individual.getInitialRamdom("father", individual -> 0);
-        mother = Individual.getInitialRamdom("mother", individual -> 0);
+        father = Individual.getInitialRamdom(individual -> 0);
+        mother = Individual.getInitialRamdom(individual -> 0);
     }
 
     @Test

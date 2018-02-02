@@ -1,13 +1,11 @@
 package GeneticAlgorithm;
 
 import GeneticAlgorithm.Model.Individual;
+import GeneticAlgorithm.Operators.GaussianMutator;
+import GeneticAlgorithm.Operators.Mutator;
 import Model.Parameter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.Arrays;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class GaussianMutatorTest {
 
@@ -16,7 +14,7 @@ class GaussianMutatorTest {
 
     @BeforeEach
     void initFake() {
-        ind = Individual.getInitialRamdom("father", individual -> 0);
+        ind = Individual.getInitialRamdom(individual -> 0);
     }
 
     @Test
