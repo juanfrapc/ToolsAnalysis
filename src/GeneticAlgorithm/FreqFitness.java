@@ -15,14 +15,14 @@ public class FreqFitness implements Fitness{
     private static final String reference = "/media/uichuimi/DiscoInterno/references/GRCh38/GRCh38.fa";
     private String name;
 
-    public FreqFitness(String name) {
+    FreqFitness(String name) {
         this.name = name;
     }
 
     public float eval(Individual individual){
 
         BWAMEMTask task = new BWAMEMTask(name, forwardPath, reversePath, reference, individual.getParameters());
-        task.start();
+        task.run();
         AlignmentsStatistics stats = new AlignmentsStatistics();
         ParseFileStats.process(new File("/media/uichuimi/DiscoInterno/Juanfra/" + name + ".stat"), stats);
         return stats.getUniquelyMapped()/(float) stats.getTotal();

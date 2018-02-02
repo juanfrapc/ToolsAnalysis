@@ -43,7 +43,7 @@ public class Main {
                 new Parameter('E', "2"),
         };
         task = new BWAMEMTask(name, forwardPath, reversePath, reference, parameters);
-        task.start();
+        task.run();
 
         name = "mem2";
         parameters = new Parameter[]{
