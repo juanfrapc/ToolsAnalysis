@@ -2,7 +2,7 @@ package Application;
 
 import Model.AlignmentsStatistics;
 import Model.Parameter;
-import Parser.ParseFileStats;
+import Parser.Sam2StatsParser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -22,7 +22,7 @@ class FileStatsWriterTest {
     void init() throws IOException {
         statistics = new AlignmentsStatistics();
         File file = new File(pathOrigin);
-        ParseFileStats.process(file, statistics);
+        Sam2StatsParser.process(file, statistics);
     }
 
 

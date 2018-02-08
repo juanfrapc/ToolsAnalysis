@@ -1,5 +1,6 @@
 package GeneticAlgorithm;
 
+import GeneticAlgorithm.Model.FitnessLambda;
 import GeneticAlgorithm.Model.Individual;
 import GeneticAlgorithm.Model.Population;
 import GeneticAlgorithm.Operators.Selection;
@@ -20,7 +21,7 @@ class SelectionTest {
         population = new Population();
         Parameter fakeParm[] = {new Parameter("nulo")};
         for (int i = 1; i < 11; i++) {
-            Individual fakeInd = new Individual(fakeParm, individual -> 0);
+            Individual fakeInd = new Individual(fakeParm, new FitnessLambda(()->0f));
             fakeInd.setFitness(i);
             population.addIndividual(fakeInd);
         }

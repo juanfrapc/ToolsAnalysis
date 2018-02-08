@@ -1,5 +1,6 @@
 package GeneticAlgorithm;
 
+import GeneticAlgorithm.Model.FitnessLambda;
 import GeneticAlgorithm.Model.Individual;
 import GeneticAlgorithm.Model.Population;
 import GeneticAlgorithm.Operators.HallOfFameMerger;
@@ -27,9 +28,9 @@ class HallOfFameMergerTest {
     void fillPop(int n, int factor) {
         for (int i = 0; i < n; i++) {
             int finalI = i;
-            Individual ind = new Individual(new Parameter[0], individual -> finalI);
+            Individual ind = new Individual(new Parameter[0], new FitnessLambda(()->(float)finalI));
             pop1.addIndividual(ind);
-            Individual ind1 = new Individual(new Parameter[0], individual -> (finalI + 1) * factor);
+            Individual ind1 = new Individual(new Parameter[0], new FitnessLambda(()->(float) (finalI+1) * factor));
             pop2.addIndividual(ind1);
         }
     }

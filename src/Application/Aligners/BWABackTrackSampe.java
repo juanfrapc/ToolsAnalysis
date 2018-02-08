@@ -27,7 +27,7 @@ public class BWABackTrackSampe implements Aligner{
         this.log = log;
     }
 
-    public BWABackTrackSampe(String forwardSai, String forwardFq, String reverseSai, String reverseFq, String genome, String outputPath, String logPath, Parameter[] parameters) {
+    public BWABackTrackSampe(String forwardSai, String forwardFq, String reverseSai, String reverseFq, String genome, String outputPath, String logPath) {
         this(new File(forwardSai), new File(forwardFq), new File(reverseSai), new File(reverseFq), new File(genome), new File(outputPath), new File(logPath));
         this.parameters = parameters;
     }

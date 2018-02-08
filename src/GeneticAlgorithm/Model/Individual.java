@@ -15,6 +15,11 @@ public class Individual implements Comparable, Cloneable {
         this.fitness = fitness.eval(this);
     }
 
+    public Individual(Parameter[] param, float fitness) {
+        this.parameters = param;
+        this.fitness = fitness;
+    }
+
     public static Individual getInitialRamdom(Fitness fitness) {
         Parameter[] values = new Parameter[]{
                 new Parameter('k', "19"),
@@ -66,8 +71,24 @@ public class Individual implements Comparable, Cloneable {
         for (int i = 0; i < nParam.length; i++) {
             nParam[i] = parameters[i].clone();
         }
-        Individual individual = new Individual(nParam, subject -> 0);
-        individual.setFitness(this.fitness);
+        Individual individual = new Individual(nParam, getFitness());
         return individual;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Individual)) return false;
+
+        Individual that = (Individual) o;
+
+        if (Float.compare(that.getFitness(), getFitness()) != 0) return false;
+        return Arrays.equals(getParameters(), that.getParameters());
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = Arrays.hashCode(getParameters());
+        return hash;
     }
 }

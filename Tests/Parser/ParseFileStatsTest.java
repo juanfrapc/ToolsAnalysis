@@ -39,7 +39,7 @@ class ParseFileStatsTest {
     @Test
     void processSamFreq() {
         file = new File("Tests/ejemplo.sam");
-        ParseFileStats.process(file, statistics);
+        Sam2StatsParser.process(file, statistics);
         assertEquals(10, statistics.getTotal(), "Error in total count");
         assertEquals(131, statistics.getTotalMapQ(), "Error in total MAPQ");
         assertEquals(4, statistics.getUnmapped(), "Error in unmapped count");
@@ -53,7 +53,7 @@ class ParseFileStatsTest {
     @Test
     void processSamDistribution(){
         file = new File("Tests/ejemplo.sam");
-        ParseFileStats.process(file, statistics);
+        Sam2StatsParser.process(file, statistics);
         assertEquals(totalMapQDistribution, statistics.getTotalMapQDistribution(), "Error in total MapQ distribution");
         assertEquals(unmappedMapQDistribution, statistics.getUnmappedMapQDistribution(), "Error in Unmapped MapQ distribution");
         assertEquals(multiplyMapQDistribution, statistics.getMultiplyMapQDistribution(), "Error in Multiply MapQ distribution");
@@ -63,7 +63,7 @@ class ParseFileStatsTest {
     @Test
     void processBamFreq(){
         file = new File("Tests/ejemplo.bam");
-        ParseFileStats.process(file, statistics);
+        Sam2StatsParser.process(file, statistics);
         assertEquals(10, statistics.getTotal(), "Error in total count");
         assertEquals(131, statistics.getTotalMapQ(), "Error in total MAPQ");
         assertEquals(0, statistics.getUnmapped(), "Error in unmapped count");
@@ -77,7 +77,7 @@ class ParseFileStatsTest {
     @Test
     void processBamDistribution(){
         file = new File("Tests/ejemplo.bam");
-        ParseFileStats.process(file, statistics);
+        Sam2StatsParser.process(file, statistics);
         assertEquals(totalMapQDistribution, statistics.getTotalMapQDistribution(), "Error in total MapQ distribution");
         assertEquals(new HashMap<>(), statistics.getUnmappedMapQDistribution(), "Error in Unmapped MapQ distribution");
         assertEquals(multiplyMapQDistribution, statistics.getMultiplyMapQDistribution(), "Error in Multiply MapQ distribution");

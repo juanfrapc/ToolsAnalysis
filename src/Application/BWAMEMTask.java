@@ -4,12 +4,12 @@ import Application.Aligners.BWAMEMAligner;
 import Model.AlignmentsStatistics;
 import Model.Parameter;
 import Model.Timer;
-import Parser.ParseFileStats;
+import Parser.Sam2StatsParser;
 
 import java.io.File;
 import java.util.Date;
 
-public class BWAMEMTask extends Thread{
+public class BWAMEMTask {
 
     private String name;
     private String forwardPath;
@@ -33,8 +33,7 @@ public class BWAMEMTask extends Thread{
         this.statistics = new AlignmentsStatistics();
     }
 
-    @Override
-    public void run() {
+    public AlignmentsStatistics run() {
         Timer timer = new Timer();
         BWAMEMAligner bwa = new BWAMEMAligner(forwardPath, reversePath, reference, outFile, logFile, parameters);
         this.name = bwa.getID() + "-" + name;
@@ -49,7 +48,7 @@ public class BWAMEMTask extends Thread{
             if (error == 0) System.out.println(name + ": alineamiento terminado con éxito. " + timer.report());
             else {
                 System.err.println(name + ": Error de alineamiento " + error);
-                return;
+                return statistics;
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -57,13 +56,14 @@ public class BWAMEMTask extends Thread{
 
         timer.reset();
         System.out.println(name + ": Obtaining stats");
-        boolean process = ParseFileStats.process(new File(outFile), statistics);
+        boolean process = Sam2StatsParser.process(new File(outFile), statistics);
         timer.stop();
         if (process) System.out.println(name + ": Procesamiento terminado con éxito. " + timer.report());
         else System.err.println(name + ": Error de procesado de estadisticas");
 
         FileStatsWriter writer = new FileStatsWriter( statsFile);
         writer.write(parameters, statistics);
+        return statistics;
 
     }
 }

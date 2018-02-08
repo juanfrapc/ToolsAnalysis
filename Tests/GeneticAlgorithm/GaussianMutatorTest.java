@@ -1,5 +1,6 @@
 package GeneticAlgorithm;
 
+import GeneticAlgorithm.Model.FitnessLambda;
 import GeneticAlgorithm.Model.Individual;
 import GeneticAlgorithm.Operators.GaussianMutator;
 import GeneticAlgorithm.Operators.Mutator;
@@ -14,7 +15,7 @@ class GaussianMutatorTest {
 
     @BeforeEach
     void initFake() {
-        ind = Individual.getInitialRamdom(individual -> 0);
+        ind = Individual.getInitialRamdom(new FitnessLambda(()->0f));
     }
 
     @Test

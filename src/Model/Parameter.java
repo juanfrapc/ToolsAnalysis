@@ -49,4 +49,10 @@ public class Parameter implements Cloneable{
                 getValue().equals(parameter.getValue()) : parameter.getValue() == null);
     }
 
+    @Override
+    public int hashCode() {
+        int result = (int) getName();
+        result = 31 * result + (getValue() != null ? getValue().hashCode() : 0);
+        return result;
+    }
 }

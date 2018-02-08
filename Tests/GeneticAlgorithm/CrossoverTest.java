@@ -1,5 +1,6 @@
 package GeneticAlgorithm;
 
+import GeneticAlgorithm.Model.FitnessLambda;
 import GeneticAlgorithm.Model.Individual;
 import GeneticAlgorithm.Operators.SPCrossover;
 import Model.Parameter;
@@ -15,13 +16,13 @@ class CrossoverTest {
 
     @BeforeEach
     void initFake() {
-        father = Individual.getInitialRamdom(individual -> 0);
-        mother = Individual.getInitialRamdom(individual -> 0);
+        father = Individual.getInitialRamdom(new FitnessLambda(()->0f));
+        mother = Individual.getInitialRamdom(new FitnessLambda(()->0f));
     }
 
     @Test
     void reproduceSP() {
-        SPCrossover reproducer = new SPCrossover(individual -> 0);
+        SPCrossover reproducer = new SPCrossover(new FitnessLambda(()->0f));
         Individual[] offspring = reproducer.reproduce(father, mother);
         Parameter[] fatherParam = father.getParameters();
         Parameter[] motherParam = mother.getParameters();
