@@ -1,6 +1,7 @@
 package Application;
 
 import Model.AlignmentsStatistics;
+import Model.Parameter;
 import Parser.ParseFileStats;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,7 +29,7 @@ class FileStatsWriterTest {
     @Test
     void writeTest() {
         FileStatsWriter writer = new FileStatsWriter(pathSave);
-        writer.write(statistics);
+        writer.write(new Parameter[0], statistics);
         try (Stream<String> stream = Files.lines(Paths.get(pathSave))){
             stream.forEach(System.out::println);
         } catch (IOException e) {

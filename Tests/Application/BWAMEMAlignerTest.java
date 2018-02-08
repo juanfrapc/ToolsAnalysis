@@ -1,5 +1,6 @@
 package Application;
 
+import Application.Aligners.BWAMEMAligner;
 import Model.Aligner;
 import Model.Parameter;
 import org.junit.Before;
@@ -10,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertFalse;
 
-public class BWAMEMlignerTest {
+public class BWAMEMAlignerTest {
 
     private String genome = "/media/uichuimi/DiscoInterno/references/GRCh38/GRCh38.fa";
     private String forward = "/media/uichuimi/Elements/GENOME_DATA/CONTROLS/DAM/FASTQ/DAM_forward.fastq.gz";
@@ -23,7 +24,6 @@ public class BWAMEMlignerTest {
     @BeforeClass
     public static void initParameters() {
         parameters = new Parameter[]{
-                new Parameter((char) 0, "mem"),
                 new Parameter('w', "20"),
                 new Parameter('M', ""),
                 new Parameter('R', "@RG\\tPL:ILLUMINA\\tSM:DAM\\tID:C7BDUACXX.8\\tPU:C7BDUACXX.8.262\\tLB:TTAGGC")
@@ -41,6 +41,7 @@ public class BWAMEMlignerTest {
         try {
             Process process = aligner.run();
             boolean status = process.waitFor(4, TimeUnit.SECONDS);
+            process.destroyForcibly();
             assertFalse("Proceso lanzado con errores", status);
         } catch (Exception e) {
             assert (false);

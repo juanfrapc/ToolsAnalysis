@@ -7,6 +7,7 @@ import Model.AlignmentsStatistics;
 import Parser.ParseFileStats;
 
 import java.io.File;
+import java.util.Map;
 
 public class FreqFitness implements Fitness{
 
@@ -24,8 +25,16 @@ public class FreqFitness implements Fitness{
         BWAMEMTask task = new BWAMEMTask(name, forwardPath, reversePath, reference, individual.getParameters());
         task.run();
         AlignmentsStatistics stats = new AlignmentsStatistics();
-        ParseFileStats.process(new File("/media/uichuimi/DiscoInterno/Juanfra/" + name + ".stat"), stats);
-        return stats.getUniquelyMapped()/(float) stats.getTotal();
+        ParseFileStats.process(new File("/media/uichuimi/DiscoInterno/Juanfra/stats/" + name + ".stat"), stats);
+        final long[] result = {stats.getUniquelyMapped()};
+        Map<Integer, Long> mapQ = stats.getMultiplyMapQDistribution();
+        mapQ.entrySet().stream().parallel().
+                forEach(entry -> {
+                    if (entry.getKey() >= 20) result[0] += entry.getValue();
+                });
+        float value = result[0] / (float) stats.getTotal();
+        System.out.println(name + ": Fitness calculado con éxito = " + value);
+        return value;
     }
 
 }

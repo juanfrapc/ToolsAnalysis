@@ -1,9 +1,10 @@
 package View;
 
 import Model.AlignmentsStatistics;
+import Model.Parameter;
 
 public interface StatWriter {
 
-    void write(AlignmentsStatistics statistics);
+    void write(Parameter[] parameters, AlignmentsStatistics statistics);
 
 }

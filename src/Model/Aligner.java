@@ -7,8 +7,8 @@ public interface Aligner {
 
     default Process run(){
         ProcessBuilder pb = buildCmd();
-        pb = pb.redirectOutput(ProcessBuilder.Redirect.to(getOutputPath()));
-        pb = pb.redirectError(ProcessBuilder.Redirect.to(getLogPath()));
+        pb = pb.redirectOutput(ProcessBuilder.Redirect.to(getOutput()));
+        pb = pb.redirectError(ProcessBuilder.Redirect.to(getLog()));
         try {
             return pb.start();
         } catch (IOException e) {
@@ -23,7 +23,7 @@ public interface Aligner {
 
     Parameter[] getParameterS();
     ProcessBuilder buildCmd();
-    File getOutputPath();
-    File getLogPath();
+    File getOutput();
+    File getLog();
 
 }

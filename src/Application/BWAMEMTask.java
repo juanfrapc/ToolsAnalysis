@@ -1,5 +1,6 @@
 package Application;
 
+import Application.Aligners.BWAMEMAligner;
 import Model.AlignmentsStatistics;
 import Model.Parameter;
 import Model.Timer;
@@ -61,8 +62,8 @@ public class BWAMEMTask extends Thread{
         if (process) System.out.println(name + ": Procesamiento terminado con éxito. " + timer.report());
         else System.err.println(name + ": Error de procesado de estadisticas");
 
-        FileStatsWriter writer = new FileStatsWriter(statsFile);
-        writer.write(statistics);
+        FileStatsWriter writer = new FileStatsWriter( statsFile);
+        writer.write(parameters, statistics);
 
     }
 }

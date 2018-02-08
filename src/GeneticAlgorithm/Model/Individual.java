@@ -17,7 +17,6 @@ public class Individual implements Comparable, Cloneable {
 
     public static Individual getInitialRamdom(Fitness fitness) {
         Parameter[] values = new Parameter[]{
-                new Parameter("mem"),
                 new Parameter('k', "19"),
                 new Parameter('w', "100"),
                 new Parameter('d', "100"),
@@ -62,6 +61,7 @@ public class Individual implements Comparable, Cloneable {
 
     @Override
     public Individual clone() throws CloneNotSupportedException {
+        super.clone();
         Parameter[] nParam = new Parameter[this.parameters.length];
         for (int i = 0; i < nParam.length; i++) {
             nParam[i] = parameters[i].clone();

@@ -1,11 +1,13 @@
 package Application;
 
 import Model.AlignmentsStatistics;
+import Model.Parameter;
 import View.StatWriter;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.Map;
 
 public class FileStatsWriter implements StatWriter {
@@ -17,9 +19,10 @@ public class FileStatsWriter implements StatWriter {
     }
 
     @Override
-    public void write(AlignmentsStatistics statistics) {
+    public void write(Parameter[] parameters, AlignmentsStatistics statistics) {
         try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(path))){
             writer.write("Estadísitcas:\n");
+            writer.write("Parameters: " + Arrays.toString(parameters)+"\n");
             writer.write("-------------------------\n");
             long total = statistics.getTotal();
             long uniquelyMapped = statistics.getUniquelyMapped();
