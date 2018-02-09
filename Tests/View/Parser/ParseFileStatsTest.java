@@ -1,4 +1,4 @@
-package Parser;
+package View.Parser;
 
 import Model.AlignmentsStatistics;
 import org.junit.jupiter.api.BeforeEach;

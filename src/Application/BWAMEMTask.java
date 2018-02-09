@@ -4,7 +4,7 @@ import Application.Aligners.BWAMEMAligner;
 import Model.AlignmentsStatistics;
 import Model.Parameter;
 import Model.Timer;
-import Parser.Sam2StatsParser;
+import View.Parser.Sam2StatsParser;
 
 import java.io.File;
 import java.util.Date;

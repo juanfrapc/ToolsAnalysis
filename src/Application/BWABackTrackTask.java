@@ -2,17 +2,16 @@ package Application;
 
 import Application.Aligners.BWABackTrackAlnAligner;
 import Application.Aligners.BWABackTrackSampe;
-import Application.Aligners.BWAMEMAligner;
 import Model.Aligner;
 import Model.AlignmentsStatistics;
 import Model.Parameter;
 import Model.Timer;
-import Parser.Sam2StatsParser;
+import View.Parser.Sam2StatsParser;
 
 import java.io.File;
 import java.util.Date;
 
-public class BWABackTrackTask{
+class BWABackTrackTask{
 
     private final String saireverse;
     private final String saiforward;
@@ -26,7 +25,7 @@ public class BWABackTrackTask{
     private AlignmentsStatistics statistics;
     private Parameter[] parameters;
 
-    public BWABackTrackTask(String name, String forwardPath, String reversePath, String reference, Parameter[] parameters) {
+    BWABackTrackTask(String name, String forwardPath, String reversePath, String reference, Parameter[] parameters) {
         this.name = name;
         this.forwardPath = forwardPath;
         this.reversePath = reversePath;
@@ -40,7 +39,7 @@ public class BWABackTrackTask{
         this.statistics = new AlignmentsStatistics();
     }
 
-    public AlignmentsStatistics run() {
+    AlignmentsStatistics run() {
         Timer timer = new Timer();
         Aligner bwa = new BWABackTrackAlnAligner(forwardPath, reference, saiforward, logFile, parameters);
         this.name = bwa.getID() + "-" + name;

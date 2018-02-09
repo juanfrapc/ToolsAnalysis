@@ -4,9 +4,7 @@ import Application.BWAMEMTask;
 import GeneticAlgorithm.Model.Fitness;
 import GeneticAlgorithm.Model.Individual;
 import Model.AlignmentsStatistics;
-import Parser.Sam2StatsParser;
 
-import java.io.File;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 

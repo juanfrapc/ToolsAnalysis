@@ -1,7 +1,7 @@
 package GeneticAlgorithm;
 
 import Model.AlignmentsStatistics;
-import Parser.Sam2StatsParser;
+import View.Parser.Sam2StatsParser;
 import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
 

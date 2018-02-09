@@ -1,8 +1,7 @@
-package Parser;
+package View.Parser;
 
 import Model.Alignment;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.File;

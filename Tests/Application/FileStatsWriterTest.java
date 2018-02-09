@@ -2,7 +2,7 @@ package Application;
 
 import Model.AlignmentsStatistics;
 import Model.Parameter;
-import Parser.Sam2StatsParser;
+import View.Parser.Sam2StatsParser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
