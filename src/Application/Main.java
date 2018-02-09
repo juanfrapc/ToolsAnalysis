@@ -15,7 +15,7 @@ public class Main {
         String name = "defaultALN";
         Parameter[] parameters = new Parameter[0];
 
-        BWAMEMTask task = new BWAMEMTask(name, forwardPath, reversePath, reference, parameters);
+        BWABackTrackTask task = new BWABackTrackTask(name, forwardPath, reversePath, reference, parameters);
         task.run();
 
         name = "aln1";
@@ -25,7 +25,7 @@ public class Main {
                 new Parameter('O', "6"),
                 new Parameter('E', "3"),
         };
-        task = new BWAMEMTask(name, forwardPath, reversePath, reference, parameters);
+        task = new BWABackTrackTask(name, forwardPath, reversePath, reference, parameters);
         task.run();
 
         name = "aln2";
@@ -33,9 +33,9 @@ public class Main {
                 new Parameter('o', "2"),
                 new Parameter('k', "3"),
                 new Parameter('O', "15"),
-                new Parameter('E', "8"),
+                new Parameter('E', ""),
         };
-        task = new BWAMEMTask(name, forwardPath, reversePath, reference, parameters);
+        task = new BWABackTrackTask(name, forwardPath, reversePath, reference, parameters);
         task.run();
 
 

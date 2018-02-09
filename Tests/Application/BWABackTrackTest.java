@@ -37,7 +37,7 @@ public class BWABackTrackTest {
         forwardAligner = new BWABackTrackAlnAligner(forward, genome, output, log, parameters);
         reverseAligner = new BWABackTrackAlnAligner(forward, genome, output, log, parameters);
         sampeAligner = new BWABackTrackSampe("/media/uichuimi/Elements/Copia20160125/ExomeSuite/temp/S072_seq1.sai",forward,
-                "/media/uichuimi/Elements/Copia20160125/ExomeSuite/temp/S072_seq1.sai", reverse, genome, output, log, new Parameter[0]);
+                "/media/uichuimi/Elements/Copia20160125/ExomeSuite/temp/S072_seq1.sai", reverse, genome, output, log);
     }
 
     @Test
