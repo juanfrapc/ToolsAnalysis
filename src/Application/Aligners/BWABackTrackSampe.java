@@ -33,11 +33,11 @@ public class BWABackTrackSampe implements Aligner{
 
     @Override
     public String getID() {
-        return "Burrows-Wheeler-aligner";
+        return "Burrows-Wheeler-Aligner-Sampe";
     }
 
     @Override
-    public Parameter[] getParameterS() {
+    public Parameter[] getParameters() {
         return parameters;
     }
 

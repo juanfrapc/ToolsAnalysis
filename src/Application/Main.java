@@ -31,7 +31,7 @@ class Main {
                 new Parameter('o', "2"),
                 new Parameter('k', "3"),
                 new Parameter('O', "15"),
-                new Parameter('E', ""),
+                new Parameter('E', "6"),
         };
         task = new BWABackTrackTask(name, forwardPath, reversePath, reference, parameters);
         task.run();

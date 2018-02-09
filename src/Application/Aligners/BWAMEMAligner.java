@@ -34,7 +34,7 @@ public class BWAMEMAligner implements Aligner {
         ArrayList<String> command = new ArrayList<>();
         command.add("bwa");
         command.add("mem");
-        for (Parameter parameter : this.getParameterS()) {
+        for (Parameter parameter : this.getParameters()) {
             if (parameter.getName() != 0) command.add("-" + parameter.getName());
             if (!parameter.getValue().equals("")) command.add(parameter.getValue());
         }
@@ -58,11 +58,11 @@ public class BWAMEMAligner implements Aligner {
 
     @Override
     public String getID() {
-        return "Burrows-Wheeler-Aligner";
+        return "Burrows-Wheeler-Aligner-MEM";
     }
 
     @Override
-    public Parameter[] getParameterS() {
+    public Parameter[] getParameters() {
         return parameters;
     }
 }

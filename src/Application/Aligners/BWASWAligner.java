@@ -6,25 +6,33 @@ import Model.Parameter;
 import java.io.File;
 import java.util.ArrayList;
 
-public class BWABackTrackAlnAligner implements Aligner{
+public class BWASWAligner implements Aligner{
 
     private final File forward;
+    private final File reverse;
     private final File genome;
     private final File output;
     private final File log;
     private Parameter[] parameters;
     private final int cores = Runtime.getRuntime().availableProcessors();
 
-    private BWABackTrackAlnAligner(File forward, File genome, File output, File log) {
+    private BWASWAligner(File forward, File reverse, File genome, File output, File log) {
         this.forward = forward;
+        this.reverse = reverse;
         this.genome = genome;
         this.output = output;
         this.log = log;
     }
 
-    public BWABackTrackAlnAligner(String forward, String genome, String outputPath, String logPath, Parameter[] parameters) {
-        this(new File(forward), new File(genome), new File(outputPath), new File(logPath));
+    public BWASWAligner(String forward, String reverse, String genome, String outputPath, String logPath, Parameter[] parameters) {
+        this(new File(forward), new File(reverse), new File(genome), new File(outputPath), new File(logPath));
         this.parameters = parameters;
+    }
+
+
+    @Override
+    public String getID() {
+        return "Burrows-Wheeler-Aligner-SW";
     }
 
     @Override
@@ -36,7 +44,7 @@ public class BWABackTrackAlnAligner implements Aligner{
     public ProcessBuilder buildCmd() {
         ArrayList<String> command = new ArrayList<>();
         command.add("bwa");
-        command.add("aln");
+        command.add("bwasw");
         for (Parameter parameter : this.getParameters()) {
             if (parameter.getName() != 0) command.add("-" + parameter.getName());
             if (!parameter.getValue().equals("")) command.add(parameter.getValue());
@@ -45,6 +53,7 @@ public class BWABackTrackAlnAligner implements Aligner{
         command.add("" + cores);
         command.add(genome.getAbsolutePath());
         command.add(forward.getAbsolutePath());
+        command.add(reverse.getAbsolutePath());
         return new ProcessBuilder(command);
     }
 
@@ -56,10 +65,5 @@ public class BWABackTrackAlnAligner implements Aligner{
     @Override
     public File getLog() {
         return log;
-    }
-
-    @Override
-    public String getID() {
-        return "Burrows-Wheeler-Aligner-BackTrack";
     }
 }

@@ -21,7 +21,7 @@ public interface Aligner {
         return "aligner";
     }
 
-    Parameter[] getParameterS();
+    Parameter[] getParameters();
     ProcessBuilder buildCmd();
     File getOutput();
     File getLog();
