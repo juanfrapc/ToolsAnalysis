@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertFalse;
 
+@SuppressWarnings("ALL")
 public class BWABackTrackTest {
 
     private String genome = "/media/uichuimi/DiscoInterno/references/GRCh38/GRCh38.fa";

@@ -1,6 +1,5 @@
 package Application;
 
-import Application.Aligners.BWAMEMAligner;
 import Application.Aligners.BWASWAligner;
 import Model.AlignmentsStatistics;
 import Model.Parameter;
@@ -10,6 +9,7 @@ import View.Parser.Sam2StatsParser;
 import java.io.File;
 import java.util.Date;
 
+@SuppressWarnings("ALL")
 public class BWASWTask {
 
     private String name;

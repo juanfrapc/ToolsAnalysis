@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.*;
 
+@SuppressWarnings("ALL")
 class BWASWAlignerTest {
 
     private String genome = "/media/uichuimi/DiscoInterno/references/GRCh38/GRCh38.fa";
