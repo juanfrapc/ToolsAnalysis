@@ -16,7 +16,7 @@ class FreqFitnessTest {
     void eval() {
         String name = "default";
         AlignmentsStatistics stats = new AlignmentsStatistics();
-        Sam2StatsParser.process(new File("/media/uichuimi/DiscoInterno/Juanfra/sams/" + name + ".sam"), stats);
+        Sam2StatsParser.process(new File("Tests/ejemplo.sam"), stats);
         final AtomicLong result = new AtomicLong(stats.getUniquelyMapped());
         Map<Integer, Long> mapQ = stats.getMultiplyMapQDistribution();
         mapQ.entrySet().stream().parallel().

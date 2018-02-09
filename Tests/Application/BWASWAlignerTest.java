@@ -1,17 +1,18 @@
 package Application;
 
-import Application.Aligners.BWAMEMAligner;
+import Application.Aligners.BWASWAligner;
 import Model.Aligner;
 import Model.Parameter;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class BWAMEMAlignerTest {
+class BWASWAlignerTest {
 
     private String genome = "/media/uichuimi/DiscoInterno/references/GRCh38/GRCh38.fa";
     private String forward = "/media/uichuimi/Elements/GENOME_DATA/CONTROLS/DAM/FASTQ/DAM_forward.fastq.gz";
@@ -21,18 +22,18 @@ public class BWAMEMAlignerTest {
     private static Parameter[] parameters;
     private Aligner aligner;
 
-    @BeforeClass
+    @BeforeAll
     public static void initParameters() {
         parameters = new Parameter[]{
-                new Parameter('w', "20"),
-                new Parameter('M', ""),
-                new Parameter('R', "@RG\\tPL:ILLUMINA\\tSM:DAM\\tID:C7BDUACXX.8\\tPU:C7BDUACXX.8.262\\tLB:TTAGGC")
+                new Parameter('a', "5"),
+                new Parameter('q', "3"),
         };
+        //parameters = new Parameter[0];
     }
 
-    @Before
+    @BeforeEach
     public void initAligner() {
-        aligner = new BWAMEMAligner(forward, reverse, genome, output, log, parameters);
+        aligner = new BWASWAligner(forward, reverse, genome, output, log, parameters);
     }
 
     @Test
@@ -42,9 +43,11 @@ public class BWAMEMAlignerTest {
             Process process = aligner.run();
             boolean status = process.waitFor(4, TimeUnit.SECONDS);
             process.destroyForcibly();
-            assertFalse("Proceso lanzado con errores", status);
-        } catch (Exception e) {
-            assert (false);
+            assertFalse("Proceso BWASW lanzado con errores", status);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            fail("Excepcion lanzada");
         }
     }
+
 }
