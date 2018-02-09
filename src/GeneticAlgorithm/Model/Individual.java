@@ -5,9 +5,9 @@ import Model.Parameter;
 import java.util.Arrays;
 import java.util.Random;
 
-public class Individual implements Comparable, Cloneable {
+public class Individual implements Comparable<Individual>, Cloneable {
 
-    private Parameter[] parameters;
+    private final Parameter[] parameters;
     private float fitness;
 
     public Individual(Parameter[] parameters, Fitness fitness) {
@@ -49,8 +49,7 @@ public class Individual implements Comparable, Cloneable {
     }
 
     @Override
-    public int compareTo(Object o) {
-        Individual ind = (Individual) o;
+    public int compareTo(Individual ind) {
         if (this.getFitness() - ind.getFitness() < 0) return -1;
         if (this.getFitness() - ind.getFitness() > 0) return 1;
         return 0;
@@ -71,8 +70,7 @@ public class Individual implements Comparable, Cloneable {
         for (int i = 0; i < nParam.length; i++) {
             nParam[i] = parameters[i].clone();
         }
-        Individual individual = new Individual(nParam, getFitness());
-        return individual;
+        return new Individual(nParam, getFitness());
     }
 
     @Override
@@ -82,13 +80,11 @@ public class Individual implements Comparable, Cloneable {
 
         Individual that = (Individual) o;
 
-        if (Float.compare(that.getFitness(), getFitness()) != 0) return false;
-        return Arrays.equals(getParameters(), that.getParameters());
+        return Float.compare(that.getFitness(), getFitness()) == 0 && Arrays.equals(getParameters(), that.getParameters());
     }
 
     @Override
     public int hashCode() {
-        int hash = Arrays.hashCode(getParameters());
-        return hash;
+        return Arrays.hashCode(getParameters());
     }
 }

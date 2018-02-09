@@ -8,7 +8,7 @@ import java.util.Random;
 
 public class SPCrossover implements Crossover{
 
-    private Fitness fitness;
+    private final Fitness fitness;
 
     public SPCrossover(Fitness fitness) {
         this.fitness = fitness;

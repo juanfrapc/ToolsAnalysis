@@ -11,13 +11,8 @@ import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertFalse;
 
-public class BWAMEMAlignerTest {
+class BWAMEMAlignerTest {
 
-    private String genome = "/media/uichuimi/DiscoInterno/references/GRCh38/GRCh38.fa";
-    private String forward = "/media/uichuimi/Elements/GENOME_DATA/CONTROLS/DAM/FASTQ/DAM_forward.fastq.gz";
-    private String reverse = "/media/uichuimi/Elements/GENOME_DATA/CONTROLS/DAM/FASTQ/DAM_reverse.fastq.gz";
-    private String output = "/media/uichuimi/DiscoInterno/Juanfra/.test.sam";
-    private String log = "/media/uichuimi/DiscoInterno/Juanfra/.logTest.log";
     private static Parameter[] parameters;
     private Aligner aligner;
 
@@ -32,6 +27,11 @@ public class BWAMEMAlignerTest {
 
     @Before
     public void initAligner() {
+        String log = "/media/uichuimi/DiscoInterno/Juanfra/.logTest.log";
+        String output = "/media/uichuimi/DiscoInterno/Juanfra/.test.sam";
+        String reverse = "/media/uichuimi/Elements/GENOME_DATA/CONTROLS/DAM/FASTQ/DAM_reverse.fastq.gz";
+        String forward = "/media/uichuimi/Elements/GENOME_DATA/CONTROLS/DAM/FASTQ/DAM_forward.fastq.gz";
+        String genome = "/media/uichuimi/DiscoInterno/references/GRCh38/GRCh38.fa";
         aligner = new BWAMEMAligner(forward, reverse, genome, output, log, parameters);
     }
 

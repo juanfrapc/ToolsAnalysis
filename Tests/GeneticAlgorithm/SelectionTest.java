@@ -14,7 +14,6 @@ import java.util.Map;
 class SelectionTest {
 
     private Population population;
-    private final int n = 20000;
 
     @BeforeEach
     void initFake() {
@@ -29,6 +28,7 @@ class SelectionTest {
 
     @Test
     void roulette() throws CloneNotSupportedException {
+        int n = 20000;
         Population selected = Selection.roulette(population, n);
         HashMap<Float, Integer> freq = new HashMap<>();
         for (Individual ind : selected) {

@@ -8,13 +8,13 @@ import java.util.ArrayList;
 
 public class BWABackTrackSampe implements Aligner{
 
-    private File forwardSai;
-    private File forwardFq;
-    private File reverseSai;
-    private File reverseFq;
-    private File genome;
-    private File output;
-    private File log;
+    private final File forwardSai;
+    private final File forwardFq;
+    private final File reverseSai;
+    private final File reverseFq;
+    private final File genome;
+    private final File output;
+    private final File log;
     private Parameter[] parameters;
 
     private BWABackTrackSampe(File forwardSai, File forwardFq, File reverseSai, File reverseFq, File genome, File output, File log) {
@@ -29,7 +29,6 @@ public class BWABackTrackSampe implements Aligner{
 
     public BWABackTrackSampe(String forwardSai, String forwardFq, String reverseSai, String reverseFq, String genome, String outputPath, String logPath) {
         this(new File(forwardSai), new File(forwardFq), new File(reverseSai), new File(reverseFq), new File(genome), new File(outputPath), new File(logPath));
-        this.parameters = parameters;
     }
 
     @Override

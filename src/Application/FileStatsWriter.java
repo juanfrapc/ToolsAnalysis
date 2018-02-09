@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class FileStatsWriter implements StatWriter {
 
-    private String path;
+    private final String path;
 
     FileStatsWriter(String path) {
         this.path = path;

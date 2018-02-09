@@ -1,29 +1,27 @@
 package GeneticAlgorithm.Model;
 
-import Model.Parameter;
-
 import java.util.HashMap;
 import java.util.Map;
 
 public abstract class Fitness {
 
-    private static Map<Individual, Float> map = new HashMap();
+    private static final Map<Individual, Float> map = new HashMap<>();
 
     public abstract float eval(Individual individual);
 
-    public static boolean contains(Individual key) {
+    static boolean contains(Individual key) {
         return map.containsKey(key);
     }
 
-    public static void clearMap() {
+    static void clearMap() {
         map.clear();
     }
 
-    public static float getFitness(Object key) {
+    static float getFitness(Individual key) {
         return map.get(key);
     }
 
-    public static Float put(Individual key) {
-        return map.put(key, key.getFitness());
+    static void put(Individual key) {
+        map.put(key, key.getFitness());
     }
 }

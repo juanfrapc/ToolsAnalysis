@@ -15,12 +15,11 @@ import java.util.stream.Stream;
 class FileStatsWriterTest {
 
     private AlignmentsStatistics statistics;
-    private String pathOrigin = "Tests/ejemplo.sam";
-    private String pathSave = "Tests/ejemplo.stat";
 
     @BeforeEach
-    void init() throws IOException {
+    void init() {
         statistics = new AlignmentsStatistics();
+        String pathOrigin = "Tests/ejemplo.sam";
         File file = new File(pathOrigin);
         Sam2StatsParser.process(file, statistics);
     }
@@ -28,6 +27,7 @@ class FileStatsWriterTest {
 
     @Test
     void writeTest() {
+        String pathSave = "Tests/ejemplo.stat";
         FileStatsWriter writer = new FileStatsWriter(pathSave);
         writer.write(new Parameter[0], statistics);
         try (Stream<String> stream = Files.lines(Paths.get(pathSave))){

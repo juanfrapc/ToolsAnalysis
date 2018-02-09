@@ -2,11 +2,9 @@ package Application;
 
 import Model.Parameter;
 
-import java.io.IOException;
+class Main {
 
-public class Main {
-
-    public static void main(String[] args) throws IOException, InterruptedException {
+    public static void main(String[] args) {
 
         String forwardPath = "/media/uichuimi/DiscoInterno/GENOME_DATA/CONTROLS/DAM/C7BDUACXX_8_3ss_1.fastq.gz";
         String reversePath = "/media/uichuimi/DiscoInterno/GENOME_DATA/CONTROLS/DAM/C7BDUACXX_8_3ss_2.fastq.gz";

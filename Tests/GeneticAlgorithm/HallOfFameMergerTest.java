@@ -25,7 +25,7 @@ class HallOfFameMergerTest {
         pop2 = new Population();
     }
 
-    void fillPop(int n, int factor) {
+    private void fillPop(int n, int factor) {
         for (int i = 0; i < n; i++) {
             int finalI = i;
             Individual ind = new Individual(new Parameter[0], new FitnessLambda(()->(float)finalI));

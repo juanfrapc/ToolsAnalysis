@@ -8,7 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.stream.Stream;
 
-public class SamBamParserTest {
+class SamBamParserTest {
 
     private final File samFile = new File("Tests/ejemplo.sam");
     private final File bamFile = new File("Tests/ejemplo.bam");
@@ -45,7 +45,7 @@ public class SamBamParserTest {
     }
 
     @Test
-    public void samTestFIleShow() throws IOException {
+    public void samTestFIleShow() {
         samStream.parallel().forEach(System.out::println);
     }
 

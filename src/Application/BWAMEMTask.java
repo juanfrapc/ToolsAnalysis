@@ -12,14 +12,14 @@ import java.util.Date;
 public class BWAMEMTask {
 
     private String name;
-    private String forwardPath;
-    private String reversePath;
-    private String reference;
-    private String outFile;
-    private String logFile;
-    private String statsFile;
-    private AlignmentsStatistics statistics;
-    private Parameter[] parameters;
+    private final String forwardPath;
+    private final String reversePath;
+    private final String reference;
+    private final String outFile;
+    private final String logFile;
+    private final String statsFile;
+    private final AlignmentsStatistics statistics;
+    private final Parameter[] parameters;
 
     public BWAMEMTask(String name, String forwardPath, String reversePath, String reference, Parameter[] parameters) {
         this.name = name;

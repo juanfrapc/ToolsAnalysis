@@ -19,7 +19,7 @@ public class Alignment implements Iterable<String>{
     public static final int QUAL= 10;
 
     private final int nParam = 11;
-    private String[] params;
+    private final String[] params;
 
     Alignment(String[] values) {
         params = values;
@@ -50,7 +50,7 @@ public class Alignment implements Iterable<String>{
         };
     }
 
-    public boolean checkOptionalParm(String flag){
+    boolean checkOptionalParm(String flag){
         for (int i = nParam; i < params.length; i++) {
             if (params[i].startsWith(flag)) return true;
         }

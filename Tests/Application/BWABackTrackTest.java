@@ -12,13 +12,8 @@ import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertFalse;
 
-public class BWABackTrackTest {
+class BWABackTrackTest {
 
-    private String genome = "/media/uichuimi/DiscoInterno/references/GRCh38/GRCh38.fa";
-    private String forward = "/media/uichuimi/Elements/GENOME_DATA/CONTROLS/DAM/FASTQ/DAM_forward.fastq.gz";
-    private String reverse = "/media/uichuimi/Elements/GENOME_DATA/CONTROLS/DAM/FASTQ/DAM_reverse.fastq.gz";
-    private String output = "/media/uichuimi/DiscoInterno/Juanfra/.test.sam";
-    private String log = "/media/uichuimi/DiscoInterno/Juanfra/.logTest.log";
     private static Parameter[] parameters;
     private Aligner forwardAligner;
     private Aligner reverseAligner;
@@ -34,9 +29,14 @@ public class BWABackTrackTest {
 
     @Before
     public void initAligner() {
+        String log = "/media/uichuimi/DiscoInterno/Juanfra/.logTest.log";
+        String output = "/media/uichuimi/DiscoInterno/Juanfra/.test.sam";
+        String forward = "/media/uichuimi/Elements/GENOME_DATA/CONTROLS/DAM/FASTQ/DAM_forward.fastq.gz";
+        String genome = "/media/uichuimi/DiscoInterno/references/GRCh38/GRCh38.fa";
         forwardAligner = new BWABackTrackAlnAligner(forward, genome, output, log, parameters);
         reverseAligner = new BWABackTrackAlnAligner(forward, genome, output, log, parameters);
-        sampeAligner = new BWABackTrackSampe("/media/uichuimi/Elements/Copia20160125/ExomeSuite/temp/S072_seq1.sai",forward,
+        String reverse = "/media/uichuimi/Elements/GENOME_DATA/CONTROLS/DAM/FASTQ/DAM_reverse.fastq.gz";
+        sampeAligner = new BWABackTrackSampe("/media/uichuimi/Elements/Copia20160125/ExomeSuite/temp/S072_seq1.sai", forward,
                 "/media/uichuimi/Elements/Copia20160125/ExomeSuite/temp/S072_seq1.sai", reverse, genome, output, log);
     }
 

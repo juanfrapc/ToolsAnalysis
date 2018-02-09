@@ -14,10 +14,10 @@ class ParseFileStatsTest {
 
     private File file;
     private AlignmentsStatistics statistics;
-    private Map<Integer, Long> totalMapQDistribution = new HashMap<>();
-    private Map<Integer, Long> unmappedMapQDistribution = new HashMap<>();
-    private Map<Integer, Long> multiplyMapQDistribution = new HashMap<>();
-    private Map<Integer, Long> uniquelyMapQDistribution= new HashMap<>();
+    private final Map<Integer, Long> totalMapQDistribution = new HashMap<>();
+    private final Map<Integer, Long> unmappedMapQDistribution = new HashMap<>();
+    private final Map<Integer, Long> multiplyMapQDistribution = new HashMap<>();
+    private final Map<Integer, Long> uniquelyMapQDistribution= new HashMap<>();
 
     @BeforeEach
     void setUp() {

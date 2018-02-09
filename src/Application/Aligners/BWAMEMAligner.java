@@ -8,13 +8,13 @@ import java.util.ArrayList;
 
 public class BWAMEMAligner implements Aligner {
 
-    private File forward;
-    private File reverse;
-    private File genome;
-    private File output;
-    private File log;
+    private final File forward;
+    private final File reverse;
+    private final File genome;
+    private final File output;
+    private final File log;
     private Parameter[] parameters;
-    private int cores = Runtime.getRuntime().availableProcessors();
+    private final int cores = Runtime.getRuntime().availableProcessors();
 
     private BWAMEMAligner(File forward, File reverse, File genome, File output, File log) {
         this.forward = forward;

@@ -2,7 +2,7 @@ package Model;
 
 public class Parameter implements Cloneable{
 
-    private char name;
+    private final char name;
     private String value;
 
     public Parameter(char name, String value) {

@@ -1,7 +1,6 @@
 package Model;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -16,17 +15,17 @@ import static java.lang.Integer.toBinaryString;
 
 public class AlignmentsStatistics {
 
-    private AtomicLong total;
-    private AtomicLong unmapped;
-    private AtomicLong multiplyMapped;
+    private final AtomicLong total;
+    private final AtomicLong unmapped;
+    private final AtomicLong multiplyMapped;
 
-    private AtomicLong totalMapQ;
-    private AtomicLong unmappedMapQ;
-    private AtomicLong multiplyMapQ;
+    private final AtomicLong totalMapQ;
+    private final AtomicLong unmappedMapQ;
+    private final AtomicLong multiplyMapQ;
 
-    private ConcurrentMap<Integer, Long> totalMapQDistribution;
-    private ConcurrentMap<Integer, Long> unmappedMapQDistribution;
-    private ConcurrentMap<Integer, Long> multiplyMapQDistribution;
+    private final ConcurrentMap<Integer, Long> totalMapQDistribution;
+    private final ConcurrentMap<Integer, Long> unmappedMapQDistribution;
+    private final ConcurrentMap<Integer, Long> multiplyMapQDistribution;
 
     public AlignmentsStatistics() {
         total = new AtomicLong();

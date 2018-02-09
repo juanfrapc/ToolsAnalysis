@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 
 public class Population implements Iterable<Individual>{
 
-    private ArrayList<Individual> list;
+    private final ArrayList<Individual> list;
 
     public Population() {
         list = new ArrayList<>();

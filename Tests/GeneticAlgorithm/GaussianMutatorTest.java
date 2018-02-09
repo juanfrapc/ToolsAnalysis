@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 class GaussianMutatorTest {
 
     private Individual ind;
-    private int n = 100000;
 
     @BeforeEach
     void initFake() {
@@ -24,6 +23,7 @@ class GaussianMutatorTest {
         Parameter[] parameter = ind.getParameters();
         int count = 0;
 
+        int n = 100000;
         for (int i = 0; i < n; i++) {
             Individual aux = ind.clone();
             mutator.mutate(aux);
@@ -32,7 +32,7 @@ class GaussianMutatorTest {
                 if (!parameter[j].equals(auxParam[j])) count++;
             }
         }
-        assert(Math.abs(0.05-count/count/((float)11*n))<2);
+        assert(Math.abs(0.05-count/count/((float)11* n))<2);
     }
 
 }

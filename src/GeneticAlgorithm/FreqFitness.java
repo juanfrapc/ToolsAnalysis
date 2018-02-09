@@ -13,9 +13,9 @@ public class FreqFitness extends Fitness{
     private static final String forwardPath = "/media/uichuimi/DiscoInterno/GENOME_DATA/HCF/HCF001/EX51_HCF_01_S8_L001_R1_001.fastq.gz";
     private static final String reversePath = "/media/uichuimi/DiscoInterno/GENOME_DATA/HCF/HCF001/EX51_HCF_01_S8_L001_R2_001.fastq.gz";
     private static final String reference = "/media/uichuimi/DiscoInterno/references/GRCh38/GRCh38.fa";
-    private String name;
+    private final String name;
 
-    FreqFitness(String name) {
+    FreqFitness( String name) {
         this.name = name;
     }
 

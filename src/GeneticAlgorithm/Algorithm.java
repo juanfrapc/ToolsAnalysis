@@ -6,14 +6,14 @@ import GeneticAlgorithm.Operators.*;
 
 import java.util.Arrays;
 
-public class Algorithm {
+class Algorithm {
 
     public static void main(String[] args) throws CloneNotSupportedException {
         int populationSize = 6;
         int selectionSize = 6;
         float mutationProbability = (float) 0.05;
 
-        FreqFitness fitness = new FreqFitness("GeneticAlgorithm");
+        FreqFitness fitness = new FreqFitness("FrequencyGeneticAlgorithm");
         Population population = new Population();
         Crossover crossover = new SPCrossover(fitness);
         Mutator mutator = new GaussianMutator(mutationProbability);
