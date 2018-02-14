@@ -10,6 +10,7 @@ import java.util.stream.Stream;
 
 import static Model.Alignment.FLAG;
 import static Model.Alignment.MAPQ;
+import static Model.Alignment.RNAME;
 import static java.lang.Integer.parseInt;
 import static java.lang.Integer.toBinaryString;
 
@@ -23,6 +24,8 @@ public class AlignmentsStatistics {
     private final AtomicLong unmappedMapQ;
     private final AtomicLong multiplyMapQ;
 
+    private final AtomicLong yChromosomeAlln;
+
     private final ConcurrentMap<Integer, Long> totalMapQDistribution;
     private final ConcurrentMap<Integer, Long> unmappedMapQDistribution;
     private final ConcurrentMap<Integer, Long> multiplyMapQDistribution;
@@ -35,6 +38,8 @@ public class AlignmentsStatistics {
         totalMapQ = new AtomicLong();
         unmappedMapQ = new AtomicLong();
         multiplyMapQ = new AtomicLong();
+
+        yChromosomeAlln = new AtomicLong();
 
         totalMapQDistribution = new ConcurrentHashMap<>();
         unmappedMapQDistribution = new ConcurrentHashMap<>();
@@ -107,6 +112,9 @@ public class AlignmentsStatistics {
     }
 
     public void update(Alignment alignment) {
+        String rname = alignment.getParam(RNAME);
+        if (rname.equals("Y")) yChromosomeAlln.incrementAndGet();
+
         String flag = toBinaryString(parseInt(alignment.getParam(FLAG)));
         int mapQ = parseInt(alignment.getParam(MAPQ));
 

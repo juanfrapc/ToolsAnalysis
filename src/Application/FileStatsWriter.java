@@ -36,6 +36,7 @@ public class FileStatsWriter implements StatWriter {
                     unmapped, unmapped/(double)total * 100));
             writer.write(String.format("Número de alineamientos múltiples: %d (%.2f %%)\n",
                     multiplyMapped, multiplyMapped/(double)total * 100));
+            writer.write(String.format("Número de alineamientos en cromosoma y: %d \n", multiplyMapped));
             writer.write("--------------------------------------------\n");
             writer.write("Distribuciónes de MapQ\n");
 

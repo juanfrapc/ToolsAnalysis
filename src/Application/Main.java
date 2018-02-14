@@ -10,7 +10,7 @@ class Main {
         String reversePath = "/media/uichuimi/DiscoInterno/GENOME_DATA/CONTROLS/DAM/C7BDUACXX_8_3ss_2.fastq.gz";
         String reference = "/media/uichuimi/DiscoInterno/references/GRCh38/GRCh38.fa";
 
-        //runBWAMEMCases(forwardPath, reversePath, reference);
+        runBWAMEMCases(forwardPath, reversePath, reference);
         System.out.println("-------------------------------------------------------------------");
         runBWABacktrackCases(forwardPath, reversePath, reference);
         System.out.println("-------------------------------------------------------------------");
@@ -79,10 +79,7 @@ class Main {
 
     private static void runBWAMEMCases(String forwardPath, String reversePath, String reference) {
         String name = "defaultMEM";
-        Parameter[] parameters = new Parameter[]{
-                new Parameter('M', ""),
-                new Parameter('R', "@RG\\tPL:ILLUMINA\\tSM:DAM\\tID:C7BDUACXX.8\\tPU:C7BDUACXX.8.262\\tLB:TTAGGC"),
-        };
+        Parameter[] parameters = new Parameter[0];
         BWAMEMTask task = new BWAMEMTask(name, forwardPath, reversePath, reference, parameters);
         task.run();
 
