@@ -9,19 +9,19 @@ public abstract class Fitness {
 
     public abstract float eval(Individual individual);
 
-    static boolean contains(Individual key) {
+    protected static boolean contains(Individual key) {
         return map.containsKey(key);
     }
 
-    static void clearMap() {
+    public static void clearMap() {
         map.clear();
     }
 
-    static float getFitness(Individual key) {
+    protected static float getFitness(Individual key) {
         return map.get(key);
     }
 
-    static void put(Individual key) {
-        map.put(key, key.getFitness());
+    protected static void put(Individual key, float fitness) {
+        map.put(key, fitness);
     }
 }

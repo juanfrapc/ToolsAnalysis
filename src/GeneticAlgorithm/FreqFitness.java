@@ -5,6 +5,7 @@ import GeneticAlgorithm.Model.Fitness;
 import GeneticAlgorithm.Model.Individual;
 import Model.AlignmentsStatistics;
 
+import java.util.Arrays;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -21,6 +22,8 @@ public class FreqFitness extends Fitness{
 
     public float eval(Individual individual){
 
+        if (Fitness.contains(individual)) return Fitness.getFitness(individual);
+
         BWAMEMTask task = new BWAMEMTask(name, forwardPath, reversePath, reference, individual.getParameters());
         AlignmentsStatistics stats = task.run();
         final AtomicLong result = new AtomicLong(stats.getUniquelyMapped());
@@ -30,7 +33,8 @@ public class FreqFitness extends Fitness{
                     if (entry.getKey() >= 20) result.addAndGet(entry.getValue());
                 });
         float value = result.get() / (float) stats.getTotal();
-        System.out.println(name + ": Fitness calculado con éxito = " + value);
+        System.out.println(name + "("+ Arrays.toString(individual.getParameters()) +"): Fitness calculado con éxito = " + value);
+        Fitness.put(individual, value);
         return value;
     }
 

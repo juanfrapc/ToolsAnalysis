@@ -39,7 +39,7 @@ public class BWAMEMTask {
         this.name = bwa.getID() + "-" + name;
         timer.start();
 
-        System.out.println("(" + new Date().toString() + ") " + name + ": Start running");
+        System.out.println("(" + new Date().toString() + ")\n" + name + ": Start running");
         Process run;
         try {
             run = bwa.run();

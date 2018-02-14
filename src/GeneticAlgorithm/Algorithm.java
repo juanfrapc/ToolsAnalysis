@@ -1,5 +1,6 @@
 package GeneticAlgorithm;
 
+import GeneticAlgorithm.Model.Fitness;
 import GeneticAlgorithm.Model.Individual;
 import GeneticAlgorithm.Model.Population;
 import GeneticAlgorithm.Operators.*;
@@ -13,6 +14,7 @@ class Algorithm {
         int selectionSize = 6;
         float mutationProbability = (float) 0.05;
 
+        Fitness.clearMap();
         FreqFitness fitness = new FreqFitness("FrequencyGeneticAlgorithm");
         Population population = new Population();
         Crossover crossover = new SPCrossover(fitness);

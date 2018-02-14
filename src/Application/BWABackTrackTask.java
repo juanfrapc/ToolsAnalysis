@@ -45,7 +45,7 @@ class BWABackTrackTask{
         this.name = bwa.getID() + "-" + name;
         timer.start();
 
-        System.out.println("(" + new Date().toString() + ") " + name + ": Start running forward aln");
+        System.out.println("(" + new Date().toString() + ")\n" + name + ": Start running forward aln");
         Process run;
         try {
             run = bwa.run();
@@ -61,10 +61,9 @@ class BWABackTrackTask{
         }
 
         bwa = new BWABackTrackAlnAligner(reversePath, reference, saireverse, logFile, parameters);
-        this.name = bwa.getID() + "-" + name;
         timer.reset();
 
-        System.out.println("(" + new Date().toString() + ") " + name + ": Start running reverse aln");
+        System.out.println("(" + new Date().toString() + ")\n" + name + ": Start running reverse aln");
         try {
             run = bwa.run();
             int error = run.waitFor();
@@ -79,10 +78,9 @@ class BWABackTrackTask{
         }
 
         bwa = new BWABackTrackSampe(saiforward, forwardPath, saireverse, reversePath, reference, outFile, logFile);
-        this.name = bwa.getID() + "-" + name;
         timer.reset();
 
-        System.out.println("(" + new Date().toString() + ") " + name + ": Start running sampe");
+        System.out.println("(" + new Date().toString() + ")\n" + name + ": Start running sampe");
         try {
             run = bwa.run();
             int error = run.waitFor();

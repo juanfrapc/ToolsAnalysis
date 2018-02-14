@@ -25,7 +25,7 @@ class FitnessTest {
         individual2 = new Individual(param2, 20f);
         individualNull = new Individual(new Parameter[0], 0f);
         clone = individual.clone();
-        Fitness.put(individual);
+        Fitness.put(individual, individual.getFitness());
 
     }
 
@@ -36,8 +36,8 @@ class FitnessTest {
         assert(Fitness.contains(clone));
         assertFalse(Fitness.contains(individualNull));
         assertFalse(Fitness.contains(individual2));
-        Fitness.put(individual2);
-        Fitness.put(individualNull);
+        Fitness.put(individual2, individual2.getFitness());
+        Fitness.put(individualNull, individualNull.getFitness());
         assertEquals(15, Fitness.getFitness(individual), "Error in fitness");
         assertEquals(15, Fitness.getFitness(clone), "Error in fitness");
         assertEquals(20, Fitness.getFitness(individual2), "Error in fitness");

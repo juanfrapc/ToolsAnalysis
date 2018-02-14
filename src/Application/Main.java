@@ -11,8 +11,12 @@ class Main {
         String reference = "/media/uichuimi/DiscoInterno/references/GRCh38/GRCh38.fa";
 
         runBWAMEMCases(forwardPath, reversePath, reference);
+        System.out.println("-------------------------------------------------------------------");
         runBWABacktrackCases(forwardPath, reversePath, reference);
+        System.out.println("-------------------------------------------------------------------");
         runBWASWCases(forwardPath, reversePath, reference);
+        System.out.println("-------------------------------------------------------------------");
+        System.out.println("-------------------------------------------------------------------");
 
     }
 
@@ -33,7 +37,7 @@ class Main {
         task = new BWASWTask(name, forwardPath, reversePath, reference, parameters);
         task.run();
 
-        name = "aln2";
+        name = "sw2";
         parameters = new Parameter[]{
                 new Parameter('a', "3"),
                 new Parameter('q', "8"),
