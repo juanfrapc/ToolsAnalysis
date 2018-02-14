@@ -21,9 +21,11 @@ class Algorithm {
         Mutator mutator = new GaussianMutator(mutationProbability);
         PopulationMerger merger = new HallOfFameMerger();
         population.initilize(populationSize, fitness);
-        boolean flag = true;
 
+        boolean flag = true;
+        int iteration = 0;
         while(flag) {
+            System.out.println("Iteration "+ iteration +"... ... ...");
             Population selected = Selection.roulette(population, selectionSize);
             Population offspring = new Population();
             for (int i = 0; i < selectionSize / 2; i++) {
@@ -40,6 +42,8 @@ class Algorithm {
             if (population.equals(merge)) flag = false;
             else population=merge;
         }
+
+        System.out.println("FINAL POPULATION:");
         for (Individual ind : population) {
             System.out.println(ind.getFitness() + "->" + Arrays.toString(ind.getParameters()));
         }

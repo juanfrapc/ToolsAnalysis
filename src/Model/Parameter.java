@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.Random;
+
 public class Parameter implements Cloneable{
 
     private final char name;
@@ -22,7 +24,7 @@ public class Parameter implements Cloneable{
         return value;
     }
 
-    public void setValue(String value) {
+    private void setValue(String value) {
         this.value = this.name=='r'? value: ((int) Double.parseDouble(value)) + "";
     }
 
@@ -54,5 +56,16 @@ public class Parameter implements Cloneable{
         int result = (int) getName();
         result = 31 * result + (getValue() != null ? getValue().hashCode() : 0);
         return result;
+    }
+
+    public void updateRandom(){
+        Random random = new Random();
+        double old = Double.parseDouble(getValue());
+        double v = random.nextGaussian();
+        if (getName() != 'r'){
+            v = Math.ceil(v);
+        }
+        double ne = old + v > 0 ? old + v : 1;
+        setValue(ne +"");
     }
 }

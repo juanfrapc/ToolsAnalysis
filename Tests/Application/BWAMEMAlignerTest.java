@@ -48,4 +48,30 @@ public class BWAMEMAlignerTest {
             assert (false);
         }
     }
+
+    @Test
+    public void otherTest(){
+        parameters = new Parameter[]{
+                new Parameter('k',"19"),
+                new Parameter('w',"101"),
+                new Parameter('d',"100"),
+                new Parameter('r',"0.4020100172835497"),
+                new Parameter('c',"9998"),
+                new Parameter('A',"1"),
+                new Parameter('B',"3"),
+                new Parameter('O',"5"),
+                new Parameter('E',"0"),
+                new Parameter('L',"4"),
+                new Parameter('U',"9"),
+        };
+        aligner = new BWAMEMAligner(forward, reverse, genome, output, log, parameters);
+        try {
+            Process process = aligner.run();
+            boolean status = process.waitFor(20, TimeUnit.SECONDS);
+            process.destroyForcibly();
+            assertFalse("Proceso lanzado con errores", status);
+        } catch (Exception e) {
+            assert (false);
+        }
+    }
 }

@@ -1,6 +1,7 @@
 package GeneticAlgorithm.Model;
 
 import Model.Parameter;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -20,6 +21,7 @@ public class Individual implements Comparable<Individual>, Cloneable {
         this.fitness = fitness;
     }
 
+    @NotNull
     public static Individual getInitialRamdom(Fitness fitness) {
         Parameter[] values = new Parameter[]{
                 new Parameter('k', "19"),
@@ -36,10 +38,7 @@ public class Individual implements Comparable<Individual>, Cloneable {
         };
         Random random = new Random();
         for (int i = 1; i < values.length; i++) {
-            double old = Double.parseDouble(values[i].getValue());
-            double v = random.nextGaussian();
-            double ne = old + v > 0 ? old + v : 0;
-            values[i].setValue(ne +"");
+            values[i].updateRandom();
         }
         return new Individual(values, fitness);
     }
@@ -49,7 +48,7 @@ public class Individual implements Comparable<Individual>, Cloneable {
     }
 
     @Override
-    public int compareTo(Individual ind) {
+    public int compareTo(@NotNull Individual ind) {
         if (this.getFitness() - ind.getFitness() < 0) return -1;
         if (this.getFitness() - ind.getFitness() > 0) return 1;
         return 0;
