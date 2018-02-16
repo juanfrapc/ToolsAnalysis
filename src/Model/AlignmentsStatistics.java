@@ -119,7 +119,9 @@ public class AlignmentsStatistics {
         int mapQ = parseInt(alignment.getParam(MAPQ));
 
         if (flag.charAt(flag.length() - 3) == '1') increaseUnmapped(mapQ);
-        else if (alignment.checkOptionalParm("XA:Z:")) increaseMultiplyMapped(mapQ);
+        else if (alignment.checkOptionalParm("XA:Z:") || alignment.checkOptionalParm("SA:Z:")){
+            increaseMultiplyMapped(mapQ);
+        }
         else increaseTotal(mapQ);
     }
 
