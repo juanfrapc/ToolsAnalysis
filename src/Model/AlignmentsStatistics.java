@@ -24,7 +24,7 @@ public class AlignmentsStatistics {
     private final AtomicLong unmappedMapQ;
     private final AtomicLong multiplyMapQ;
 
-    private final AtomicLong yChromosomeAlln;
+    private final AtomicLong yChromosomeAln;
 
     private final ConcurrentMap<Integer, Long> totalMapQDistribution;
     private final ConcurrentMap<Integer, Long> unmappedMapQDistribution;
@@ -39,7 +39,7 @@ public class AlignmentsStatistics {
         unmappedMapQ = new AtomicLong();
         multiplyMapQ = new AtomicLong();
 
-        yChromosomeAlln = new AtomicLong();
+        yChromosomeAln = new AtomicLong();
 
         totalMapQDistribution = new ConcurrentHashMap<>();
         unmappedMapQDistribution = new ConcurrentHashMap<>();
@@ -107,13 +107,17 @@ public class AlignmentsStatistics {
         return multiplyMapQ.longValue();
     }
 
+    public long getYChromosomeAlignments(){
+        return yChromosomeAln.get();
+    }
+
     public long getUniquelyMapQ() {
         return totalMapQ.get() - unmappedMapQ.get() - multiplyMapQ.get();
     }
 
     public void update(Alignment alignment) {
         String rname = alignment.getParam(RNAME);
-        if (rname.equals("Y")) yChromosomeAlln.incrementAndGet();
+        if (rname.equals("y")) yChromosomeAln.incrementAndGet();
 
         String flag = toBinaryString(parseInt(alignment.getParam(FLAG)));
         int mapQ = parseInt(alignment.getParam(MAPQ));

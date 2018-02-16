@@ -22,6 +22,11 @@ class Algorithm {
         PopulationMerger merger = new HallOfFameMerger();
         population.initilize(populationSize, fitness);
 
+        System.out.println("Inicial Population.");
+        for (Individual ind : population) {
+            System.out.println("\t" + ind.getFitness() + "->" + Arrays.toString(ind.getParameters()));
+        }
+
         boolean flag = true;
         int iteration = 0;
         while(flag) {
@@ -41,8 +46,11 @@ class Algorithm {
             Population merge = merger.merge(population, offspring, populationSize);
             if (population.equals(merge)) flag = false;
             else population=merge;
-        }
 
+            for (Individual ind : population) {
+                System.out.println("\t" + ind.getFitness() + "->" + Arrays.toString(ind.getParameters()));
+            }
+        }
         System.out.println("FINAL POPULATION:");
         for (Individual ind : population) {
             System.out.println(ind.getFitness() + "->" + Arrays.toString(ind.getParameters()));

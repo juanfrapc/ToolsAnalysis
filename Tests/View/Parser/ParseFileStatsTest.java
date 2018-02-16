@@ -48,6 +48,7 @@ class ParseFileStatsTest {
         assertEquals(33, statistics.getMultiplyMapQ(), "Error in multiply mapped MAPQ");
         assertEquals(5, statistics.getUniquelyMapped(), "Error in uniquely mapped count");
         assertEquals(98, statistics.getUniquelyMapQ(), "Error in uniquely mapped MAPQ");
+        assertEquals(2, statistics.getYChromosomeAlignments(), "Error in y Chr alns");
     }
 
     @Test
