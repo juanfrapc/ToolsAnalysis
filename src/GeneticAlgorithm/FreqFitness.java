@@ -11,9 +11,9 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class FreqFitness extends Fitness{
 
-    private String forwardPath = "/media/uichuimi/DiscoInterno/GENOME_DATA/CONTROLS/DAM/C7BDUACXX_8_3ss_1.fastq.gz";
-    private String reversePath = "/media/uichuimi/DiscoInterno/GENOME_DATA/CONTROLS/DAM/C7BDUACXX_8_3ss_2.fastq.gz";
-    private String reference = "/media/uichuimi/DiscoInterno/references/GRCh38/GRCh38.fa";
+    private final String forwardPath = "/media/uichuimi/DiscoInterno/GENOME_DATA/CONTROLS/DAM/C7BDUACXX_8_3ss_1.fastq.gz";
+    private final String reversePath = "/media/uichuimi/DiscoInterno/GENOME_DATA/CONTROLS/DAM/C7BDUACXX_8_3ss_2.fastq.gz";
+    private final String reference = "/media/uichuimi/DiscoInterno/references/GRCh38/GRCh38.fa";
     private final String name;
 
     FreqFitness( String name) {

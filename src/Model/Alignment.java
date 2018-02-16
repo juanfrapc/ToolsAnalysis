@@ -1,5 +1,7 @@
 package Model;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Arrays;
 import java.util.Iterator;
 
@@ -33,6 +35,7 @@ public class Alignment implements Iterable<String>{
         return nParam;
     }
 
+    @NotNull
     @Override
     public Iterator<String> iterator() {
         return new Iterator<String>() {

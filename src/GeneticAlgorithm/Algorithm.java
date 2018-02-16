@@ -5,8 +5,6 @@ import GeneticAlgorithm.Model.Individual;
 import GeneticAlgorithm.Model.Population;
 import GeneticAlgorithm.Operators.*;
 
-import java.util.Arrays;
-
 class Algorithm {
 
     public static void main(String[] args) throws CloneNotSupportedException {
