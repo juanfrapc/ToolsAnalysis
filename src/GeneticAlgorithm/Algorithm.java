@@ -23,9 +23,7 @@ class Algorithm {
         population.initilize(populationSize, fitness);
 
         System.out.println("Inicial Population.");
-        for (Individual ind : population) {
-            System.out.println("\t" + ind.getFitness() + "->" + Arrays.toString(ind.getParameters()));
-        }
+        System.out.println(population);
 
         boolean flag = true;
         int iteration = 0;
@@ -47,14 +45,8 @@ class Algorithm {
             if (population.equals(merge)) flag = false;
             else population=merge;
 
-            for (Individual ind : population) {
-                System.out.println("\t" + ind.getFitness() + "->" + Arrays.toString(ind.getParameters()));
-            }
+            System.out.println(population);
         }
-        System.out.println("FINAL POPULATION:");
-        for (Individual ind : population) {
-            System.out.println(ind.getFitness() + "->" + Arrays.toString(ind.getParameters()));
-        }
-
+        System.out.println("END");
     }
 }
