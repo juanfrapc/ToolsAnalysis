@@ -86,4 +86,9 @@ public class Individual implements Comparable<Individual>, Cloneable {
     public int hashCode() {
         return Arrays.hashCode(getParameters());
     }
+
+
+    public void updateFitness(Fitness fitness) {
+        this.fitness = fitness.eval(this);
+    }
 }

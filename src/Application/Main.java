@@ -1,8 +1,6 @@
 package Application;
 
-import Model.AlignmentsStatistics;
 import Model.Parameter;
-import View.Parser.Sam2StatsParser;
 
 class Main {
 
@@ -10,9 +8,7 @@ class Main {
 
         String forwardPath = "/media/uichuimi/DiscoInterno/GENOME_DATA/CONTROLS/DAM/C7BDUACXX_8_3ss_1.fastq.gz";
         String reversePath = "/media/uichuimi/DiscoInterno/GENOME_DATA/CONTROLS/DAM/C7BDUACXX_8_3ss_2.fastq.gz";
-        String reference = "/media/uichuimi/DiscoInterno/references/GRCh38/GRCh38.fa";
-
-//        runBWAMEMCases(forwardPath, reversePath, reference);
+        String reference = "/media/uichuimi/DiscoInterno/references/GRCh38/GRCh38.fa";//        runBWAMEMCases(forwardPath, reversePath, reference);
 //        System.out.println("-------------------------------------------------------------------");
 //        runBWABacktrackCases(forwardPath, reversePath, reference);
 //        System.out.println("-------------------------------------------------------------------");

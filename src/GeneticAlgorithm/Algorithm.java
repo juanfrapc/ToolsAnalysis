@@ -26,7 +26,7 @@ class Algorithm {
         boolean flag = true;
         int iteration = 0;
         while(flag) {
-            System.out.println("Iteration "+ iteration +"... ... ...");
+            System.out.println("Iteration "+ ++iteration +"... ... ...");
             Population selected = Selection.roulette(population, selectionSize);
             Population offspring = new Population();
             for (int i = 0; i < selectionSize / 2; i++) {
@@ -37,7 +37,7 @@ class Algorithm {
                 offspring.addIndividual(child[1]);
             }
             for (Individual ind : offspring) {
-                mutator.mutate(ind);
+                mutator.mutate(ind, fitness);
             }
             Population merge = merger.merge(population, offspring, populationSize);
             if (population.equals(merge)) flag = false;

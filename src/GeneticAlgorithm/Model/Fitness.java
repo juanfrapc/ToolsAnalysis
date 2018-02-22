@@ -24,4 +24,8 @@ public abstract class Fitness {
     protected static void put(Individual key, float fitness) {
         map.put(key, fitness);
     }
+
+    static int size() {
+        return map.size();
+    }
 }

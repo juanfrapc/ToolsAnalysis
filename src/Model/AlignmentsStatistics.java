@@ -117,7 +117,7 @@ public class AlignmentsStatistics {
 
     public void update(Alignment alignment) {
         String rname = alignment.getParam(RNAME);
-        if (rname.equals("y")) yChromosomeAln.incrementAndGet();
+        if (rname.equals("y") || rname.equals("Y")) yChromosomeAln.incrementAndGet();
 
         String flag = toBinaryString(parseInt(alignment.getParam(FLAG)));
         int mapQ = parseInt(alignment.getParam(MAPQ));

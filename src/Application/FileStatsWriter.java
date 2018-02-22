@@ -28,6 +28,7 @@ public class FileStatsWriter implements StatWriter {
             long uniquelyMapped = statistics.getUniquelyMapped();
             long unmapped = statistics.getUnmapped();
             long multiplyMapped = statistics.getMultiplyMapped();
+            long yAlln = statistics.getYChromosomeAlignments();
 
             writer.write(String.format("Número de alineamientos totales: %d\n", total));
             writer.write(String.format("Número de alineamientos mapeados 1 vez: %d (%.2f %%)\n",
@@ -36,7 +37,7 @@ public class FileStatsWriter implements StatWriter {
                     unmapped, unmapped/(double)total * 100));
             writer.write(String.format("Número de alineamientos múltiples: %d (%.2f %%)\n",
                     multiplyMapped, multiplyMapped/(double)total * 100));
-            writer.write(String.format("Número de alineamientos en cromosoma y: %d \n", multiplyMapped));
+            writer.write(String.format("Número de alineamientos en cromosoma y: %d \n", yAlln));
             writer.write("--------------------------------------------\n");
             writer.write("Distribuciónes de MapQ\n");
 

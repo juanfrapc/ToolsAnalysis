@@ -34,6 +34,7 @@ class FitnessTest {
         assert(Fitness.contains(individual));
         assert (individual.equals(clone));
         assert(Fitness.contains(clone));
+        assertEquals(1, Fitness.size(), "Elements cardinaity not matching.");
         assertFalse(Fitness.contains(individualNull));
         assertFalse(Fitness.contains(individual2));
         Fitness.put(individual2, individual2.getFitness());

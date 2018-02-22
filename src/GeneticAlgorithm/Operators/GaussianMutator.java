@@ -1,5 +1,6 @@
 package GeneticAlgorithm.Operators;
 
+import GeneticAlgorithm.Model.Fitness;
 import GeneticAlgorithm.Model.Individual;
 import Model.Parameter;
 
@@ -14,12 +15,13 @@ public class GaussianMutator implements Mutator {
     }
 
     @Override
-    public void mutate(Individual individual) {
+    public void mutate(Individual individual, Fitness fitness) {
         Parameter[] parameters = individual.getParameters();
         Random random = new Random();
         for (int i = 1; i < parameters.length; i++) {
             if (random.nextFloat()<probability) {
                 parameters[i].updateRandom();
+                individual.updateFitness(fitness);
             }
         }
     }

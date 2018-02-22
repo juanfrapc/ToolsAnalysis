@@ -26,7 +26,7 @@ class GaussianMutatorTest {
         int n = 100000;
         for (int i = 0; i < n; i++) {
             Individual aux = ind.clone();
-            mutator.mutate(aux);
+            mutator.mutate(aux, new FitnessLambda(()->0f));
             Parameter[] auxParam = aux.getParameters();
             for (int j = 1; j < parameter.length; j++) {
                 if (!parameter[j].equals(auxParam[j])) count++;
