@@ -39,6 +39,9 @@ public class HallOfFameMerger implements PopulationMerger {
                 else break;
             }
         }
+        System.out.println("Padres" + pop1);
+        System.out.println("Hijos" + pop2);
+        System.out.println("Mejores" + result);
         if (count >= size) return result;
         if (!iterator1.hasNext()) {
             fillWith(iterator2, count, size);
@@ -46,6 +49,9 @@ public class HallOfFameMerger implements PopulationMerger {
         if (!iterator2.hasNext()) {
             fillWith(iterator1, count, size);
         }
+        System.out.println("Padres" + pop1);
+        System.out.println("Hijos" + pop2);
+        System.out.println("Mejores" + result);
         return result;
 
     }
