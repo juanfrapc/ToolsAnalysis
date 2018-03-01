@@ -11,6 +11,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 class FreqFitnessTest {
 
+
     @Ignore("too long in time")
     @Test
     void eval() {
@@ -26,6 +27,10 @@ class FreqFitnessTest {
         float value = result.get() / (float) stats.getTotal();
         System.out.println(name + ": Fitness calculado con éxito = " + value);
 
+    }
+
+    @Test
+    void eval1() {
     }
 
 }

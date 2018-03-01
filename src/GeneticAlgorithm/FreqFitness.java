@@ -22,7 +22,11 @@ public class FreqFitness extends Fitness{
 
     public float eval(Individual individual){
 
-        if (Fitness.contains(individual)) return Fitness.getFitness(individual);
+        if (Fitness.contains(individual)) {
+            float fitness = Fitness.getFitness(individual);
+            System.out.println(Arrays.toString(individual.getParameters()) + ":Fitness ya calculado" + fitness);
+            return fitness;
+        }
 
         BWAMEMTask task = new BWAMEMTask(name, forwardPath, reversePath, reference, individual.getParameters());
         AlignmentsStatistics stats = task.run();
