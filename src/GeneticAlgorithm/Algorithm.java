@@ -5,6 +5,8 @@ import GeneticAlgorithm.Model.Individual;
 import GeneticAlgorithm.Model.Population;
 import GeneticAlgorithm.Operators.*;
 
+import java.util.Arrays;
+
 class Algorithm {
 
     public static void main(String[] args) throws CloneNotSupportedException {
@@ -31,11 +33,11 @@ class Algorithm {
             Population offspring = new Population();
             for (int i = 0; i < selectionSize / 2; i++) {
                 Individual father = selected.removeRandom();
-                System.out.println("Padre: " + father.getParameters());
+                System.out.println("Padre: " + Arrays.toString(father.getParameters()));
                 Individual mother = selected.removeRandom();
-                System.out.println("Madre: " + mother.getParameters());
+                System.out.println("Madre: " + Arrays.toString(mother.getParameters()));
                 Individual[] child = crossover.reproduce(father, mother);
-                System.out.println("Hijos: " + child[0].getParameters() + " y " +child[1].getParameters());
+                System.out.println("Hijos: " + Arrays.toString(child[0].getParameters()) + " y " + Arrays.toString(child[1].getParameters()));
                 offspring.addIndividual(child[0]);
                 offspring.addIndividual(child[1]);
             }
