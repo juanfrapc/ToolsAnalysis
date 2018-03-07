@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Iterator;
+import java.util.ListIterator;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -37,15 +38,15 @@ class HallOfFameMergerTest {
 
     private void printPop(Population result) {
         Iterator<Individual> resIterator = result.iterator();
-        Iterator<Individual> pop1Iterator = pop1.iterator();
-        Iterator<Individual> pop2Iterator = pop2.iterator();
+        ListIterator<Individual> pop1Iterator = pop1.reverseIterator();
+        ListIterator<Individual> pop2Iterator = pop2.reverseIterator();
         System.out.println("--------------------");
-        while (resIterator.hasNext() && pop1Iterator.hasNext() && pop2Iterator.hasNext()) {
+        while (resIterator.hasNext() && pop1Iterator.hasPrevious() && pop2Iterator.hasPrevious()) {
             Individual resNext = resIterator.next();
-            Individual pop1Next = pop1Iterator.next();
-            Individual pop2Next = pop2Iterator.next();
+            Individual pop1Next = pop1Iterator.previous();
+            Individual pop2Next = pop2Iterator.previous();
             System.out.println(resNext.getFitness() + " - " + pop1Next.getFitness() + " - " + pop2Next.getFitness());
-            assert (resNext.getFitness() <= pop1Next.getFitness() && resNext.getFitness() <= pop2Next.getFitness());
+            assert (resNext.getFitness() >= pop1Next.getFitness() && resNext.getFitness() >= pop2Next.getFitness());
         }
     }
 
@@ -65,10 +66,10 @@ class HallOfFameMergerTest {
         printPop(result);
         assertEquals(10, result.size());
         Iterator<Individual> resIterator = result.iterator();
-        Iterator<Individual> pop1Iterator = pop1.iterator();
-        while (resIterator.hasNext() && pop1Iterator.hasNext()) {
+        ListIterator<Individual> pop2Iterator = pop2.reverseIterator();
+        while (resIterator.hasNext() && pop2Iterator.hasPrevious()) {
             Individual resNext = resIterator.next();
-            Individual pop1Next = pop1Iterator.next();
+            Individual pop1Next = pop2Iterator.previous();
             assertEquals(pop1Next.getFitness(), resNext.getFitness());
         }
     }
@@ -80,10 +81,10 @@ class HallOfFameMergerTest {
         assertEquals(10, result.size());
         printPop(result);
         Iterator<Individual> resIterator = result.iterator();
-        Iterator<Individual> pop2Iterator = pop2.iterator();
-        while (resIterator.hasNext() && pop2Iterator.hasNext()) {
+        ListIterator<Individual> pop1Iterator = pop1.reverseIterator();
+        while (resIterator.hasNext() && pop1Iterator.hasPrevious()) {
             Individual resNext = resIterator.next();
-            Individual pop1Next = pop2Iterator.next();
+            Individual pop1Next = pop1Iterator.previous();
             assertEquals(pop1Next.getFitness(), resNext.getFitness());
         }
     }

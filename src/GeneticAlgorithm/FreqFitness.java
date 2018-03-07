@@ -24,7 +24,7 @@ public class FreqFitness extends Fitness{
 
         if (Fitness.contains(individual)) {
             float fitness = Fitness.getFitness(individual);
-            System.out.println(Arrays.toString(individual.getParameters()) + ":Fitness ya calculado" + fitness);
+            System.out.println(Arrays.toString(individual.getParameters()) + ":Fitness ya calculado " + fitness);
             return fitness;
         }
 

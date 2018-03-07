@@ -31,11 +31,11 @@ class Algorithm {
             Population offspring = new Population();
             for (int i = 0; i < selectionSize / 2; i++) {
                 Individual father = selected.removeRandom();
-                System.out.println("Padre" + father);
+                System.out.println("Padre: " + father.getParameters());
                 Individual mother = selected.removeRandom();
-                System.out.println("Madre" + mother);
+                System.out.println("Madre: " + mother.getParameters());
                 Individual[] child = crossover.reproduce(father, mother);
-                System.out.println("Hijos" + child[0] + "y" +child[1]);
+                System.out.println("Hijos: " + child[0].getParameters() + " y " +child[1].getParameters());
                 offspring.addIndividual(child[0]);
                 offspring.addIndividual(child[1]);
             }

@@ -38,6 +38,10 @@ public class Population implements Iterable<Individual> {
         return list.iterator();
     }
 
+    public ListIterator<Individual> reverseIterator() {
+        return list.listIterator(list.size());
+    }
+
     public void sort() {
         Collections.sort(list);
     }
