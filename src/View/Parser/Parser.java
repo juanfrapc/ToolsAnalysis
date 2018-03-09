@@ -15,7 +15,7 @@ class Parser {
         return reader.lines().map(AlignmentFactory::createAlignment);
     }
 
-    Stream<Alignment> parseSam(File file) throws IOException {
+    Stream<Alignment> parseSam(File file) throws FileNotFoundException {
         BufferedReader reader = new BufferedReader(new FileReader(file));
         return reader.lines().map(AlignmentFactory::createAlignment);
     }

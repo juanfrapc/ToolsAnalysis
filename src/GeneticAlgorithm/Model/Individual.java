@@ -28,13 +28,13 @@ public class Individual implements Comparable<Individual>, Cloneable {
                 new Parameter('w', "100"),
                 new Parameter('d', "100"),
                 new Parameter('r', "1.5"),
-                new Parameter('c', "10000"),
+                new Parameter('c', "500"),
                 new Parameter('A', "1"),
                 new Parameter('B', "4"),
                 new Parameter('O', "6"),
                 new Parameter('E', "1"),
                 new Parameter('L', "5"),
-                new Parameter('U', "9"),
+                new Parameter('U', "17"),
         };
         Random random = new Random();
         for (int i = 1; i < values.length; i++) {
