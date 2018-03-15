@@ -16,7 +16,7 @@ public class Sam2StatsParser {
         Stream<Alignment> stream;
         try {
             stream = file.getName().endsWith("sam") ? parser.parseSam(file) : parser.parseBam(file);
-            stream.parallel().forEach(alignment -> {if (alignment != null) stats.update(alignment);});
+            stream.forEach(alignment -> {if (alignment != null) stats.update(alignment);});
         }catch (FileNotFoundException ex){
             System.out.println("Error FILENOTFOUND");
             return false;
