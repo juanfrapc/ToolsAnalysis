@@ -9,7 +9,7 @@ import View.Parser.Sam2StatsParser;
 import java.io.File;
 import java.util.Date;
 
-public class BWAMEMTask {
+public class BWAMEMTask implements AligningTask {
 
     private String name;
     private final String forwardPath;
@@ -19,7 +19,7 @@ public class BWAMEMTask {
     private final String logFile;
     private final String statsFile;
     private final AlignmentsStatistics statistics;
-    private final Parameter[] parameters;
+    private Parameter[] parameters;
 
     public BWAMEMTask(String name, String forwardPath, String reversePath, String reference, Parameter[] parameters) {
         this.name = name;
@@ -65,5 +65,9 @@ public class BWAMEMTask {
         writer.write(parameters, statistics);
         return statistics;
 
+    }
+
+    public void setParameters(Parameter[] parameters) {
+        this.parameters = parameters;
     }
 }

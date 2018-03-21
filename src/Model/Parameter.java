@@ -53,9 +53,13 @@ public class Parameter implements Cloneable{
 
     @Override
     public int hashCode() {
-        int result = (int) getName();
-        result = 31 * result + (getValue() != null ? getValue().hashCode() : 0);
-        return result;
+        //int result = (int) getName();
+        //result = 31 * result + (getValue() != null ? getValue().hashCode() : 0);
+        if (getName() != 'r'){
+            return Integer.parseInt(getValue());
+        }else {
+            return (int) Float.parseFloat(getValue()) * 100;
+        }
     }
 
     public void updateRandom(){

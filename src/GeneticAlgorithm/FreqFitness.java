@@ -1,5 +1,6 @@
 package GeneticAlgorithm;
 
+import Application.AligningTask;
 import Application.BWAMEMTask;
 import GeneticAlgorithm.Model.Fitness;
 import GeneticAlgorithm.Model.Individual;
@@ -15,9 +16,11 @@ public class FreqFitness extends Fitness{
     private final String reversePath = "/media/uichuimi/DiscoInterno/GENOME_DATA/CONTROLS/DAM/C7BDUACXX_8_3ss_2.fastq.gz";
     private final String reference = "/media/uichuimi/DiscoInterno/references/GRCh38/GRCh38.fa";
     private final String name;
+    private final AligningTask task;
 
-    FreqFitness( String name) {
+    FreqFitness( AligningTask task, String name) {
         this.name = name;
+        this.task = task;
     }
 
     public float eval(Individual individual){
@@ -28,7 +31,7 @@ public class FreqFitness extends Fitness{
             return fitness;
         }
 
-        BWAMEMTask task = new BWAMEMTask(name, forwardPath, reversePath, reference, individual.getParameters());
+        task.setParameters(individual.getParameters());
         AlignmentsStatistics stats = task.run();
         final AtomicLong result = new AtomicLong(stats.getUniquelyMapped());
         Map<Integer, Long> mapQ = stats.getMultiplyMapQDistribution();

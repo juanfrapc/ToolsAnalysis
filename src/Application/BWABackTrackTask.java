@@ -11,7 +11,7 @@ import View.Parser.Sam2StatsParser;
 import java.io.File;
 import java.util.Date;
 
-class BWABackTrackTask{
+public class BWABackTrackTask implements AligningTask{
 
     private final String saireverse;
     private final String saiforward;
@@ -23,9 +23,9 @@ class BWABackTrackTask{
     private final String logFile;
     private final String statsFile;
     private final AlignmentsStatistics statistics;
-    private final Parameter[] parameters;
+    private Parameter[] parameters;
 
-    BWABackTrackTask(String name, String forwardPath, String reversePath, String reference, Parameter[] parameters) {
+    public BWABackTrackTask(String name, String forwardPath, String reversePath, String reference, Parameter[] parameters) {
         this.name = name;
         this.forwardPath = forwardPath;
         this.reversePath = reversePath;
@@ -39,7 +39,7 @@ class BWABackTrackTask{
         this.statistics = new AlignmentsStatistics();
     }
 
-    void run() {
+    public AlignmentsStatistics run() {
         Timer timer = new Timer();
         Aligner bwa = new BWABackTrackAlnAligner(forwardPath, reference, saiforward, logFile, parameters);
         this.name = bwa.getID() + "-" + name;
@@ -54,7 +54,7 @@ class BWABackTrackTask{
             if (error == 0) System.out.println(name + ": alineamiento forward terminado con éxito. " + timer.report());
             else {
                 System.err.println(name + ": Error de alineamiento " + error);
-                return;
+                return null;
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -71,7 +71,7 @@ class BWABackTrackTask{
             if (error == 0) System.out.println(name + ": alineamiento reverse terminado con éxito. " + timer.report());
             else {
                 System.err.println(name + ": Error de alineamiento " + error);
-                return;
+                return null;
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -88,7 +88,7 @@ class BWABackTrackTask{
             if (error == 0) System.out.println(name + ": alineamiento sampe terminado con éxito. " + timer.report());
             else {
                 System.err.println(name + ": Error de alineamiento " + error);
-                return;
+                return null;
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -103,6 +103,11 @@ class BWABackTrackTask{
 
         FileStatsWriter writer = new FileStatsWriter( statsFile);
         writer.write(parameters, statistics);
+        return statistics;
 
+    }
+
+    public void setParameters(Parameter[] parameters) {
+        this.parameters = parameters;
     }
 }

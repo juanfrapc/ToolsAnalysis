@@ -37,8 +37,8 @@ public class Individual implements Comparable<Individual>, Cloneable {
                 new Parameter('U', "17"),
         };
         Random random = new Random();
-        for (int i = 1; i < values.length; i++) {
-            values[i].updateRandom();
+        for (Parameter value : values) {
+            value.updateRandom();
         }
         return new Individual(values, fitness);
     }

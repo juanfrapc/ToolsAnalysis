@@ -9,8 +9,7 @@ import View.Parser.Sam2StatsParser;
 import java.io.File;
 import java.util.Date;
 
-@SuppressWarnings("ALL")
-public class BWASWTask {
+public class BWASWTask implements AligningTask {
 
     private String name;
     private final String forwardPath;
@@ -20,7 +19,7 @@ public class BWASWTask {
     private final String logFile;
     private final String statsFile;
     private final AlignmentsStatistics statistics;
-    private final Parameter[] parameters;
+    private Parameter[] parameters;
 
     public BWASWTask(String name, String forwardPath, String reversePath, String reference, Parameter[] parameters) {
         this.name = name;
@@ -67,4 +66,9 @@ public class BWASWTask {
         return statistics;
 
     }
+
+    public void setParameters(Parameter[] parameters) {
+        this.parameters = parameters;
+    }
+
 }

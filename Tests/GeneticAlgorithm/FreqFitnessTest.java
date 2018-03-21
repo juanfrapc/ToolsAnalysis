@@ -29,8 +29,5 @@ class FreqFitnessTest {
 
     }
 
-    @Test
-    void eval1() {
-    }
 
 }
