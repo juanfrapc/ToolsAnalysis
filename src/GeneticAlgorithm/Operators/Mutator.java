@@ -5,5 +5,5 @@ import GeneticAlgorithm.Model.Individual;
 
 public interface Mutator {
 
-    void mutate(Individual individual, Fitness fitness);
+    void mutate(Individual individual, Fitness fitness, char[] floats, char[] negatives);
 }

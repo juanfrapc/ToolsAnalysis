@@ -16,8 +16,16 @@ class CrossoverTest {
 
     @BeforeEach
     void initFake() {
-        father = Individual.getInitialRamdom(new FitnessLambda(()->0f));
-        mother = Individual.getInitialRamdom(new FitnessLambda(()->0f));
+        father = Individual.getInitialRamdom(new FitnessLambda(()->0f),
+                Algorithm.getInitialValues("MEM"),
+                Algorithm.getFloats("MEM"),
+                Algorithm.getNegatives("MEM")
+                );
+        mother = Individual.getInitialRamdom(new FitnessLambda(()->0f),
+                Algorithm.getInitialValues("MEM"),
+                Algorithm.getFloats("MEM"),
+                Algorithm.getNegatives("MEM")
+        );
     }
 
     @Test

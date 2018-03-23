@@ -1,6 +1,8 @@
 package Model;
 
+import java.util.Arrays;
 import java.util.Random;
+import java.util.stream.IntStream;
 
 public class Parameter implements Cloneable{
 
@@ -62,14 +64,21 @@ public class Parameter implements Cloneable{
         }
     }
 
-    public void updateRandom(){
+    public void updateRandom(char[] floats, char[] negatives){
         Random random = new Random();
         double old = Double.parseDouble(getValue());
         double v = random.nextGaussian();
-        if (getName() != 'r'){
+        if (!contains(floats, getName())){
             v = Math.ceil(v);
         }
-        double ne = old + v > 0 ? old + v : 1;
+        double ne = old + v < 0 && !contains(negatives, getName()) ? 1 : old + v ;
         setValue(ne +"");
+    }
+
+    private boolean contains(char[] array, char value){
+        for (char c: array) {
+            if (c == value) return true;
+        }
+        return false;
     }
 }

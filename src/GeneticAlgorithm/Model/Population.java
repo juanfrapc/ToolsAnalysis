@@ -1,6 +1,7 @@
 package GeneticAlgorithm.Model;
 
 
+import Model.Parameter;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
@@ -18,9 +19,9 @@ public class Population implements Iterable<Individual> {
         list.add(ind);
     }
 
-    public void initilize(int size, Fitness fitness) {
+    public void initilize(int size, Fitness fitness, Parameter[] initialValues, char[] floats, char[] negatives) {
         for (int i = 0; i < size; i++) {
-            this.addIndividual(Individual.getInitialRamdom(fitness));
+            this.addIndividual(Individual.getInitialRamdom(fitness, initialValues, floats, negatives));
         }
     }
 

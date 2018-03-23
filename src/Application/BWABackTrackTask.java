@@ -42,7 +42,7 @@ public class BWABackTrackTask implements AligningTask{
     public AlignmentsStatistics run() {
         Timer timer = new Timer();
         Aligner bwa = new BWABackTrackAlnAligner(forwardPath, reference, saiforward, logFile, parameters);
-        this.name = bwa.getID() + "-" + name;
+        this.name = name.equals("") ? bwa.getID() + "-" + name:name;
         timer.start();
 
         System.out.println("(" + new Date().toString() + ")\n" + name + ": Start running forward aln");

@@ -15,12 +15,12 @@ public class GaussianMutator implements Mutator {
     }
 
     @Override
-    public void mutate(Individual individual, Fitness fitness) {
+    public void mutate(Individual individual, Fitness fitness, char[] floats, char[] negatives) {
         Parameter[] parameters = individual.getParameters();
         Random random = new Random();
         for (int i = 1; i < parameters.length; i++) {
             if (random.nextFloat()<probability) {
-                parameters[i].updateRandom();
+                parameters[i].updateRandom(floats, negatives);
                 individual.updateFitness(fitness);
             }
         }

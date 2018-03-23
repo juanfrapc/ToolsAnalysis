@@ -22,25 +22,11 @@ public class Individual implements Comparable<Individual>, Cloneable {
     }
 
     @NotNull
-    public static Individual getInitialRamdom(Fitness fitness) {
-        Parameter[] values = new Parameter[]{
-                new Parameter('k', "19"),
-                new Parameter('w', "100"),
-                new Parameter('d', "100"),
-                new Parameter('r', "1.5"),
-                new Parameter('c', "500"),
-                new Parameter('A', "1"),
-                new Parameter('B', "4"),
-                new Parameter('O', "6"),
-                new Parameter('E', "1"),
-                new Parameter('L', "5"),
-                new Parameter('U', "17"),
-        };
-        Random random = new Random();
-        for (Parameter value : values) {
-            value.updateRandom();
+    public static Individual getInitialRamdom(Fitness fitness, Parameter[] initialValues, char[] floats, char[] negatives) {
+        for (Parameter value : initialValues) {
+            value.updateRandom(floats, negatives);
         }
-        return new Individual(values, fitness);
+        return new Individual(initialValues, fitness);
     }
 
     public Parameter[] getParameters() {

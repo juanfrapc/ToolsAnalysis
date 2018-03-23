@@ -14,7 +14,11 @@ class GaussianMutatorTest {
 
     @BeforeEach
     void initFake() {
-        ind = Individual.getInitialRamdom(new FitnessLambda(()->0f));
+        ind = Individual.getInitialRamdom(new FitnessLambda(()->0f),
+                Algorithm.getInitialValues("MEM"),
+                Algorithm.getFloats("MEM"),
+                Algorithm.getNegatives("MEM")
+        );
     }
 
     @Test
@@ -26,7 +30,7 @@ class GaussianMutatorTest {
         int n = 100000;
         for (int i = 0; i < n; i++) {
             Individual aux = ind.clone();
-            mutator.mutate(aux, new FitnessLambda(()->0f));
+            mutator.mutate(aux, new FitnessLambda(()->0f),Algorithm.getFloats("MEM"), Algorithm.getNegatives("MEM"));
             Parameter[] auxParam = aux.getParameters();
             for (int j = 1; j < parameter.length; j++) {
                 if (!parameter[j].equals(auxParam[j])) count++;

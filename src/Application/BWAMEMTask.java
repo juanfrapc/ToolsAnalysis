@@ -36,7 +36,7 @@ public class BWAMEMTask implements AligningTask {
     public AlignmentsStatistics run() {
         Timer timer = new Timer();
         BWAMEMAligner bwa = new BWAMEMAligner(forwardPath, reversePath, reference, outFile, logFile, parameters);
-        this.name = bwa.getID() + "-" + name;
+        this.name = name.equals("") ? bwa.getID() + "-" + name:name;
         timer.start();
 
         System.out.println("(" + new Date().toString() + ")\n" + name + ": Start running");
