@@ -14,7 +14,7 @@ public class FileStatsWriter implements StatWriter {
 
     private final String path;
 
-    FileStatsWriter(String path) {
+    public FileStatsWriter(String path) {
         this.path = path;
     }
 

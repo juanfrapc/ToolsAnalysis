@@ -1,7 +1,6 @@
 package GeneticAlgorithm;
 
-import Application.AligningTask;
-import Application.BWAMEMTask;
+import Application.AlignningStatsTasks.AligningTask;
 import GeneticAlgorithm.Model.Fitness;
 import GeneticAlgorithm.Model.Individual;
 import Model.AlignmentsStatistics;

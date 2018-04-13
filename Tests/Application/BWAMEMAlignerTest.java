@@ -40,7 +40,7 @@ public class BWAMEMAlignerTest {
     public void runTest() {
         // Check if starts running
         try {
-            Process process = aligner.run();
+            Process process = aligner.runSimple();
             boolean status = process.waitFor(4, TimeUnit.SECONDS);
             process.destroyForcibly();
             assertFalse("Proceso lanzado con errores", status);
@@ -66,7 +66,7 @@ public class BWAMEMAlignerTest {
         };
         aligner = new BWAMEMAligner(forward, reverse, genome, output, log, parameters);
         try {
-            Process process = aligner.run();
+            Process process = aligner.runSimple();
             boolean status = process.waitFor(20, TimeUnit.SECONDS);
             process.destroyForcibly();
             assertFalse("Proceso lanzado con errores", status);

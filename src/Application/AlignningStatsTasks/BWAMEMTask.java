@@ -1,6 +1,7 @@
-package Application;
+package Application.AlignningStatsTasks;
 
-import Application.Aligners.BWASWAligner;
+import Application.Aligners.BWAMEMAligner;
+import Application.FileStatsWriter;
 import Model.AlignmentsStatistics;
 import Model.Parameter;
 import Model.Timer;
@@ -9,7 +10,7 @@ import View.Parser.Sam2StatsParser;
 import java.io.File;
 import java.util.Date;
 
-public class BWASWTask implements AligningTask {
+public class BWAMEMTask implements AligningTask {
 
     private String name;
     private final String forwardPath;
@@ -21,7 +22,7 @@ public class BWASWTask implements AligningTask {
     private final AlignmentsStatistics statistics;
     private Parameter[] parameters;
 
-    public BWASWTask(String name, String forwardPath, String reversePath, String reference, Parameter[] parameters) {
+    public BWAMEMTask(String name, String forwardPath, String reversePath, String reference, Parameter[] parameters) {
         this.name = name;
         this.forwardPath = forwardPath;
         this.reversePath = reversePath;
@@ -35,14 +36,14 @@ public class BWASWTask implements AligningTask {
 
     public AlignmentsStatistics run() {
         Timer timer = new Timer();
-        BWASWAligner bwa = new BWASWAligner(forwardPath, reversePath, reference, outFile, logFile, parameters);
+        BWAMEMAligner bwa = new BWAMEMAligner(forwardPath, reversePath, reference, outFile, logFile, parameters);
         this.name = name.equals("") ? bwa.getID() + "-" + name:name;
         timer.start();
 
         System.out.println("(" + new Date().toString() + ")\n" + name + ": Start running");
         Process run;
         try {
-            run = bwa.run();
+            run = bwa.runSimple();
             int error = run.waitFor();
             timer.stop();
             if (error == 0) System.out.println(name + ": alineamiento terminado con éxito. " + timer.report());
@@ -70,5 +71,4 @@ public class BWASWTask implements AligningTask {
     public void setParameters(Parameter[] parameters) {
         this.parameters = parameters;
     }
-
 }

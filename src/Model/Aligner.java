@@ -5,8 +5,17 @@ import java.io.IOException;
 
 public interface Aligner {
 
-    default Process run(){
-        ProcessBuilder pb = buildCmd();
+    Parameter[] getParameters();
+    ProcessBuilder buildAlignerCmd();
+    File getOutput();
+    File getLog();
+
+    default String getID(){
+        return "aligner";
+    }
+
+    default Process runSimple(){
+        ProcessBuilder pb = buildAlignerCmd();
         pb = pb.redirectOutput(ProcessBuilder.Redirect.to(getOutput()));
         pb = pb.redirectError(ProcessBuilder.Redirect.to(getLog()));
         try {
@@ -17,13 +26,14 @@ public interface Aligner {
         return null;
     }
 
-    default String getID(){
-        return "aligner";
+    default Process runFull(){
+        try {
+            ProcessBuilder pb = buildAlignerCmd();
+            pb.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
-
-    Parameter[] getParameters();
-    ProcessBuilder buildCmd();
-    File getOutput();
-    File getLog();
 
 }

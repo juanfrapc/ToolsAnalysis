@@ -1,4 +1,4 @@
-package Application;
+package Application.AlignningStatsTasks;
 
 import Model.AlignmentsStatistics;
 import Model.Parameter;

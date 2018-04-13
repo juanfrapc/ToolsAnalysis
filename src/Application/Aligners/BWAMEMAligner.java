@@ -30,7 +30,7 @@ public class BWAMEMAligner implements Aligner {
     }
 
     @Override
-    public ProcessBuilder buildCmd() {
+    public ProcessBuilder buildAlignerCmd() {
         ArrayList<String> command = new ArrayList<>();
         command.add("bwa");
         command.add("mem");
@@ -38,6 +38,7 @@ public class BWAMEMAligner implements Aligner {
             if (parameter.getName() != 0) command.add("-" + parameter.getName());
             if (!parameter.getValue().equals("")) command.add(parameter.getValue());
         }
+        command.add("-M");
         command.add("-t");
         command.add("" + cores);
         command.add(genome.getAbsolutePath());

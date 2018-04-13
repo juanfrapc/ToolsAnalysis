@@ -1,7 +1,8 @@
-package Application;
+package Application.AlignningStatsTasks;
 
 import Application.Aligners.BWABackTrackAlnAligner;
 import Application.Aligners.BWABackTrackSampe;
+import Application.FileStatsWriter;
 import Model.Aligner;
 import Model.AlignmentsStatistics;
 import Model.Parameter;
@@ -48,7 +49,7 @@ public class BWABackTrackTask implements AligningTask{
         System.out.println("(" + new Date().toString() + ")\n" + name + ": Start running forward aln");
         Process run;
         try {
-            run = bwa.run();
+            run = bwa.runSimple();
             int error = run.waitFor();
             timer.stop();
             if (error == 0) System.out.println(name + ": alineamiento forward terminado con éxito. " + timer.report());
@@ -65,7 +66,7 @@ public class BWABackTrackTask implements AligningTask{
 
         System.out.println("(" + new Date().toString() + ")\n" + name + ": Start running reverse aln");
         try {
-            run = bwa.run();
+            run = bwa.runSimple();
             int error = run.waitFor();
             timer.stop();
             if (error == 0) System.out.println(name + ": alineamiento reverse terminado con éxito. " + timer.report());
@@ -82,7 +83,7 @@ public class BWABackTrackTask implements AligningTask{
 
         System.out.println("(" + new Date().toString() + ")\n" + name + ": Start running sampe");
         try {
-            run = bwa.run();
+            run = bwa.runSimple();
             int error = run.waitFor();
             timer.stop();
             if (error == 0) System.out.println(name + ": alineamiento sampe terminado con éxito. " + timer.report());

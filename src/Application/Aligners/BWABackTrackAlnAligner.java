@@ -33,7 +33,7 @@ public class BWABackTrackAlnAligner implements Aligner{
     }
 
     @Override
-    public ProcessBuilder buildCmd() {
+    public ProcessBuilder buildAlignerCmd() {
         ArrayList<String> command = new ArrayList<>();
         command.add("bwa");
         command.add("aln");

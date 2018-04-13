@@ -1,9 +1,9 @@
 package GeneticAlgorithm;
 
-import Application.AligningTask;
-import Application.BWABackTrackTask;
-import Application.BWAMEMTask;
-import Application.BWASWTask;
+import Application.AlignningStatsTasks.AligningTask;
+import Application.AlignningStatsTasks.BWABackTrackTask;
+import Application.AlignningStatsTasks.BWAMEMTask;
+import Application.AlignningStatsTasks.BWASWTask;
 import GeneticAlgorithm.Model.Fitness;
 import GeneticAlgorithm.Model.Individual;
 import GeneticAlgorithm.Model.Population;

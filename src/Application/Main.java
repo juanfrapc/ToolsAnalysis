@@ -1,5 +1,8 @@
 package Application;
 
+import Application.AlignningStatsTasks.BWABackTrackTask;
+import Application.AlignningStatsTasks.BWAMEMTask;
+import Application.AlignningStatsTasks.BWASWTask;
 import Model.Parameter;
 
 class Main {
