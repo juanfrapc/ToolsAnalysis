@@ -71,4 +71,17 @@ public class Alignment implements Iterable<String>{
     public String toString() {
         return "Alignment: Alignment" + Arrays.toString(params);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Alignment)) return false;
+
+        Alignment strings = (Alignment) o;
+
+        if (nParam != strings.nParam) return false;
+        // Probably incorrect - comparing Object[] arrays with Arrays.equals
+        return Arrays.equals(params, strings.params);
+    }
+
 }

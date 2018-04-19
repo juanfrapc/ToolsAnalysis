@@ -1,4 +1,4 @@
-package View.Parser;
+package Control;
 
 import Model.Alignment;
 import Model.AlignmentsStatistics;

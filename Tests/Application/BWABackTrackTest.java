@@ -15,11 +15,11 @@ import static org.junit.Assert.assertFalse;
 @SuppressWarnings("ALL")
 public class BWABackTrackTest {
 
-    private String genome = "/media/uichuimi/DiscoInterno/references/GRCh38/GRCh38.fa";
-    private String forward = "/media/uichuimi/Elements/GENOME_DATA/CONTROLS/DAM/FASTQ/DAM_forward.fastq.gz";
-    private String reverse = "/media/uichuimi/Elements/GENOME_DATA/CONTROLS/DAM/FASTQ/DAM_reverse.fastq.gz";
-    private String output = "/media/uichuimi/DiscoInterno/Juanfra/.test.sam";
-    private String log = "/media/uichuimi/DiscoInterno/Juanfra/.logTest.log";
+    private String genome = "/home/juanfrapc/GENOME_DATA/REFERENCE/genome.fasta";
+    private String forward = "/home/juanfrapc/GENOME_DATA/DAM/FASTQ/DAM_forward.fastq.gz";
+    private String reverse = "/home/juanfrapc/GENOME_DATA/DAM/FASTQ/DAM_reverse.fastq.gz";
+    private String output = "/home/juanfrapc/GENOME_DATA/DAM/.test.sam";
+    private String log = "/home/juanfrapc/GENOME_DATA/DAM/.logTest.log";
     private static Parameter[] parameters;
     private Aligner forwardAligner;
     private Aligner reverseAligner;

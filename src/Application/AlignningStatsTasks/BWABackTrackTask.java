@@ -7,7 +7,7 @@ import Model.Aligner;
 import Model.AlignmentsStatistics;
 import Model.Parameter;
 import Model.Timer;
-import View.Parser.Sam2StatsParser;
+import Control.Sam2StatsParser;
 
 import java.io.File;
 import java.util.Date;

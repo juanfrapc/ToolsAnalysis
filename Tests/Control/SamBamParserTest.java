@@ -1,4 +1,4 @@
-package View.Parser;
+package Control;
 
 import Model.Alignment;
 import org.junit.Before;
@@ -8,7 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.stream.Stream;
 
-class SamBamParserTest {
+public class SamBamParserTest {
 
     private final File samFile = new File("Tests/ejemplo.sam");
     private final File bamFile = new File("Tests/ejemplo.bam");

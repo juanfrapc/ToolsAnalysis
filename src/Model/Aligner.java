@@ -26,14 +26,4 @@ public interface Aligner {
         return null;
     }
 
-    default Process runFull(){
-        try {
-            ProcessBuilder pb = buildAlignerCmd();
-            pb.start();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
 }

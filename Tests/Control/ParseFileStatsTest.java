@@ -1,5 +1,6 @@
-package View.Parser;
+package Control;
 
+import Control.Sam2StatsParser;
 import Model.AlignmentsStatistics;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
