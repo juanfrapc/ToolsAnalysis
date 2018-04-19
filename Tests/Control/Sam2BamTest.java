@@ -12,31 +12,46 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class Sam2BamTest {
+
     private final String sam = "Tests/ejemplo2.sam";
     private final String bam = "Tests/ejemplo2.bam";
 
     @BeforeEach
     void setUp() {
-        new File(bam).delete();
+        File file = new File(bam);
+        if (file.delete()) System.out.println("borrado");
+
     }
 
     @Test
-    void convert() throws IOException {
+    void convert() {
         try {
-            Process process = Sam2Bam.convert(sam, bam);
+            Process process = Samtools.convert(sam, bam);
             process.waitFor();
+            checkResult();
         } catch (Exception e) {
-            assert(false);
+            assert (false);
         }
-
-        Stream<Alignment> samStream = new Parser().parseSam(new File(sam)).filter(alignment -> alignment!= null);
-        Stream<Alignment> bamStream = new Parser().parseBam(new File(bam));
-        Iterator<Alignment> iter1 = samStream.iterator(), iter2 = bamStream.iterator();
-        while(iter1.hasNext() && iter2.hasNext())
-            assertEquals(iter1.next(), iter2.next());
-        assert !iter1.hasNext() && !iter2.hasNext();
-
     }
 
+    private void checkResult() throws IOException {
+        Stream<Alignment> samStream = new Parser().parseSam(new File(sam)).filter(alignment -> alignment != null);
+        Stream<Alignment> bamStream = new Parser().parseBam(new File(bam));
+        Iterator<Alignment> iter1 = samStream.iterator(), iter2 = bamStream.iterator();
+        while (iter1.hasNext() && iter2.hasNext())
+            assertEquals(iter1.next(), iter2.next());
+        assert !iter1.hasNext() && !iter2.hasNext();
+    }
+
+    @Test
+    void convertParallel() {
+        try {
+            Process process = Samtools.convertParallel(sam, bam);
+            process.waitFor();
+            checkResult();
+        } catch (Exception e) {
+            assert (false);
+        }
+    }
 
 }

@@ -10,10 +10,8 @@ import static java.nio.charset.StandardCharsets.US_ASCII;
 
 class Parser {
 
-    static String samtools = "/home/juanfrapc/Público/samtools/bin/samtools";
-
     Stream<Alignment> parseBam(File file) throws IOException {
-        final ProcessBuilder pb = new ProcessBuilder(samtools, "view", file.getAbsolutePath());
+        final ProcessBuilder pb = new ProcessBuilder("samtools", "view", file.getAbsolutePath());
         final Process process = pb.start();
         final BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
         return reader.lines().map(AlignmentFactory::createAlignment);
