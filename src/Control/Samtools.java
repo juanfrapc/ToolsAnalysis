@@ -5,17 +5,36 @@ import java.io.IOException;
 public class Samtools {
 
     static String samtools = "/home/juanfrapc/Público/samtools/bin/samtools";
+    static int cores = Runtime.getRuntime().availableProcessors();
 
-    public static Process convert(String sam, String bam) throws IOException, InterruptedException {
+    public static Process sam2Bam(String sam, String bam) throws IOException, InterruptedException {
         ProcessBuilder pb = new ProcessBuilder("samtools", "view", "-S", "-h", "-b", sam, "-o", bam);
         return pb.start();
     }
 
-    public static Process convertParallel(String sam, String bam) throws IOException, InterruptedException {
-        int cores = Runtime.getRuntime().availableProcessors();
+    public static Process sam2BamParallel(String sam, String bam) throws IOException, InterruptedException {
         ProcessBuilder pb = new ProcessBuilder(samtools, "view", "-S", "-h", "-b", "-@", ""+cores,
                 sam,
                 "-o", bam);
         return pb.start();
     }
+
+    public static Process sortBam(String unsorted, String sortedPrefix) throws IOException {
+        ProcessBuilder pb = new ProcessBuilder("samtools", "sort", "-m", "4G",
+                unsorted,
+                sortedPrefix);
+        pb = pb.redirectError(ProcessBuilder.Redirect.INHERIT);
+        return pb.start();
+    }
+
+    public static Process sortBamParallel(String unsorted, String sorted) throws IOException {
+        ProcessBuilder pb = new ProcessBuilder(samtools, "sort",
+                "-o", sorted, "-O", "bam",
+                "-T", "temp",
+                "-@", ""+ cores,
+                unsorted);
+        pb = pb.redirectError(ProcessBuilder.Redirect.INHERIT);
+        return pb.start();
+    }
+
 }
