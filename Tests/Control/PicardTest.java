@@ -37,6 +37,8 @@ class PicardTest {
         Process marking = Picard.markDuplicates(sorted, marked, metrics);
         int status = marking.waitFor();
         assert status==0;
+        assert new File(marked).exists();
+        assert new File(metrics).exists();
     }
 
 }

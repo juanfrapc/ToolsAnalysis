@@ -4,7 +4,6 @@ import java.io.IOException;
 
 public class Samtools {
 
-    static String samtools = "/home/juanfrapc/Público/samtools/bin/samtools";
     static int cores = Runtime.getRuntime().availableProcessors();
 
     public static Process sam2Bam(String sam, String bam) throws IOException, InterruptedException {
@@ -13,7 +12,7 @@ public class Samtools {
     }
 
     public static Process sam2BamParallel(String sam, String bam) throws IOException, InterruptedException {
-        ProcessBuilder pb = new ProcessBuilder(samtools, "view", "-S", "-h", "-b", "-@", ""+cores,
+        ProcessBuilder pb = new ProcessBuilder("samtools1.8", "view", "-S", "-h", "-b", "-@", ""+cores,
                 sam,
                 "-o", bam);
         return pb.start();
@@ -28,7 +27,7 @@ public class Samtools {
     }
 
     public static Process sortBamParallel(String unsorted, String sorted) throws IOException {
-        ProcessBuilder pb = new ProcessBuilder(samtools, "sort",
+        ProcessBuilder pb = new ProcessBuilder("samtools1.8", "sort",
                 "-o", sorted, "-O", "bam",
                 "-T", "temp",
                 "-@", ""+ cores,
@@ -38,7 +37,7 @@ public class Samtools {
     }
 
     public static Process index(String file) throws IOException {
-        ProcessBuilder pb = new ProcessBuilder(samtools, "index", file);
+        ProcessBuilder pb = new ProcessBuilder("samtools1.8", "index", file);
         pb = pb.redirectError(ProcessBuilder.Redirect.INHERIT);
         return pb.start();
     }
