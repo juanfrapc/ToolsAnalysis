@@ -32,11 +32,11 @@ public class BWABackTrackTask implements AligningTask{
         this.reversePath = reversePath;
         this.reference = reference;
         this.parameters = parameters;
-        this.outFile = "/media/uichuimi/DiscoInterno/Juanfra/sams/" + name + ".sam";
-        this.saiforward = "/media/uichuimi/DiscoInterno/Juanfra/sams/" + name + "forward.sai";
-        this.saireverse = "/media/uichuimi/DiscoInterno/Juanfra/sams/" + name + "reverse.sam";
-        this.logFile = "/media/uichuimi/DiscoInterno/Juanfra/logs/" + name + ".log";
-        this.statsFile = "/media/uichuimi/DiscoInterno/Juanfra/stats/" + name + ".stat";
+        this.outFile = "/home/juanfrapc/GENOME_DATA/DAM/BAM/" + name + ".sam";
+        this.saiforward = "/home/juanfrapc/GENOME_DATA/DAM/BAM/" + name + "forward.sai";
+        this.saireverse = "/home/juanfrapc/GENOME_DATA/DAM/BAM/" + name + "reverse.sai";
+        this.logFile = "/home/juanfrapc/GENOME_DATA/DAM/log/" + name + ".log";
+        this.statsFile = "/home/juanfrapc/GENOME_DATA/DAM/stats/" + name + ".stat";
         this.statistics = new AlignmentsStatistics();
     }
 

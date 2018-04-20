@@ -14,9 +14,9 @@ import java.util.Arrays;
 
 class Algorithm {
 
-    private static final String forwardPath = "/media/uichuimi/DiscoInterno/GENOME_DATA/CONTROLS/DAM/C7BDUACXX_8_3ss_1.fastq.gz";
-    private static final String reversePath = "/media/uichuimi/DiscoInterno/GENOME_DATA/CONTROLS/DAM/C7BDUACXX_8_3ss_2.fastq.gz";
-    private static final String reference = "/media/uichuimi/DiscoInterno/references/GRCh38/GRCh38.fa";
+    private static final String forwardPath = "/home/juanfrapc/GENOME_DATA/DAM/FASTQ/DAM_forward.fastq.gz";
+    private static final String reversePath = "/home/juanfrapc/GENOME_DATA/DAM/FASTQ/DAM_reverse.fastq.gz";
+    private static final String reference = "/home/juanfrapc/GENOME_DATA/REFERENCE/genome.fasta";
 
     private enum TaskTypes {
         MEM, SW, ALN
