@@ -16,13 +16,16 @@ class SamtoolsTest {
     private final String sam = "Tests/ejemplo2.sam";
     private final String bam = "Tests/ejemplo2.bam";
     private final String sorted = "Tests/ejemplo2Sorted.bam";
+    private final String index= "Tests/ejemplo2Sorted.bam.bai";
 
     @BeforeEach
     void setUp() {
         File bam = new File(this.bam);
         File sorted = new File(this.sorted);
+        File index = new File(this.index);
         if (bam.delete()) System.out.println("borrado");
         if (sorted.delete()) System.out.println("borrado");
+        if (index.delete()) System.out.println("borrado");
     }
 
     private void checkResult() throws IOException {
@@ -95,5 +98,17 @@ class SamtoolsTest {
         sorting.waitFor();
         checkSorted(sorted);
         checkUnSorted(bam);
+    }
+
+    @Test
+    void index() throws IOException, InterruptedException {
+        Process process = Samtools.sam2BamParallel(sam, bam);
+        process.waitFor();
+        Process sorting = Samtools.sortBamParallel(bam, sorted);
+        sorting.waitFor();
+        Process indexing = Samtools.index(sorted);
+        int status = indexing.waitFor();
+        assert status ==0;
+        assert new File(index).exists();
     }
 }

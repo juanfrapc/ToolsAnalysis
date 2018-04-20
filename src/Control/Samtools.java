@@ -37,4 +37,10 @@ public class Samtools {
         return pb.start();
     }
 
+    public static Process index(String file) throws IOException {
+        ProcessBuilder pb = new ProcessBuilder(samtools, "index", file);
+        pb = pb.redirectError(ProcessBuilder.Redirect.INHERIT);
+        return pb.start();
+    }
+
 }
