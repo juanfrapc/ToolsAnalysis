@@ -12,7 +12,6 @@ import java.util.concurrent.atomic.AtomicLong;
 class FreqFitnessTest {
 
 
-    @Ignore("too long in time")
     @Test
     void eval() {
         String name = "default";

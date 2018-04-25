@@ -18,7 +18,7 @@ class SelectionTest {
     @BeforeEach
     void initFake() {
         population = new Population();
-        Parameter fakeParm[] = {new Parameter("nulo")};
+        Parameter[] fakeParm= Algorithm.getInitialValues("MEM");
         for (int i = 1; i < 11; i++) {
             Individual fakeInd = new Individual(fakeParm, new FitnessLambda(()->0f));
             fakeInd.setFitness(i);
@@ -28,7 +28,7 @@ class SelectionTest {
 
     @Test
     void roulette() throws CloneNotSupportedException {
-        int n = 20000;
+        int n = 2000;
         Population selected = Selection.roulette(population, n);
         HashMap<Float, Integer> freq = new HashMap<>();
         for (Individual ind : selected) {

@@ -1,5 +1,6 @@
 package GeneticAlgorithm.Model;
 
+import GeneticAlgorithm.Algorithm;
 import Model.Parameter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,8 +20,8 @@ class IndividualTest {
     @BeforeEach
     void setUp() {
         Random random = new Random();
-        Parameter[] example1 = new Parameter[]{new Parameter('r', String.valueOf(random.nextFloat())), new Parameter('b', "1")};
-        Parameter[] example2 = new Parameter[]{new Parameter('a', "2"), new Parameter('b', "2")};
+        Parameter[] example1 = Algorithm.getInitialValues("MEM");
+        Parameter[] example2 = Algorithm.getInitialValues("SW");
         individual1 = new Individual(example1, 0);
         individual2 = new Individual(example2, 1);
         individual3 = new Individual(example1, 0);

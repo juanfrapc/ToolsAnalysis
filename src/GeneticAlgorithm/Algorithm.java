@@ -12,7 +12,7 @@ import Model.Parameter;
 
 import java.util.Arrays;
 
-class Algorithm {
+public class Algorithm {
 
     private static final String forwardPath = "/home/juanfrapc/GENOME_DATA/DAM/FASTQ/DAM_forward.fastq.gz";
     private static final String reversePath = "/home/juanfrapc/GENOME_DATA/DAM/FASTQ/DAM_reverse.fastq.gz";
@@ -43,7 +43,7 @@ class Algorithm {
         boolean flag = true;
         int iteration = 0;
         while (flag || iteration < 15) {
-            System.out.println("Iteration " + ++iteration + "... ... ...");
+            System.out.println("Iteration " + ++iteration + " ... ... ...");
             Population selected = Selection.roulette(population, selectionSize);
             Population offspring = new Population();
             for (int i = 0; i < selectionSize / 2; i++) {
@@ -109,7 +109,7 @@ class Algorithm {
                         new Parameter('c', "5.5"),
                         new Parameter('z', "1"),
                         new Parameter('s', "3"),
-                        new Parameter('s', "N"),
+                        new Parameter('N', "5"),
                 };
             case ALN:
                 return new Parameter[]{

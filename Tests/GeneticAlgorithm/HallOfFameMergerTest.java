@@ -26,12 +26,12 @@ class HallOfFameMergerTest {
         pop2 = new Population();
     }
 
-    private void fillPop(int n, int factor) {
+    private void fillPop(int n, float factor) {
         for (int i = 0; i < n; i++) {
             int finalI = i;
-            Individual ind = new Individual(new Parameter[0], new FitnessLambda(()->(float)finalI));
+            Individual ind = new Individual(Algorithm.getInitialValues("MEM"), new FitnessLambda(()->(float)finalI));
             pop1.addIndividual(ind);
-            Individual ind1 = new Individual(new Parameter[0], new FitnessLambda(()->(float) (finalI+1) * factor));
+            Individual ind1 = new Individual(Algorithm.getInitialValues("MEM"), new FitnessLambda(()->(float) (finalI+1) * factor));
             pop2.addIndividual(ind1);
         }
     }
@@ -52,7 +52,7 @@ class HallOfFameMergerTest {
 
     @Test
     void mergeResultOrdered() {
-        fillPop(10, 2);
+        fillPop(10, (float) 1.5);
         Population result = merger.merge(pop1, pop2, 10);
         assertEquals(10, result.size());
         printPop(result);
@@ -69,8 +69,8 @@ class HallOfFameMergerTest {
         ListIterator<Individual> pop2Iterator = pop2.reverseIterator();
         while (resIterator.hasNext() && pop2Iterator.hasPrevious()) {
             Individual resNext = resIterator.next();
-            Individual pop1Next = pop2Iterator.previous();
-            assertEquals(pop1Next.getFitness(), resNext.getFitness());
+            Individual pop2Next = pop2Iterator.previous();
+            assertEquals(pop2Next, resNext);
         }
     }
 
@@ -85,7 +85,7 @@ class HallOfFameMergerTest {
         while (resIterator.hasNext() && pop1Iterator.hasPrevious()) {
             Individual resNext = resIterator.next();
             Individual pop1Next = pop1Iterator.previous();
-            assertEquals(pop1Next.getFitness(), resNext.getFitness());
+            assertEquals(pop1Next, resNext);
         }
     }
 

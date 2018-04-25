@@ -1,10 +1,8 @@
 package Model;
 
-import java.util.Arrays;
 import java.util.Random;
-import java.util.stream.IntStream;
 
-public class Parameter implements Cloneable{
+public class Parameter implements Cloneable {
 
     private final char name;
     private String value;
@@ -14,7 +12,7 @@ public class Parameter implements Cloneable{
         this.value = value;
     }
 
-    public Parameter(String value){
+    public Parameter(String value) {
         this((char) 0, value);
     }
 
@@ -27,7 +25,7 @@ public class Parameter implements Cloneable{
     }
 
     private void setValue(String value) {
-        this.value = this.name=='r'? value: ((int) Double.parseDouble(value)) + "";
+        this.value = this.name == 'r' ? value : ((int) Double.parseDouble(value)) + "";
     }
 
     @Override
@@ -57,26 +55,26 @@ public class Parameter implements Cloneable{
     public int hashCode() {
         //int result = (int) getName();
         //result = 31 * result + (getValue() != null ? getValue().hashCode() : 0);
-        if (getName() != 'r'){
+        try {
             return Integer.parseInt(getValue());
-        }else {
-            return (int) Float.parseFloat(getValue()) * 100;
+        }catch (NumberFormatException e){
+            return (int)Float.parseFloat(getValue())*100;
         }
     }
 
-    public void updateRandom(char[] floats, char[] negatives){
+    public void updateRandom(char[] floats, char[] negatives) {
         Random random = new Random();
         double old = Double.parseDouble(getValue());
         double v = random.nextGaussian();
-        if (!contains(floats, getName())){
+        if (!contains(floats, getName())) {
             v = Math.ceil(v);
         }
-        double ne = old + v < 0 && !contains(negatives, getName()) ? 1 : old + v ;
-        setValue(ne +"");
+        double ne = old + v < 0 && !contains(negatives, getName()) ? 1 : old + v;
+        setValue(ne + "");
     }
 
-    private boolean contains(char[] array, char value){
-        for (char c: array) {
+    private boolean contains(char[] array, char value) {
+        for (char c : array) {
             if (c == value) return true;
         }
         return false;

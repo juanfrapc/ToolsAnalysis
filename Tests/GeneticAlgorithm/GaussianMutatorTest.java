@@ -36,7 +36,8 @@ class GaussianMutatorTest {
                 if (!parameter[j].equals(auxParam[j])) count++;
             }
         }
-        assert(Math.abs(0.05-count/count/((float)11* n))<2);
+        System.out.println(count/((float)parameter.length* n));
+        assert(Math.abs(0.05-count/((float)parameter.length* n))<0.02);
     }
 
 }

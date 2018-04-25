@@ -12,13 +12,13 @@ class Main {
         String forwardPath = "/home/juanfrapc/GENOME_DATA/DAM/FASTQ/DAM_forward.fastq.gz";
         String reversePath = "/home/juanfrapc/GENOME_DATA/DAM/FASTQ/DAM_reverse.fastq.gz";
         String reference = "/home/juanfrapc/GENOME_DATA/REFERENCE/genome.fasta";
-//        runBWAMEMCases(forwardPath, reversePath, reference);
-//        System.out.println("-------------------------------------------------------------------");
-//        runBWABacktrackCases(forwardPath, reversePath, reference);
-//        System.out.println("-------------------------------------------------------------------");
-//        runBWASWCases(forwardPath, reversePath, reference);
-//        System.out.println("-------------------------------------------------------------------");
-//        System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+        runBWAMEMCases(forwardPath, reversePath, reference);
+        System.out.println("-------------------------------------------------------------------");
+        runBWABacktrackCases(forwardPath, reversePath, reference);
+        System.out.println("-------------------------------------------------------------------");
+        runBWASWCases(forwardPath, reversePath, reference);
+        System.out.println("-------------------------------------------------------------------");
+        System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
 
     }
 

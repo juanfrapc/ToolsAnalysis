@@ -1,5 +1,6 @@
 package GeneticAlgorithm.Model;
 
+import GeneticAlgorithm.Algorithm;
 import Model.Parameter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,10 +18,8 @@ class FitnessTest {
     @BeforeEach
     void init() throws CloneNotSupportedException {
         Fitness.clearMap();
-        Parameter[] param = {new Parameter('s', "0"),
-                new Parameter('f',"1")};
-        Parameter[] param2 = {new Parameter('t', "5"),
-                new Parameter('y',"6")};
+        Parameter[] param = Algorithm.getInitialValues("MEM");
+        Parameter[] param2 = Algorithm.getInitialValues("ALN");
         individual = new Individual(param, 15f);
         individual2 = new Individual(param2, 20f);
         individualNull = new Individual(new Parameter[0], 0f);
