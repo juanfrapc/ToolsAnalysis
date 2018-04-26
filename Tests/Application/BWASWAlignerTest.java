@@ -41,7 +41,7 @@ class BWASWAlignerTest {
     public void runTest() {
         // Check if starts running
         try {
-            Process process = aligner.runSimple();
+            Process process = aligner.run();
             boolean status = process.waitFor(4, TimeUnit.SECONDS);
             process.destroyForcibly();
             assertFalse("Proceso BWASW lanzado con errores", status);

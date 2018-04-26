@@ -16,7 +16,7 @@ public class BWAMEMAligner implements Aligner {
     private Parameter[] parameters;
     private final int cores = Runtime.getRuntime().availableProcessors();
 
-    private BWAMEMAligner(File forward, File reverse, File genome, File output, File log) {
+    public BWAMEMAligner(File forward, File reverse, File genome, File output, File log) {
         this.forward = forward;
         this.reverse = reverse;
         this.genome = genome;

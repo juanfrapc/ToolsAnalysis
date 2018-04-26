@@ -8,7 +8,10 @@ import Model.Parameter;
 class Main {
 
     public static void main(String[] args) {
+//        inverseEng();
+    }
 
+    private static void inverseEng() {
         String forwardPath = "/home/juanfrapc/GENOME_DATA/DAM/FASTQ/DAM_forward.fastq.gz";
         String reversePath = "/home/juanfrapc/GENOME_DATA/DAM/FASTQ/DAM_reverse.fastq.gz";
         String reference = "/home/juanfrapc/GENOME_DATA/REFERENCE/genome.fasta";
@@ -19,7 +22,6 @@ class Main {
         runBWASWCases(forwardPath, reversePath, reference);
         System.out.println("-------------------------------------------------------------------");
         System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-
     }
 
     private static void runBWASWCases(String forwardPath, String reversePath, String reference) {

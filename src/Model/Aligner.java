@@ -14,7 +14,7 @@ public interface Aligner {
         return "aligner";
     }
 
-    default Process runSimple(){
+    default Process run(){
         ProcessBuilder pb = buildAlignerCmd();
         pb = pb.redirectOutput(ProcessBuilder.Redirect.to(getOutput()));
         pb = pb.redirectError(ProcessBuilder.Redirect.to(getLog()));

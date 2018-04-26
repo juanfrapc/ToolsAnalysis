@@ -45,11 +45,11 @@ public class BWABackTrackTest {
     public void runTestALN() {
         // Check if starts running
         try {
-            Process process = forwardAligner.runSimple();
+            Process process = forwardAligner.run();
             boolean status = process.waitFor(4, TimeUnit.SECONDS);
             process.destroyForcibly();
             assertFalse("Proceso forward lanzado con errores", status);
-            process = reverseAligner.runSimple();
+            process = reverseAligner.run();
             status = process.waitFor(4, TimeUnit.SECONDS);
             process.destroyForcibly();
             assertFalse("Proceso reverse lanzado con errores", status);
@@ -62,7 +62,7 @@ public class BWABackTrackTest {
     public void runTestSampe() {
         // Check if starts running
         try {
-            Process process = sampeAligner.runSimple();
+            Process process = sampeAligner.run();
             boolean status = process.waitFor(2, TimeUnit.SECONDS);
             process.destroyForcibly();
             assertFalse("Proceso Sampe lanzado con errores", status);

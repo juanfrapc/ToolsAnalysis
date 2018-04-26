@@ -43,7 +43,7 @@ public class BWASWTask implements AligningTask {
         System.out.println("(" + new Date().toString() + ")\n" + name + ": Start running");
         Process run;
         try {
-            run = bwa.runSimple();
+            run = bwa.run();
             int error = run.waitFor();
             timer.stop();
             if (error == 0) System.out.println(name + ": alineamiento terminado con éxito. " + timer.report());
