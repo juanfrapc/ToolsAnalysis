@@ -8,6 +8,7 @@ public class Samtools {
 
     public static Process sam2Bam(String sam, String bam) throws IOException, InterruptedException {
         ProcessBuilder pb = new ProcessBuilder("samtools", "view", "-S", "-h", "-b", sam, "-o", bam);
+        pb = pb.redirectError(ProcessBuilder.Redirect.INHERIT);
         return pb.start();
     }
 
@@ -15,6 +16,7 @@ public class Samtools {
         ProcessBuilder pb = new ProcessBuilder("samtools1.8", "view", "-S", "-h", "-b", "-@", ""+cores,
                 sam,
                 "-o", bam);
+        pb = pb.redirectError(ProcessBuilder.Redirect.INHERIT);
         return pb.start();
     }
 

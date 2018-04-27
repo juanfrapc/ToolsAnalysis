@@ -3,12 +3,31 @@ package Application;
 import Application.AlignningStatsTasks.BWABackTrackTask;
 import Application.AlignningStatsTasks.BWAMEMTask;
 import Application.AlignningStatsTasks.BWASWTask;
+import Control.PreProcessor;
 import Model.Parameter;
+
+import java.io.IOException;
 
 class Main {
 
     public static void main(String[] args) {
 //        inverseEng();
+        cleanBamNiv19();
+    }
+
+    private static void cleanBamNiv19() {
+        String forwardPath = "/home/juanfrapc/GENOME_DATA/NIV/FASTQ/NIV19/niv_19_pe_1.fq.gz";
+        String reversePath = "/home/juanfrapc/GENOME_DATA/NIV/FASTQ/NIV19/niv_19_pe_2.fq.gz";
+        String reference = "/home/juanfrapc/GENOME_DATA/REFERENCE/latest/GCF_000001405.38_GRCh38.p12_genomic.fna";
+        try {
+            boolean status = PreProcessor.getPreprocessedBamFile(forwardPath,
+                    reversePath, reference,
+                    "NIV19", "/home/juanfrapc/GENOME_DATA/NIV/BAM/");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private static void inverseEng() {

@@ -10,11 +10,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PicardTest {
 
-    private final String sam = "Tests/ejemplo2.sam";
-    private final String bam = "Tests/ejemplo2.bam";
-    private final String sorted = "Tests/ejemplo2Sorted.bam";
-    private final String marked= "Tests/ejemplo2Marked.bam";
-    private final String metrics= "Tests/metrics.txt";
+    private final String sam = "Tests/tutorialFile/altalt.sam";
+    private final String bam = "Tests/tutorialFile/altalt.bam";
+    private final String sorted = "Tests/tutorialFile/altaltSorted.bam";
+    private final String marked= "Tests/tutorialFile/altaltMarked.bam";
+    private final String metrics= "Tests/tutorialFile/altaltmetrics.txt";
 
     @BeforeEach
     void setUp() {

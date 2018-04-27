@@ -14,29 +14,32 @@ public class PreProcessor {
 
     public static boolean getPreprocessedBamFile(String forward, String reverse, String reference, String name, String path) throws IOException, InterruptedException {
         timer.start();
-        System.out.println("("+new Date().toString() + ") Start preprocessing" );
+        System.out.println("("+ new Date().toString() + ") Start preprocessing" );
         Parameter[] parameters = {new Parameter('a',"")};
-        BWAMEMAligner bwa = new BWAMEMAligner(forward, reverse, reference, name+".sam", path + name + ".log", parameters);
+
+        BWAMEMAligner bwa = new BWAMEMAligner(forward, reverse, reference, path + name+".sam", path + name + ".log", parameters);
         if(!waitforProcess(bwa.run(), "alineamiento bwa")) return false;
-        Process sam2Bam = Samtools.sam2BamParallel(name + ".sam", name + ".bam");
+        Process sam2Bam = Samtools.sam2BamParallel(path + name + ".sam", path + name + ".bam");
+
         if(!waitforProcess(sam2Bam, "sam2bam")) return false;
-        new File(name + ".sam").delete();
+        new File(path + name + ".sam").delete();
 
-        Process sort = Samtools.sortBamParallel(name + ".bam", name + ".sorted");
+        Process sort = Samtools.sortBamParallel(path + name + ".bam", path + name + ".sorted");
         if(!waitforProcess(sort, "sort")) return false;
-        new File(name + ".bam").delete();
+        new File(path + name + ".bam").delete();
 
-        Process mark = Picard.markDuplicates(name + ".sorted.bam", name + ".sortedDeDup.bam", path + name + ".dups");
+        Process mark = Picard.markDuplicates(path + name + ".sorted.bam", path + name + ".sortedDeDup.bam", path + name + ".dups");
         if(!waitforProcess(mark, "mark")) return false;
-        new File(name + ".sorted.bam").delete();
+        new File(path + name + ".sorted.bam").delete();
 
-        Process recall = GATK.BaseReaclibrator(reference, name + ".sortedDeDup.bam", path + "recall_data.table");
+        Process recall = GATK.BaseReaclibrator(reference, path + name + ".sortedDeDup.bam", path +name + "recall_data.table");
         if(!waitforProcess(recall, "recall")) return false;
 
-        Process applyBQSR = GATK.PrintReads(reference, name + ".sortedDeDup.bam", name + "Final.bam", path + "recall_data.table");
+        Process applyBQSR = GATK.PrintReads(reference, path + name + ".sortedDeDup.bam", path + name + "Final.bam", path + "recall_data.table");
         if(!waitforProcess(applyBQSR, "Apply BQSR")) return false;
-        new File(name + ".sortedDeDup.bam").delete();
+        new File(path + name + ".sortedDeDup.bam").delete();
 
+        System.out.println("done");
         return true;
     }
 

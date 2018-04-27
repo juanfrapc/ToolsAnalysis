@@ -10,9 +10,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GATKTest {
 
-    private final String reference= "/home/juanfrapc/GENOME_DATA/REFERENCE/genome.fasta";
-    private final String marked = "Tests/ejemplo2Marked.bam";
-    private final String table = "Tests/ejemplo2table.table";
+    private final String reference= "Tests/tutorialFile/hg38_mini_ref/chr19_chr19_KI270866v1_alt.fasta";
+    private final String marked= "Tests/tutorialFile/altaltMarked.bam";
+    private final String table = "Tests/tutorialFile/altalttable.table";
 
     @BeforeEach
     void setUp() {

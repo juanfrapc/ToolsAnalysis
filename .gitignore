@@ -56,4 +56,14 @@ fabric.properties
 *.bai
 *.sai
 *.stat
+*.fq
+*.dict
+*.fasta
+*.alt
+*.amb
+*.ann
+*.bwt
+*.fai
+*.pac
+*.sa
 metrics.txt

@@ -13,10 +13,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class SamtoolsTest {
 
-    private final String sam = "Tests/ejemplo2.sam";
-    private final String bam = "Tests/ejemplo2.bam";
-    private final String sorted = "Tests/ejemplo2Sorted.bam";
-    private final String index= "Tests/ejemplo2Sorted.bam.bai";
+    private final String sam = "Tests/tutorialFile/altalt.sam";
+    private final String bam = "Tests/tutorialFile/altalt.bam";
+    private final String sorted = "Tests/tutorialFile/altaltSorted.bam";
+    private final String index= "Tests/tutorialFile/altaltSorted.bam.bai";
 
     @BeforeEach
     void setUp() {
@@ -41,7 +41,8 @@ class SamtoolsTest {
     void convert() {
         try {
             Process process = Samtools.sam2Bam(sam, bam);
-            process.waitFor();
+            int status = process.waitFor();
+            assert(status == 0);
             checkResult();
         } catch (Exception e) {
             assert (false);
@@ -62,11 +63,14 @@ class SamtoolsTest {
 
     private void checkSorted(String file) throws IOException {
         final int[] pos = {0};
+        final String[] posChr= {""};
         Stream<Alignment> bamStream = new Parser().parseBam(new File(file));
         bamStream.forEach(alignment -> {
             int alnPos = Integer.parseInt(alignment.getParam(Alignment.POS));
-            assert(alnPos >= pos[0]);
-            pos[0] = alnPos;});
+            String alnChr = alignment.getParam(Alignment.RNAME);
+            assert(alnPos >= pos[0] || !alnChr.equals(posChr[0]));
+            pos[0] = alnPos;
+            posChr[0] = alnChr;});
     }
 
     private void checkUnSorted(String file) throws IOException {
