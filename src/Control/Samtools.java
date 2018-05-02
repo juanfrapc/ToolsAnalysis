@@ -28,9 +28,9 @@ public class Samtools {
         return pb.start();
     }
 
-    public static Process sortBamParallel(String unsorted, String sortedPreffix) throws IOException {
+    public static Process sortBamParallel(String unsorted, String sorted) throws IOException {
         ProcessBuilder pb = new ProcessBuilder("samtools1.8", "sort",
-                "-o", sortedPreffix, "-O", "bam",
+                "-o", sorted, "-O", "bam",
                 "-T", "temp",
                 "-@", ""+ cores,
                 unsorted);
