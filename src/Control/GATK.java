@@ -6,7 +6,8 @@ public class GATK {
 
     private static final String dbSNP= "/home/juanfrapc/GENOME_DATA/vcfDB/dbSNP_all_20180418.vcf.gz";
 
-    public static Process BaseReaclibrator(String reference, String bamInput, String tableOutput) throws IOException {
+    public static Process BaseReacalibrator(String reference, String bamInput, String tableOutput) throws IOException {
+        //String finalReference = reference.split("\\.")[0] + ".2bit";
         ProcessBuilder pb = new ProcessBuilder("gatk", "--java-options", "-Xmx6g", "BaseRecalibrator",
                 "-R", reference,
                 "-I", bamInput,

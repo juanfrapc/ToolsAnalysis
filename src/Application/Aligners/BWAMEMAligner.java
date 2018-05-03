@@ -43,7 +43,7 @@ public class BWAMEMAligner implements Aligner {
         command.add("" + cores);
         command.add(genome.getAbsolutePath());
         command.add(forward.getAbsolutePath());
-        command.add(reverse.getAbsolutePath());
+        if (reverse!=null)command.add(reverse.getAbsolutePath());
         return new ProcessBuilder(command);
     }
 

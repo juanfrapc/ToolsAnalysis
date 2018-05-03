@@ -20,7 +20,7 @@ class Main {
         String reversePath = "/home/juanfrapc/GENOME_DATA/NIV/FASTQ/NIV19/niv_19_pe_2.fq.gz";
         String reference = "/home/juanfrapc/GENOME_DATA/REFERENCE/latest/GCF_000001405.38_GRCh38.p12_genomic.fna";
         try {
-            boolean status = PreProcessor.getPreprocessedBamFile(forwardPath,
+            boolean status = PreProcessor.getPreprocessedFromPaired(forwardPath,
                     reversePath, reference,
                     "NIV19", "/home/juanfrapc/GENOME_DATA/NIV/BAM/");
         } catch (IOException e) {
