@@ -6,26 +6,34 @@ import Application.AlignningStatsTasks.BWASWTask;
 import Control.PreProcessor;
 import Model.Parameter;
 
+import java.io.File;
 import java.io.IOException;
 
 class Main {
 
+    private final static String reference = "/home/juanfrapc/GENOME_DATA/REFERENCE/gatk_resourcebundle_GRCh38.fasta";
+    private final static String pathBam = "/home/juanfrapc/GENOME_DATA/NIV/BAM/";
+
     public static void main(String[] args) {
 //        inverseEng();
-        cleanBamNiv19();
+        String forwardniv19 = "/home/juanfrapc/GENOME_DATA/NIV/FASTQ/NIV19/niv_19_pe_1.fq.gz";
+        String reverseniv19 = "/home/juanfrapc/GENOME_DATA/NIV/FASTQ/NIV19/niv_19_pe_2.fq.gz";
+        String pathFQ = "/home/juanfrapc/GENOME_DATA/NIV/FASTQ/NIV19/";
+        cleanBamNiv19(forwardniv19, reverseniv19, "niv19", pathFQ);
     }
 
-    private static void cleanBamNiv19() {
-        String forwardPath = "/home/juanfrapc/GENOME_DATA/NIV/FASTQ/NIV19/niv_19_pe_1.fq.gz";
-        String reversePath = "/home/juanfrapc/GENOME_DATA/NIV/FASTQ/NIV19/niv_19_pe_2.fq.gz";
-        String reference = "/home/juanfrapc/GENOME_DATA/REFERENCE/latest/GCF_000001405.38_GRCh38.p12_genomic.fna";
+    private static void cleanBamNiv19(String forward, String reverse, String name, String pathfastq) {
+        String interleaved = pathfastq + name + "_interleaved.fq.gz";
+        String ubam = pathfastq + name + ".ubam";
+
         try {
-            boolean status = PreProcessor.getPreprocessedFromPaired(forwardPath,
-                    reversePath, reference,
-                    "NIV19", "/home/juanfrapc/GENOME_DATA/NIV/BAM/");
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
+            if (!new File(interleaved).exists())
+                PreProcessor.getInterleavedFastq(forward, reverse, name, pathfastq, name);
+            PreProcessor.getPreprocessedFromInterleaved(ubam, interleaved, reference, name, pathBam);
+//            boolean status = PreProcessor.getPreprocessedFromPaired(forwardPath,
+//                    reversePath, reference,
+//                    "NIV19", "/home/juanfrapc/GENOME_DATA/NIV/BAM/");
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }

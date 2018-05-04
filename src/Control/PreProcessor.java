@@ -50,6 +50,8 @@ public class PreProcessor {
 
         Process merge = Picard.mergeBamAlignment(bamUnmapped, path + name + ".bam", path + name + "_merged.bam", reference);
         if (!waitforProcess(merge, "Merge Bam Alignment")) return false;
+        new File(path + name + ".bam").delete();
+        new File(path + name + "_merged.bam").renameTo(new File(path + name + ".bam"));
 
         return afterBwa(reference,path,name);
     }
@@ -82,7 +84,7 @@ public class PreProcessor {
         Process recall = GATK.BaseReacalibrator(reference, path + name + ".sortedDeDup.bam", path + name + "recall_data.table");
         if (!waitforProcess(recall, "recall")) return false;
 
-        Process applyBQSR = GATK.PrintReads(reference, path + name + ".sortedDeDup.bam", path + name + "Final.bam", path + "recall_data.table");
+        Process applyBQSR = GATK.PrintReads(reference, path + name + ".sortedDeDup.bam", path + name + "Final.bam", path +name+ "recall_data.table");
         if (!waitforProcess(applyBQSR, "Apply BQSR")) return false;
         new File(path + name + ".sortedDeDup.bam").delete();
 
