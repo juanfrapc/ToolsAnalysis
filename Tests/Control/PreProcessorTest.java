@@ -54,6 +54,13 @@ class PreProcessorTest {
 
     @Test
     void getPreprocessedFromPaired() {
+        try {
+            boolean status = PreProcessor.getPreprocessedFromPaired(fq1, fq2,reference, "altalt", path);
+            assert !status;
+//            assert new File(this.path + "altaltFinal.bam").exists();
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
 }

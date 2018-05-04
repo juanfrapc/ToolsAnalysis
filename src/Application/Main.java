@@ -11,18 +11,37 @@ import java.io.IOException;
 
 class Main {
 
-    private final static String reference = "/home/juanfrapc/GENOME_DATA/REFERENCE/gatk_resourcebundle_GRCh38.fasta";
+    private final static String reference = "/home/juanfrapc/GENOME_DATA/REFERENCE/gatk_resourcebunde_GRCH38.fasta";
     private final static String pathBam = "/home/juanfrapc/GENOME_DATA/NIV/BAM/";
 
     public static void main(String[] args) {
 //        inverseEng();
         String forwardniv19 = "/home/juanfrapc/GENOME_DATA/NIV/FASTQ/NIV19/niv_19_pe_1.fq.gz";
         String reverseniv19 = "/home/juanfrapc/GENOME_DATA/NIV/FASTQ/NIV19/niv_19_pe_2.fq.gz";
-        String pathFQ = "/home/juanfrapc/GENOME_DATA/NIV/FASTQ/NIV19/";
-        cleanBamNiv19(forwardniv19, reverseniv19, "niv19", pathFQ);
+        String pathFQ19 = "/home/juanfrapc/GENOME_DATA/NIV/FASTQ/NIV19/";
+
+        cleanBam(forwardniv19, reverseniv19, "niv19", pathFQ19);
+
+//        String forwardniv19100x = "/home/juanfrapc/GENOME_DATA/NIV/FASTQ/NIV19_100x/niv19_forward.fastq.gz";
+//        String reverseniv19100x = "/home/juanfrapc/GENOME_DATA/NIV/FASTQ/NIV19_100x/niv19_forward.fastq.gz";
+//        String pathFQ19100x = "/home/juanfrapc/GENOME_DATA/NIV/FASTQ/NIV19_100x/";
+//
+//        cleanBam(forwardniv19100x, reverseniv19100x, "niv19_100x", pathFQ19100x);
+//
+//        String forwardniv32 = "/home/juanfrapc/GENOME_DATA/NIV/FASTQ/NIV32/niv_32_pe_1.fq.gz";
+//        String reverseniv32 = "/home/juanfrapc/GENOME_DATA/NIV/FASTQ/NIV32/niv_32_pe_2.fq.gz";
+//        String pathFQ32 = "/home/juanfrapc/GENOME_DATA/NIV/FASTQ/NIV32/";
+//
+//        cleanBam(forwardniv32, reverseniv32, "niv32", pathFQ32);
+//
+//        String forwardniv42 = "/home/juanfrapc/GENOME_DATA/NIV/FASTQ/NIV42/niv042-forward.fastq.gz";
+//        String reverseniv42 = "/home/juanfrapc/GENOME_DATA/NIV/FASTQ/NIV42/niv042-reverse.fastq.gz";
+//        String pathFQ42 = "/home/juanfrapc/GENOME_DATA/NIV/FASTQ/NIV42/";
+//
+//        cleanBam(forwardniv42, reverseniv42, "niv42", pathFQ42);
     }
 
-    private static void cleanBamNiv19(String forward, String reverse, String name, String pathfastq) {
+    private static void cleanBam(String forward, String reverse, String name, String pathfastq) {
         String interleaved = pathfastq + name + "_interleaved.fq.gz";
         String ubam = pathfastq + name + ".ubam";
 

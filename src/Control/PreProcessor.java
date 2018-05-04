@@ -27,6 +27,7 @@ public class PreProcessor {
         new File(path + name + "marked.bam").delete();
 
         try {
+            System.out.println("compressing fastaq");
             Runtime.getRuntime().exec("gzip -f " + path + name + "_interleaved.fq").waitFor();
         } catch (InterruptedException e) {
             e.printStackTrace();
