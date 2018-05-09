@@ -17,12 +17,13 @@ public class GATK {
         return pb.start();
     }
 
-    public static Process PrintReads(String reference, String bamInput, String bamOutput, String table) throws IOException {
-        ProcessBuilder pb = new ProcessBuilder("gatk", "--java-options", "-Xmx6g", "ApplyBQSRSpark",
+    public static Process PrintReads(String reference, String bamInput, String bamOutput, String table, String path) throws IOException {
+        ProcessBuilder pb = new ProcessBuilder("gatk", "--java-options", "-Xmx6g", "ApplyBQSR",
                 "-R", reference,
                 "-I", bamInput,
                 "-O", bamOutput,
-                "-bqsr", table);
+                "-bqsr", table,
+                "--TMP_DIR", path);
         pb = pb.redirectError(ProcessBuilder.Redirect.INHERIT);
         return pb.start();
     }
