@@ -53,6 +53,7 @@ public class PreProcessor {
         if (!waitforProcess(merge, "Merge Bam Alignment")) return false;
         new File(path + name + ".bam").delete();
         new File(path + name + "_merged.bam").renameTo(new File(path + name + ".bam"));
+        new File(path + name + "_merged.bai").renameTo(new File(path + name + ".bai"));
 
         return afterBwa(reference,path,name);
     }
@@ -76,7 +77,10 @@ public class PreProcessor {
     private static boolean afterBwa(String reference, String path, String name) throws IOException {
         Process sort = Samtools.sortBamParallel(path + name + ".bam", path + name + ".sorted.bam");
         if (!waitforProcess(sort, "sort")) return false;
+        Process index = Samtools.index( path + name + ".sorted.bam");
+        if (!waitforProcess(index, "index sort")) return false;
         new File(path + name + ".bam").delete();
+        new File(path + name + ".bai").delete();
 
         Process mark = Picard.markDuplicates(path + name + ".sorted.bam", path + name + ".sortedDeDup.bam", path + name + ".dups");
         if (!waitforProcess(mark, "mark")) return false;

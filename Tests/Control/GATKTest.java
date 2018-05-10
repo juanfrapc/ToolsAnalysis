@@ -37,7 +37,7 @@ class GATKTest {
         try {
             Process recal = GATK.BaseReacalibrator(reference, marked, table);
             recal.waitFor();
-            Process print = GATK.PrintReads(reference, marked, recaled, table);
+            Process print = GATK.PrintReads(reference, marked, recaled, table, "Tests/tutorialFile/");
             int status = print.waitFor();
             assert status==0;
             assert new File(table).exists();
