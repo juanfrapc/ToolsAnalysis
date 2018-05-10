@@ -42,7 +42,7 @@ public class Algorithm {
 
         boolean flag = true;
         int iteration = 0;
-        while (flag || iteration < 15) {
+        while (flag || iteration < 5) {
             System.out.println("Iteration " + ++iteration + " ... ... ...");
             Population selected = Selection.roulette(population, selectionSize);
             Population offspring = new Population();
