@@ -19,30 +19,30 @@ class Main {
         String reverseniv19 = "/media/uichuimi/DiscoInterno/GENOME_DATA/NIV/NIV19/FASTQ/niv_19_pe_2.fq.gz";
         String path19 = "/media/uichuimi/DiscoInterno/GENOME_DATA/NIV/FASTQ/NIV19/";
 
-        //cleanBam(forwardniv19, reverseniv19, "niv19", path19);
+        cleanBam(forwardniv19, reverseniv19, "niv19v37", path19);
 
         String forwardniv19100x = "/media/uichuimi/DiscoInterno/GENOME_DATA/NIV/NIV19-100X/FASTQ/niv19_forward.fastq.gz";
         String reverseniv19100x = "/media/uichuimi/DiscoInterno/GENOME_DATA/NIV/NIV19-100X/FASTQ/niv19_forward.fastq.gz";
         String path19100x = "/media/uichuimi/DiscoInterno/GENOME_DATA/NIV/NIV19-100x/";
 
-        //cleanBam(forwardniv19100x, reverseniv19100x, "niv19_100x", path19100x );
+        cleanBam(forwardniv19100x, reverseniv19100x, "niv19_100Xv37", path19100x );
 
         String forwardniv32 = "/media/uichuimi/DiscoInterno/GENOME_DATA/NIV/NIV32/FASTQ/niv_32_pe_1.fq.gz";
         String reverseniv32 = "/media/uichuimi/DiscoInterno/GENOME_DATA/NIV/NIV32/FASTQ/niv_32_pe_2.fq.gz";
         String path32 = "/media/uichuimi/DiscoInterno/GENOME_DATA/NIV/NIV32/";
 
-        //cleanBam(forwardniv32, reverseniv32, "niv32", path32);
+        cleanBam(forwardniv32, reverseniv32, "niv32v37", path32);
 
         String forwardniv42 = "/media/uichuimi/DiscoInterno/GENOME_DATA/NIV/NIV42/FASTQ/niv042-forward-sorted-clean.fastq.gz";
         String reverseniv42 = "/media/uichuimi/DiscoInterno/GENOME_DATA/NIV/NIV42/FASTQ/niv042-reverse-sorted-clean.fastq.gz";
         String path42 = "//media/uichuimi/DiscoInterno/GENOME_DATA/NIV/NIV42/";
 
-        cleanBam(forwardniv42, reverseniv42, "niv42", path42);
+        cleanBam(forwardniv42, reverseniv42, "niv42v37", path42);
     }
 
     private static void cleanBam(String forward, String reverse, String name, String path) {
-        String interleaved = path + name + "_interleaved.fq.gz";
-        String ubam = path + name + ".ubam";
+        String interleaved = path + "FASTQ/" + name + "_interleaved.fq.gz";
+        String ubam = path + "FASTQ/" + name + ".ubam";
         String pathFQ = path + "FASTQ/";
         String pathBam = path + "BAM/";
 

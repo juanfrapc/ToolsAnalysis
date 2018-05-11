@@ -39,21 +39,21 @@ public class PreProcessor {
     public static boolean getPreprocessedFromInterleaved(String bamUnmapped, String fastq, String reference, String name, String path) throws IOException, InterruptedException {
         timer.start();
 
-        System.out.println("(" + new Date().toString() + ") Start getting Bam from interleaved");
-        Parameter[] parameters = {new Parameter('p', "")};
+//        System.out.println("(" + new Date().toString() + ") Start getting Bam from interleaved");
+//        Parameter[] parameters = {new Parameter('p', "")};
+//
+//        BWAMEMAligner bwa = new BWAMEMAligner(fastq, "", reference, path + name + ".sam", path + name + ".log", parameters);
+//        if (!waitforProcess(bwa.run(), "alineamiento bwa")) return false;
+//
+//        Process sam2Bam = Samtools.sam2BamParallel(path + name + ".sam", path + name + ".bam");
+//        if (!waitforProcess(sam2Bam, "sam2bam")) return false;
+//        new File(path + name + ".sam").delete();
 
-        BWAMEMAligner bwa = new BWAMEMAligner(fastq, "", reference, path + name + ".sam", path + name + ".log", parameters);
-        if (!waitforProcess(bwa.run(), "alineamiento bwa")) return false;
-
-        Process sam2Bam = Samtools.sam2BamParallel(path + name + ".sam", path + name + ".bam");
-        if (!waitforProcess(sam2Bam, "sam2bam")) return false;
-        new File(path + name + ".sam").delete();
-
-        Process merge = Picard.mergeBamAlignment(bamUnmapped, path + name + ".bam", path + name + "_merged.bam", reference);
-        if (!waitforProcess(merge, "Merge Bam Alignment")) return false;
-        new File(path + name + ".bam").delete();
-        new File(path + name + "_merged.bam").renameTo(new File(path + name + ".bam"));
-        new File(path + name + "_merged.bai").renameTo(new File(path + name + ".bai"));
+//        Process merge = Picard.mergeBamAlignment(bamUnmapped, path + name + ".bam", path + name + "_merged.bam", reference);
+//        if (!waitforProcess(merge, "Merge Bam Alignment")) return false;
+//        new File(path + name + ".bam").delete();
+//        new File(path + name + "_merged.bam").renameTo(new File(path + name + ".bam"));
+//        new File(path + name + "_merged.bai").renameTo(new File(path + name + ".bai"));
 
         return afterBwa(reference,path,name);
     }
@@ -75,16 +75,16 @@ public class PreProcessor {
     }
 
     private static boolean afterBwa(String reference, String path, String name) throws IOException {
-        Process sort = Samtools.sortBamParallel(path + name + ".bam", path + name + ".sorted.bam");
-        if (!waitforProcess(sort, "sort")) return false;
-        Process index = Samtools.index( path + name + ".sorted.bam");
-        if (!waitforProcess(index, "index sort")) return false;
-        new File(path + name + ".bam").delete();
-        new File(path + name + ".bai").delete();
-
-        Process mark = Picard.markDuplicates(path + name + ".sorted.bam", path + name + ".sortedDeDup.bam", path + name + ".dups");
-        if (!waitforProcess(mark, "mark")) return false;
-        new File(path + name + ".sorted.bam").delete();
+//        Process sort = Samtools.sortBamParallel(path + name + ".bam", path + name + ".sorted.bam");
+//        if (!waitforProcess(sort, "sort")) return false;
+//        Process index = Samtools.index( path + name + ".sorted.bam");
+//        if (!waitforProcess(index, "index sort")) return false;
+//        new File(path + name + ".bam").delete();
+//        new File(path + name + ".bai").delete();
+//
+//        Process mark = Picard.markDuplicates(path + name + ".sorted.bam", path + name + ".sortedDeDup.bam", path + name + ".dups");
+//        if (!waitforProcess(mark, "mark")) return false;
+//        new File(path + name + ".sorted.bam").delete();
 
         Process recall = GATK.BaseReacalibrator(reference, path + name + ".sortedDeDup.bam", path + name + "recall_data.table");
         if (!waitforProcess(recall, "recall")) return false;
