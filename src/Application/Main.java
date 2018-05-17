@@ -8,47 +8,42 @@ import Model.Parameter;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 
 class Main {
 
-    private final static String reference = "/media/uichuimi/DiscoInterno/GENOME_DATA/REFERENCE/gatk_resourcebunde_GRCH38.fasta";
+    private final static String reference = "/media/uichuimi/DiscoInterno/GENOME_DATA/REFERENCE/GRCH37/human_g1k_v37.fasta";
 
     public static void main(String[] args) {
 //        inverseEng();
-        String forwardniv19 = "/media/uichuimi/DiscoInterno/GENOME_DATA/NIV/NIV19/FASTQ/niv_19_pe_1.fq.gz";
-        String reverseniv19 = "/media/uichuimi/DiscoInterno/GENOME_DATA/NIV/NIV19/FASTQ/niv_19_pe_2.fq.gz";
-        String path19 = "/media/uichuimi/DiscoInterno/GENOME_DATA/NIV/FASTQ/NIV19/";
+//        String forwardniv19 = "/media/uichuimi/DiscoInterno/GENOME_DATA/NIV/NIV19/FASTQ/niv_19_pe_1.fq.gz";
+//        String reverseniv19 = "/media/uichuimi/DiscoInterno/GENOME_DATA/NIV/NIV19/FASTQ/niv_19_pe_2.fq.gz";
+//        String path19 = "/media/uichuimi/DiscoInterno/GENOME_DATA/NIV/NIV19/";
 
-        cleanBam(forwardniv19, reverseniv19, "niv19v37", path19);
-
-        String forwardniv19100x = "/media/uichuimi/DiscoInterno/GENOME_DATA/NIV/NIV19-100X/FASTQ/niv19_forward.fastq.gz";
-        String reverseniv19100x = "/media/uichuimi/DiscoInterno/GENOME_DATA/NIV/NIV19-100X/FASTQ/niv19_forward.fastq.gz";
-        String path19100x = "/media/uichuimi/DiscoInterno/GENOME_DATA/NIV/NIV19-100x/";
-
-        cleanBam(forwardniv19100x, reverseniv19100x, "niv19_100Xv37", path19100x );
-
-        String forwardniv32 = "/media/uichuimi/DiscoInterno/GENOME_DATA/NIV/NIV32/FASTQ/niv_32_pe_1.fq.gz";
-        String reverseniv32 = "/media/uichuimi/DiscoInterno/GENOME_DATA/NIV/NIV32/FASTQ/niv_32_pe_2.fq.gz";
-        String path32 = "/media/uichuimi/DiscoInterno/GENOME_DATA/NIV/NIV32/";
-
-        cleanBam(forwardniv32, reverseniv32, "niv32v37", path32);
-
-        String forwardniv42 = "/media/uichuimi/DiscoInterno/GENOME_DATA/NIV/NIV42/FASTQ/niv042-forward-sorted-clean.fastq.gz";
-        String reverseniv42 = "/media/uichuimi/DiscoInterno/GENOME_DATA/NIV/NIV42/FASTQ/niv042-reverse-sorted-clean.fastq.gz";
-        String path42 = "//media/uichuimi/DiscoInterno/GENOME_DATA/NIV/NIV42/";
-
-        cleanBam(forwardniv42, reverseniv42, "niv42v37", path42);
+//        cleanBam(forwardniv19, reverseniv19,"niv19", "niv19", path19);
+        String name = null;
+        String forward = null;
+        String reverse = null;
+        String path = null;
+        if (args.length!=4) System.out.println("error en parametros");
+        for (String arg: args) {
+            if (arg.contains("NAME")) name = args[0].split("=")[0];
+            if (arg.contains("FQ1")) forward= args[1].split("=")[0];
+            if (arg.contains("FQ2")) reverse = args[2].split("=")[0];
+            if (arg.contains("PATH")) path = args[3].split("=")[0];
+        }
+        cleanBam(forward,reverse, name, name, path);
     }
 
-    private static void cleanBam(String forward, String reverse, String name, String path) {
-        String interleaved = path + "FASTQ/" + name + "_interleaved.fq.gz";
-        String ubam = path + "FASTQ/" + name + ".ubam";
+    private static void cleanBam(String forward, String reverse, String ubamName,String name, String path) {
+        String interleaved = path + "FASTQ/" + ubamName + "_interleaved.fq.gz";
+        String ubam = path + "FASTQ/" + ubamName + ".ubam";
         String pathFQ = path + "FASTQ/";
         String pathBam = path + "BAM/";
 
         try {
             if (!new File(interleaved).exists())
-                PreProcessor.getInterleavedFastq(forward, reverse, name, pathFQ, name);
+                PreProcessor.getInterleavedFastq(forward, reverse, ubamName, pathFQ, name);
             PreProcessor.getPreprocessedFromInterleaved(ubam, interleaved, reference, name, pathBam);
 //            boolean status = PreProcessor.getPreprocessedFromPaired(forwardPath,
 //                    reversePath, reference,
