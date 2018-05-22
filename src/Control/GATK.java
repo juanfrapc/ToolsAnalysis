@@ -1,6 +1,7 @@
 package Control;
 
 import java.io.IOException;
+import java.util.List;
 
 public class GATK {
 
@@ -38,16 +39,25 @@ public class GATK {
         return pb.start();
     }
 
-    public static Process GenotypeGVCFs(String reference, String[] variantsInput, String vcfOutput) throws IOException {
-        String variants="";
-        for (String variant : variantsInput) {
-            variants += "-V" + variant;
-        }
-        System.out.println(variants);
+    public static Process GenotypeGVCFs(String reference, String variantInput, String vcfOutput) throws IOException {
         ProcessBuilder pb = new ProcessBuilder("gatk", "--java-options", "-Xmx6g", "GenotypeGVCFs",
                 "-R", reference,
-                variants,
+                "-V", variantInput,
                 "-O", vcfOutput);
+        pb = pb.redirectError(ProcessBuilder.Redirect.INHERIT);
+        return pb.start();
+    }
+
+    public static Process CombineGVCFs(String reference, String[] variantsInput, String vcfOutput) throws IOException {
+        ProcessBuilder pb = new ProcessBuilder("gatk", "--java-options", "-Xmx6g", "CombineGVCFs",
+                "-R", reference,
+                "-O", vcfOutput);
+        List<String> command = pb.command();
+        for (String variant : variantsInput) {
+            command.add("-V");
+            command.add(variant);
+        }
+        pb.command(command);
         pb = pb.redirectError(ProcessBuilder.Redirect.INHERIT);
         return pb.start();
     }
