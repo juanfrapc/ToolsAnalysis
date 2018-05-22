@@ -11,6 +11,13 @@ class GATKTest {
     private final String marked= "Tests/tutorialFile/altalt_snaut.bam";
     private final String recaled= "Tests/tutorialFile/altalt_recal.bam";
     private final String table = "Tests/tutorialFile/altalttable.table";
+    private final String bamvcf1= "Tests/tutorialFile/HC/altalt_snaut.bam";
+    private final String bamvcf2= "Tests/tutorialFile/HC/paalt_snaut.bam";
+    private final String bamvcf3= "Tests/tutorialFile/HC/papa_snaut.bam";
+    private final String gvcf1= "Tests/tutorialFile/HC/altalt.g.vcf";
+    private final String gvcf2= "Tests/tutorialFile/HC/altpa.g.vcf";
+    private final String gvcf3= "Tests/tutorialFile/HC/papa.g.vcf";
+    private final String vcf = "Tests/tutorialFile/HC/multisample.vcf";
 
     @BeforeEach
     void setUp() {
@@ -18,6 +25,14 @@ class GATKTest {
         if (table.delete()) System.out.println("Borrado");
         File recal = new File(this.recaled);
         if (table.delete()) System.out.println("Borrado");
+        File gvcf= new File(this.gvcf1);
+        if (gvcf.delete()) System.out.println("Borrado");
+        File gvcf2= new File(this.gvcf2);
+        if (gvcf.delete()) System.out.println("Borrado");
+        File gvcf3= new File(this.gvcf3);
+        if (gvcf.delete()) System.out.println("Borrado");
+        File vcf= new File(this.vcf);
+        if (vcf.delete()) System.out.println("Borrado");
     }
 
     @Test
@@ -46,4 +61,33 @@ class GATKTest {
         }
     }
 
+    @Test
+    void haplotypeCaller() {
+        try {
+            Process HC = GATK.HaplotypeCaller(reference, marked, gvcf1);
+            int status = HC.waitFor();
+            assert status==0;
+            assert new File(gvcf1).exists();
+        } catch (Exception e) {
+            assert(false);
+        }
+    }
+
+    @Test
+    void genotypeGVCFs() {
+        try {
+            Process HC = GATK.HaplotypeCaller(reference, marked, gvcf1);
+            HC.waitFor();
+            HC = GATK.HaplotypeCaller(reference, marked, gvcf2);
+            HC.waitFor();
+            HC = GATK.HaplotypeCaller(reference, marked, gvcf3);
+            HC.waitFor();
+            Process GG = GATK.GenotypeGVCFs(reference, new String[]{gvcf1,gvcf2, gvcf3}, vcf);
+            int status = GG.waitFor();
+            assert status==0;
+            assert new File(vcf).exists();
+        } catch (Exception e) {
+            assert(false);
+        }
+    }
 }

@@ -26,7 +26,7 @@ public class Picard {
                 "OUTPUT="+ outputbam,
                 "READ_GROUP_NAME="+ readgroup,
                 "SAMPLE_NAME="+ name,
-                "LIBRARY_NAME=Solexa-272222",
+                "LIBRARY_NAME=SureSelect-50MB",
                 "PLATFORM=illumina");
         pb = pb.redirectError(ProcessBuilder.Redirect.INHERIT);
         return pb.start();

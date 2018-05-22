@@ -44,4 +44,10 @@ public class Samtools {
         return pb.start();
     }
 
+    public static Process merge(String output, String input1, String input2) throws IOException {
+        ProcessBuilder pb = new ProcessBuilder("samtools1.8", "merge", output, input1, input2);
+        pb = pb.redirectError(ProcessBuilder.Redirect.INHERIT);
+        return pb.start();
+    }
+
 }

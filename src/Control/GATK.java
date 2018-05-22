@@ -28,4 +28,30 @@ public class GATK {
         return pb.start();
     }
 
+    public static Process HaplotypeCaller(String reference, String bamInput, String gvcfOutput) throws IOException {
+        ProcessBuilder pb = new ProcessBuilder("gatk", "--java-options", "-Xmx6g", "HaplotypeCaller",
+                "-R", reference,
+                "-I", bamInput,
+                "-O", gvcfOutput,
+                "-ERC", "GVCF");
+        pb = pb.redirectError(ProcessBuilder.Redirect.INHERIT);
+        return pb.start();
+    }
+
+    public static Process GenotypeGVCFs(String reference, String[] variantsInput, String vcfOutput) throws IOException {
+        String variants="";
+        for (String variant : variantsInput) {
+            variants += "-V" + variant;
+        }
+        System.out.println(variants);
+        ProcessBuilder pb = new ProcessBuilder("gatk", "--java-options", "-Xmx6g", "GenotypeGVCFs",
+                "-R", reference,
+                variants,
+                "-O", vcfOutput);
+        pb = pb.redirectError(ProcessBuilder.Redirect.INHERIT);
+        return pb.start();
+    }
+
+
+
 }

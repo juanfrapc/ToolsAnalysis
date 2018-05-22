@@ -24,18 +24,32 @@ class Main {
         String name = null;
         String forward = null;
         String reverse = null;
+        String forward_1 = null;
+        String reverse_1 = null;
         String path = null;
-        if (args.length!=4) System.out.println("error en parametros");
-        for (String arg: args) {
-            if (arg.contains("NAME")) name = args[0].split("=")[0];
-            if (arg.contains("FQ1")) forward= args[1].split("=")[0];
-            if (arg.contains("FQ2")) reverse = args[2].split("=")[0];
-            if (arg.contains("PATH")) path = args[3].split("=")[0];
+        if (args.length != 4 && args.length != 6) {
+            System.out.println("error en parametros");
+            return;
         }
-        cleanBam(forward,reverse, name, name, path);
+        ;
+        for (String arg : args) {
+            if (arg.contains("NAME")) name = arg.split("=")[1];
+            if (arg.contains("FQ1")) forward = arg.split("=")[1];
+            if (arg.contains("FQ2")) reverse = arg.split("=")[1];
+            if (arg.contains("FQ3")) forward_1 = arg.split("=")[1];
+            if (arg.contains("FQ4")) reverse_1 = arg.split("=")[1];
+            if (arg.contains("PATH")) path = arg.split("=")[1];
+        }
+        if (args.length == 6) {
+            String ubamNameA=forward.substring(forward.lastIndexOf("/")+1, forward.lastIndexOf("_"));
+            String ubamNameB=forward_1.substring(forward_1.lastIndexOf("/")+1, forward.lastIndexOf("_") );
+//            clean2Bam(forward, reverse, forward_1, reverse_1, ubamNameA, ubamNameB, name, path);
+        } else {
+//            cleanBam(forward, reverse, name, name, path);
+        }
     }
 
-    private static void cleanBam(String forward, String reverse, String ubamName,String name, String path) {
+    private static void cleanBam(String forward, String reverse, String ubamName, String name, String path) {
         String interleaved = path + "FASTQ/" + ubamName + "_interleaved.fq.gz";
         String ubam = path + "FASTQ/" + ubamName + ".ubam";
         String pathFQ = path + "FASTQ/";
@@ -45,9 +59,27 @@ class Main {
             if (!new File(interleaved).exists())
                 PreProcessor.getInterleavedFastq(forward, reverse, ubamName, pathFQ, name);
             PreProcessor.getPreprocessedFromInterleaved(ubam, interleaved, reference, name, pathBam);
-//            boolean status = PreProcessor.getPreprocessedFromPaired(forwardPath,
-//                    reversePath, reference,
-//                    "NIV19", "/media/uichuimi/DiscoInterno/GENOME_DATA/NIV/BAM/");
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void clean2Bam(String forwardA, String reverseA, String forwardB, String reverseB,
+                                  String ubamNameA, String ubamNameB, String name, String path) {
+        String interleavedA = path + "FASTQ/" + ubamNameA + "_interleaved.fq.gz";
+        String ubamA = path + "FASTQ/" + ubamNameA + ".ubam";
+        String interleavedB = path + "FASTQ/" + ubamNameB + "_interleaved.fq.gz";
+        String ubamB = path + "FASTQ/" + ubamNameB + ".ubam";
+
+        String pathFQ = path + "FASTQ/";
+        String pathBam = path + "BAM/";
+        try {
+            if (!new File(interleavedA).exists())
+                PreProcessor.getInterleavedFastq(forwardA, reverseA, ubamNameA, pathFQ, name);
+            if (!new File(interleavedB).exists())
+                PreProcessor.getInterleavedFastq(forwardB, reverseB, ubamNameB, pathFQ, name);
+            PreProcessor.getPreprocessedFrom2Interleaved(ubamA, ubamB, interleavedA, interleavedB,
+                    reference, name, ubamNameA, ubamNameB, pathBam);
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
