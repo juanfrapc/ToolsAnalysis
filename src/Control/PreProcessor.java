@@ -62,7 +62,7 @@ public class PreProcessor {
                                                           String reference, String name, String nameA, String nameB, String path) throws IOException, InterruptedException {
         timer.start();
 
-        System.out.println("(" + new Date().toString() + ") Start getting Bam from interleaved A");
+        System.out.println("(" + new Date().toString() + ") Start getting Bam from interleaved");
         Parameter[] parameters = {new Parameter('p', "")};
 
         BWAMEMAligner bwaA = new BWAMEMAligner(fastqA, "", reference, path + nameA + ".sam", path + nameA + ".log", parameters);

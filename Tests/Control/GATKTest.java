@@ -14,7 +14,7 @@ class GATKTest {
     private final String bamvcf1= "Tests/tutorialFile/HC/altalt_snaut.bam";
     private final String bamvcf2= "Tests/tutorialFile/HC/paalt_snaut.bam";
     private final String bamvcf3= "Tests/tutorialFile/HC/papa_snaut.bam";
-    private final String gvcf= "Tests/tutorialFile/HC/combined.g.vcf";
+    private final String gvcfComb = "Tests/tutorialFile/HC/combined.g.vcf";
     private final String gvcf1= "Tests/tutorialFile/HC/altalt.g.vcf";
     private final String gvcf2= "Tests/tutorialFile/HC/altpa.g.vcf";
     private final String gvcf3= "Tests/tutorialFile/HC/papa.g.vcf";
@@ -26,14 +26,14 @@ class GATKTest {
         if (table.delete()) System.out.println("Borrado");
         File recal = new File(this.recaled);
         if (table.delete()) System.out.println("Borrado");
-//        File gvcf= new File(this.gvcf1);
-//        if (gvcf.delete()) System.out.println("Borrado");
-//        File gvcf2= new File(this.gvcf2);
-//        if (gvcf.delete()) System.out.println("Borrado");
-//        File gvcf3= new File(this.gvcf3);
-//        if (gvcf.delete()) System.out.println("Borrado");
-        File gvcf= new File(this.gvcf);
-        if (gvcf.delete()) System.out.println("Borrado");
+        File gvcf1= new File(this.gvcf1);
+        if (gvcf1.delete()) System.out.println("Borrado");
+        File gvcf2= new File(this.gvcf2);
+        if (gvcf2.delete()) System.out.println("Borrado");
+        File gvcf3= new File(this.gvcf3);
+        if (gvcf2.delete()) System.out.println("Borrado");
+        File gvcfComb= new File(this.gvcfComb);
+        if (gvcfComb.delete()) System.out.println("Borrado");
         File vcf= new File(this.vcf);
         if (vcf.delete()) System.out.println("Borrado");
     }
@@ -79,15 +79,15 @@ class GATKTest {
     @Test
     void genotypeGVCFs() {
         try {
-//            Process HC = GATK.HaplotypeCaller(reference, marked, gvcf1);
-//            HC.waitFor();
-//            HC = GATK.HaplotypeCaller(reference, marked, gvcf2);
-//            HC.waitFor();
-//            HC = GATK.HaplotypeCaller(reference, marked, gvcf3);
-//            HC.waitFor();
-            Process combine = GATK.CombineGVCFs(reference, new String[]{gvcf1,gvcf2, gvcf3}, gvcf);
+            Process HC = GATK.HaplotypeCaller(reference, marked, gvcf1);
+            HC.waitFor();
+            HC = GATK.HaplotypeCaller(reference, marked, gvcf2);
+            HC.waitFor();
+            HC = GATK.HaplotypeCaller(reference, marked, gvcf3);
+            HC.waitFor();
+            Process combine = GATK.CombineGVCFs(reference, new String[]{gvcf1,gvcf2, gvcf3}, gvcfComb);
             combine.waitFor();
-            Process GG = GATK.GenotypeGVCFs(reference, gvcf, vcf);
+            Process GG = GATK.GenotypeGVCFs(reference, gvcfComb, vcf);
             int status = GG.waitFor();
             assert status==0;
             assert new File(vcf).exists();

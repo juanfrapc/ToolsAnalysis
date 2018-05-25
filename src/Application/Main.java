@@ -12,7 +12,7 @@ import java.util.Arrays;
 
 class Main {
 
-    private final static String reference = "/media/uichuimi/DiscoInterno/GENOME_DATA/REFERENCE/GRCH37/human_g1k_v37.fasta";
+    private final static String reference = "/media/uichuimi/DiscoInterno/GENOME_DATA/REFERENCE/gatk_resourcebunde_GRCH38.fasta";
 
     public static void main(String[] args) {
 //        inverseEng();
@@ -31,7 +31,6 @@ class Main {
             System.out.println("error en parametros");
             return;
         }
-        ;
         for (String arg : args) {
             if (arg.contains("NAME")) name = arg.split("=")[1];
             if (arg.contains("FQ1")) forward = arg.split("=")[1];
@@ -43,9 +42,9 @@ class Main {
         if (args.length == 6) {
             String ubamNameA=forward.substring(forward.lastIndexOf("/")+1, forward.lastIndexOf("_"));
             String ubamNameB=forward_1.substring(forward_1.lastIndexOf("/")+1, forward.lastIndexOf("_") );
-//            clean2Bam(forward, reverse, forward_1, reverse_1, ubamNameA, ubamNameB, name, path);
+            clean2Bam(forward, reverse, forward_1, reverse_1, ubamNameA, ubamNameB, name, path);
         } else {
-//            cleanBam(forward, reverse, name, name, path);
+            cleanBam(forward, reverse, name, name, path);
         }
     }
 
