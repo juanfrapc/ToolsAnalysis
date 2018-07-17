@@ -13,10 +13,10 @@ public class GermlineSNP {
         timer.start();
         System.out.println("(" + new Date().toString() + ") Start getting VCF");
 
-        Process haplotypeCaller = GATK.HaplotypeCaller(reference, bamPath + name + "Final.bam", vcfPath + name + ".vcf");
+        Process haplotypeCaller = GATK.HaplotypeCaller(reference, bamPath + name + ".bam", vcfPath + name + ".g.vcf");
         if (!waitforProcess(haplotypeCaller, "Haplotype Caller")) return false;
 
-        Process genotype = GATK.GenotypeGVCFs(reference, vcfPath + name + ".g.vcf", vcfPath + name + ".vcf");
+        Process genotype = GATK.GenotypeGVCFs(reference, vcfPath + name + ".g.vcf", vcfPath + name + "_raw.vcf");
         return waitforProcess(haplotypeCaller, "Genotype GVCF");
     }
 

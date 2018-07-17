@@ -66,8 +66,8 @@ public class PreProcessor {
         Parameter[] parameters = {new Parameter('p', "")};
 
         BWAMEMAligner bwaA = new BWAMEMAligner(fastqA, "", reference, path + nameA + ".sam", path + nameA + ".log", parameters);
-        BWAMEMAligner bwaB = new BWAMEMAligner(fastqB, "", reference, path + nameB + ".sam", path + nameB + ".log", parameters);
         if (!waitforProcess(bwaA.run(), "alineamiento bwa A")) return false;
+        BWAMEMAligner bwaB = new BWAMEMAligner(fastqB, "", reference, path + nameB + ".sam", path + nameB + ".log", parameters);
         if (!waitforProcess(bwaB.run(), "alineamiento bwa B")) return false;
 
         Process sam2BamA = Samtools.sam2BamParallel(path + nameA + ".sam", path + nameA + ".bam");
@@ -75,18 +75,20 @@ public class PreProcessor {
         Process sam2BamB = Samtools.sam2BamParallel(path + nameB + ".sam", path + nameB + ".bam");
         if (!waitforProcess(sam2BamB, "sam2bam B")) return false;
         new File(path + nameA + ".sam").delete();
+        new File(path + nameA + ".log").delete();
         new File(path + nameB + ".sam").delete();
+        new File(path + nameB + ".log").delete();
 
-        Process mergeA = Picard.mergeBamAlignment(bamUnmappedA, path + nameA + ".bam", path + nameA + "_merged.bam", reference);
-        Process mergeB = Picard.mergeBamAlignment(bamUnmappedB, path + nameB + ".bam", path + nameB + "_merged.bam", reference);
+        Process mergeA = Picard.mergeBamAlignment(bamUnmappedA, path + nameA + ".bam", path + nameA + ".merged.bam", reference);
+        Process mergeB = Picard.mergeBamAlignment(bamUnmappedB, path + nameB + ".bam", path + nameB + ".merged.bam", reference);
         if (!waitforProcess(mergeA, "Merge Bam Alignment A")) return false;
         if (!waitforProcess(mergeB, "Merge Bam Alignment B")) return false;
         new File(path + nameA + ".bam").delete();
-        new File(path + nameA + "_merged.bam").renameTo(new File(path + nameA + ".bam"));
-        new File(path + nameA + "_merged.bai").renameTo(new File(path + nameA + ".bai"));
+        new File(path + nameA + ".merged.bam").renameTo(new File(path + nameA + ".bam"));
+        new File(path + nameA + ".merged.bai").renameTo(new File(path + nameA + ".bai"));
         new File(path + nameB + ".bam").delete();
-        new File(path + nameB + "_merged.bam").renameTo(new File(path + nameB + ".bam"));
-        new File(path + nameB + "_merged.bai").renameTo(new File(path + nameB + ".bai"));
+        new File(path + nameB + ".merged.bam").renameTo(new File(path + nameB + ".bam"));
+        new File(path + nameB + ".merged.bai").renameTo(new File(path + nameB + ".bai"));
 
         Process sortA = Samtools.sortBamParallel(path + nameA + ".bam", path + nameA + ".sorted.bam");
         if (!waitforProcess(sortA, "sort A")) return false;
@@ -105,6 +107,10 @@ public class PreProcessor {
         Process merge = Samtools.merge(path + name + ".sorted.bam", path + nameA + ".sorted.bam", path + nameB + ".sorted.bam");
         if (!waitforProcess(merge, "Merging aligned")) return false;
 
+        new File(path + nameA + ".sorted.bam").delete();
+        new File(path + nameA + ".sorted.bam.bai").delete();
+        new File(path + nameB + ".sorted.bam").delete();
+        new File(path + nameB + ".sorted.bam.bai").delete();
 
         return afterBwa(reference,path,name);
     }
@@ -140,7 +146,7 @@ public class PreProcessor {
         Process recall = GATK.BaseReacalibrator(reference, path + name + ".sortedDeDup.bam", path + name + "recall_data.table");
         if (!waitforProcess(recall, "recall")) return false;
 
-        Process applyBQSR = GATK.PrintReads(reference, path + name + ".sortedDeDup.bam", path + name + "Final.bam", path +name+ "recall_data.table", path);
+        Process applyBQSR = GATK.PrintReads(reference, path + name + ".sortedDeDup.bam", path + name + ".bam", path +name+ "recall_data.table", path);
         if (!waitforProcess(applyBQSR, "Apply BQSR")) return false;
         new File(path + name + ".sortedDeDup.bam").delete();
 
