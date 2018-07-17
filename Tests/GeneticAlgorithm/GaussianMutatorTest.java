@@ -14,7 +14,7 @@ class GaussianMutatorTest {
 
     @BeforeEach
     void initFake() {
-        ind = Individual.getInitialRamdom(new FitnessLambda(()->0f),
+        ind = Individual.getInitialRandom(new FitnessLambda(()->0f),
                 Algorithm.getInitialValues("MEM"),
                 Algorithm.getFloats("MEM"),
                 Algorithm.getNegatives("MEM")

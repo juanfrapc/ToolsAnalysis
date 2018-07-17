@@ -4,24 +4,25 @@ import GeneticAlgorithm.Model.FitnessLambda;
 import GeneticAlgorithm.Model.Individual;
 import GeneticAlgorithm.Operators.SPCrossover;
 import Model.Parameter;
+import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CrossoverTest {
 
     private Individual father;
     private Individual mother;
 
+
     @BeforeEach
     void initFake() {
-        father = Individual.getInitialRamdom(new FitnessLambda(()->0f),
+        father = Individual.getInitialRandom(new FitnessLambda(()->0f),
                 Algorithm.getInitialValues("MEM"),
                 Algorithm.getFloats("MEM"),
                 Algorithm.getNegatives("MEM")
                 );
-        mother = Individual.getInitialRamdom(new FitnessLambda(()->0f),
+        mother = Individual.getInitialRandom(new FitnessLambda(()->0f),
                 Algorithm.getInitialValues("MEM"),
                 Algorithm.getFloats("MEM"),
                 Algorithm.getNegatives("MEM")

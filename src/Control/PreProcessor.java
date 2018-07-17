@@ -78,7 +78,7 @@ public class PreProcessor {
         new File(path + nameB + ".sam").delete();
 
         Process mergeA = Picard.mergeBamAlignment(bamUnmappedA, path + nameA + ".bam", path + nameA + "_merged.bam", reference);
-        Process mergeB = Picard.mergeBamAlignment(bamUnmappedB, path + nameB + ".bam", path + nameA + "_merged.bam", reference);
+        Process mergeB = Picard.mergeBamAlignment(bamUnmappedB, path + nameB + ".bam", path + nameB + "_merged.bam", reference);
         if (!waitforProcess(mergeA, "Merge Bam Alignment A")) return false;
         if (!waitforProcess(mergeB, "Merge Bam Alignment B")) return false;
         new File(path + nameA + ".bam").delete();

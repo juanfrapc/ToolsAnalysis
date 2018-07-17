@@ -21,7 +21,7 @@ public class Population implements Iterable<Individual> {
 
     public void initilize(int size, Fitness fitness, Parameter[] initialValues, char[] floats, char[] negatives) {
         for (int i = 0; i < size; i++) {
-            this.addIndividual(Individual.getInitialRamdom(fitness, initialValues, floats, negatives));
+            this.addIndividual(Individual.getInitialRandom(fitness, initialValues.clone(), floats, negatives));
         }
     }
 

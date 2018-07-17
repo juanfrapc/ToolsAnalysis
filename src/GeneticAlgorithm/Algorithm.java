@@ -5,12 +5,14 @@ import Application.AlignningStatsTasks.BWABackTrackTask;
 import Application.AlignningStatsTasks.BWAMEMTask;
 import Application.AlignningStatsTasks.BWASWTask;
 import GeneticAlgorithm.Model.Fitness;
+import GeneticAlgorithm.Model.FitnessLambda;
 import GeneticAlgorithm.Model.Individual;
 import GeneticAlgorithm.Model.Population;
 import GeneticAlgorithm.Operators.*;
 import Model.Parameter;
 
 import java.util.Arrays;
+import java.util.Random;
 
 public class Algorithm {
 
@@ -30,7 +32,9 @@ public class Algorithm {
         AligningTask task = taskSelection(alignerType);
 
         Fitness.clearMap();
-        FreqFitness fitness = new FreqFitness(task, alignerType + "FrequencyGeneticAlgorithm");
+        //FreqFitness fitness = new FreqFitness(task, alignerType + "FrequencyGeneticAlgorithm");
+        Random random = new Random();
+        Fitness fitness = new FitnessLambda(random::nextFloat);
         Population population = new Population();
         Crossover crossover = new SPCrossover(fitness);
         Mutator mutator = new GaussianMutator(mutationProbability);
@@ -42,7 +46,7 @@ public class Algorithm {
 
         boolean flag = true;
         int iteration = 0;
-        while (flag || iteration < 5) {
+        while (flag && iteration < 5) {
             System.out.println("Iteration " + ++iteration + " ... ... ...");
             Population selected = Selection.roulette(population, selectionSize);
             Population offspring = new Population();
@@ -122,8 +126,10 @@ public class Algorithm {
                         new Parameter('O', "11"),
                         new Parameter('E', "4"),
                 };
+            default:
+                System.out.println("Error getting initial values");
+                return new Parameter[0];
         }
-        return null;
     }
 
     public static char[] getFloats(String aligner) {

@@ -8,7 +8,6 @@ import Model.Parameter;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 
 class Main {
 
@@ -39,9 +38,10 @@ class Main {
             if (arg.contains("FQ4")) reverse_1 = arg.split("=")[1];
             if (arg.contains("PATH")) path = arg.split("=")[1];
         }
+        if (new File(path + "BAM/" + name + "Final.bam").exists()) return;
         if (args.length == 6) {
-            String ubamNameA=forward.substring(forward.lastIndexOf("/")+1, forward.lastIndexOf("_"));
-            String ubamNameB=forward_1.substring(forward_1.lastIndexOf("/")+1, forward.lastIndexOf("_") );
+            String ubamNameA = forward.substring(forward.lastIndexOf("/") + 1, forward.lastIndexOf("_"));
+            String ubamNameB = forward_1.substring(forward_1.lastIndexOf("/") + 1, forward.lastIndexOf("_"));
             clean2Bam(forward, reverse, forward_1, reverse_1, ubamNameA, ubamNameB, name, path);
         } else {
             cleanBam(forward, reverse, name, name, path);

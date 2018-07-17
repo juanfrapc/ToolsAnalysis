@@ -4,7 +4,6 @@ import Model.Parameter;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
-import java.util.Random;
 
 public class Individual implements Comparable<Individual>, Cloneable {
 
@@ -22,7 +21,7 @@ public class Individual implements Comparable<Individual>, Cloneable {
     }
 
     @NotNull
-    public static Individual getInitialRamdom(Fitness fitness, Parameter[] initialValues, char[] floats, char[] negatives) {
+    public static Individual getInitialRandom(Fitness fitness, Parameter[] initialValues, char[] floats, char[] negatives) {
         for (Parameter value : initialValues) {
             value.updateRandom(floats, negatives);
         }
