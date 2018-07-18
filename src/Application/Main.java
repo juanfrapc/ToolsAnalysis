@@ -3,6 +3,7 @@ package Application;
 import Application.AlignningStatsTasks.BWABackTrackTask;
 import Application.AlignningStatsTasks.BWAMEMTask;
 import Application.AlignningStatsTasks.BWASWTask;
+import Control.GermlineSNP;
 import Control.PreProcessor;
 import Model.Parameter;
 
@@ -33,8 +34,8 @@ class Main {
             return;
         }
         for (String arg : args) {
-            if (arg.contains("NAME")) name = arg.split("=")[1] +"_" +
-                    DateTimeFormatter.ofPattern("yyyyMMdd").format(LocalDate.now()) + "_"+
+            if (arg.contains("NAME")) name = arg.split("=")[1] + "_" +
+                    DateTimeFormatter.ofPattern("yyyyMMdd").format(LocalDate.now()) + "_" +
                     "GATK_GRCH38";
             if (arg.contains("FQ1")) forward = arg.split("=")[1];
             if (arg.contains("FQ2")) reverse = arg.split("=")[1];
@@ -49,6 +50,11 @@ class Main {
         } else {
             String ubamName = forward.substring(forward.lastIndexOf("/") + 1, forward.lastIndexOf("_"));
             cleanBam(forward, reverse, ubamName, name, path);
+        }
+        try {
+            GermlineSNP.getVCFilered(reference, name, path + "BAM/", path + "VCF/");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

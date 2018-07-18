@@ -6,12 +6,12 @@ import java.util.List;
 public class GATK {
 
     private static final String dbSNP = "/media/uichuimi/DiscoInterno/GENOME_DATA/vcfDB/gatk_resourcebundle_dbSNP.vcf.gz";
-    private static String hapmap;
-    private static String omni;
-    private static String milG;
-    private static String mills;
+    private static String hapmap = "/media/uichuimi/DiscoInterno/GENOME_DATA/vcfDB/gatk_resourcebundle_hapmap.vcf.gz";
+    private static String omni = "/media/uichuimi/DiscoInterno/GENOME_DATA/vcfDB/gatk_resourcebundle_OMNI.vcf.gz";
+    private static String milG = "/media/uichuimi/DiscoInterno/GENOME_DATA/vcfDB/gatk_resourcebundle_1000G.vcf.gz";
+    private static String mills = "/media/uichuimi/DiscoInterno/GENOME_DATA/vcfDB/gatk_resourcebundle_MILS.vcf.gz";
 
-    public static Process BaseReacalibrator(String reference, String bamInput, String tableOutput) throws IOException {
+    public static Process baseReacalibrator(String reference, String bamInput, String tableOutput) throws IOException {
         //String finalReference = reference.split("\\.")[0] + ".2bit";
         ProcessBuilder pb = new ProcessBuilder("gatk", "--java-options", "-Xmx6g", "BaseRecalibrator",
                 "-R", reference,
@@ -22,7 +22,7 @@ public class GATK {
         return pb.start();
     }
 
-    public static Process PrintReads(String reference, String bamInput, String bamOutput, String table, String path) throws IOException {
+    public static Process applyBQSR(String reference, String bamInput, String bamOutput, String table, String path) throws IOException {
         ProcessBuilder pb = new ProcessBuilder("gatk", "--java-options", "-Xmx6g", "ApplyBQSR",
                 "-R", reference,
                 "-I", bamInput,
@@ -33,7 +33,7 @@ public class GATK {
         return pb.start();
     }
 
-    public static Process HaplotypeCaller(String reference, String bamInput, String gvcfOutput) throws IOException {
+    public static Process haplotypeCaller(String reference, String bamInput, String gvcfOutput) throws IOException {
         ProcessBuilder pb = new ProcessBuilder("gatk", "--java-options", "-Xmx6g", "HaplotypeCaller",
                 "-R", reference,
                 "-I", bamInput,
@@ -43,7 +43,7 @@ public class GATK {
         return pb.start();
     }
 
-    public static Process GenotypeGVCFs(String reference, String variantInput, String vcfOutput) throws IOException {
+    public static Process genotypeGVCFs(String reference, String variantInput, String vcfOutput) throws IOException {
         ProcessBuilder pb = new ProcessBuilder("gatk", "--java-options", "-Xmx6g", "GenotypeGVCFs",
                 "-R", reference,
                 "-V", variantInput,
@@ -74,11 +74,12 @@ public class GATK {
                 "--resource", "omni,known=false,training=true,truth=false,prior=12.0:" + omni,
                 "--resource", "1000G,known=false,training=true,truth=false,prior=10.0:" + milG,
                 "--resource", "dbsnp,known=true,training=false,truth=false,prior=2.0:" + dbSNP,
-                "-an ", "QD", "-an", "MQ", "-an", "MQRankSum", "-an", "ReadPosRankSum", "-an", "FS", "-an", "SOR",
+                "-an", "QD",
+                //"-an", "MQ", "-an", "MQRankSum","-an", "ReadPosRankSum",
+                "-an", "FS", "-an", "SOR",
                 "-mode", "SNP",
-                "--recal-file", path + "snp.recal",
-                "--tranches-file", path + "output_snp.tranches",
-                "--rscript-file", path + "output_snp.plots.R"
+                "-O", path + "snp.recal",
+                "--tranches-file", path + "snp.tranches"
         );
         pb = pb.redirectError(ProcessBuilder.Redirect.INHERIT);
         return pb.start();
@@ -91,11 +92,10 @@ public class GATK {
                 "--max-gaussians", "4",
                 "--resource", "mills,known=false,training=true,truth=true,prior=12.0:" + mills,
                 "--resource", "dbsnp,known=true,training=false,truth=false,prior=2.0:" + dbSNP,
-                "-an ", "QD", "-an", "MQRankSum", "-an", "ReadPosRankSum", "-an", "FS", "-an", "SOR",
+                "-an", "QD","-an", "MQRankSum", "-an", "ReadPosRankSum", "-an", "FS", "-an", "SOR",
                 "-mode", "INDEL",
-                "--recal-file", path + "indel.recal",
-                "--tranches-file", path + "output_indel.tranches",
-                "--rscript-file", path + "output_indel.plots.R"
+                "-O", path + "indel.recal",
+                "--tranches-file", path + "indel.tranches"
         );
         pb = pb.redirectError(ProcessBuilder.Redirect.INHERIT);
         return pb.start();
@@ -107,8 +107,8 @@ public class GATK {
                 "-V", input,
                 "-O", output,
                 "--truth-sensitivity-filter-level", snp?"99.5":"99.0",
-                "--tranches-file", snp? "output_snp.tranches":"output_indel.tranches",
-                "--recal-file", snp? "snp.recal":"indel.recal",
+                "--tranches-file", path + (snp? "snp.tranches":"indel.tranches"),
+                "--recal-file",path + (snp? "snp.recal":"indel.recal"),
                 "-mode", snp?"SNP":"INDEL"
         );
         pb = pb.redirectError(ProcessBuilder.Redirect.INHERIT);

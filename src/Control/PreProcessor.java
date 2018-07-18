@@ -143,10 +143,10 @@ public class PreProcessor {
         if (!waitforProcess(mark, "mark")) return false;
         new File(path + name + ".sorted.bam").delete();
 
-        Process recall = GATK.BaseReacalibrator(reference, path + name + ".sortedDeDup.bam", path + name + "recall_data.table");
+        Process recall = GATK.baseReacalibrator(reference, path + name + ".sortedDeDup.bam", path + name + "recall_data.table");
         if (!waitforProcess(recall, "recall")) return false;
 
-        Process applyBQSR = GATK.PrintReads(reference, path + name + ".sortedDeDup.bam", path + name + ".bam", path +name+ "recall_data.table", path);
+        Process applyBQSR = GATK.applyBQSR(reference, path + name + ".sortedDeDup.bam", path + name + ".bam", path +name+ "recall_data.table", path);
         if (!waitforProcess(applyBQSR, "Apply BQSR")) return false;
         new File(path + name + ".sortedDeDup.bam").delete();
 
