@@ -16,7 +16,7 @@ class Main {
 
     private final static String reference = "/media/uichuimi/DiscoInterno/GENOME_DATA/REFERENCE/gatk_resourcebunde_GRCH38.fasta";
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 //        inverseEng();
 //        String forwardniv19 = "/media/uichuimi/DiscoInterno/GENOME_DATA/NIV/NIV19/FASTQ/niv_19_pe_1.fq.gz";
 //        String reverseniv19 = "/media/uichuimi/DiscoInterno/GENOME_DATA/NIV/NIV19/FASTQ/niv_19_pe_2.fq.gz";
@@ -47,14 +47,11 @@ class Main {
             String ubamNameA = forward.substring(forward.lastIndexOf("/") + 1, forward.lastIndexOf("_"));
             String ubamNameB = forward_1.substring(forward_1.lastIndexOf("/") + 1, forward.lastIndexOf("_"));
             clean2Bam(forward, reverse, forward_1, reverse_1, ubamNameA, ubamNameB, name, path);
+            GermlineSNP.getVCFileredFromMultiBAM(reference, name, path + "BAM/", path + "VCF/", ubamNameA, ubamNameB);
         } else {
             String ubamName = forward.substring(forward.lastIndexOf("/") + 1, forward.lastIndexOf("_"));
             cleanBam(forward, reverse, ubamName, name, path);
-        }
-        try {
-            GermlineSNP.getVCFilered(reference, name, path + "BAM/", path + "VCF/");
-        } catch (IOException e) {
-            e.printStackTrace();
+            GermlineSNP.getVCFileredFromSingelBAM(reference, name, path + "BAM/", path + "VCF/");
         }
     }
 

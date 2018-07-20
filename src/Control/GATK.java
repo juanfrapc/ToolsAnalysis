@@ -33,25 +33,37 @@ public class GATK {
         return pb.start();
     }
 
-    public static Process haplotypeCaller(String reference, String bamInput, String gvcfOutput) throws IOException {
+    public static Process haplotypeCaller(String reference, String bamInput, String gvcfOutput,String singleName) throws IOException {
         ProcessBuilder pb = new ProcessBuilder("gatk", "--java-options", "-Xmx6g", "HaplotypeCaller",
                 "-R", reference,
                 "-I", bamInput,
-                "-O", gvcfOutput,
+                "-o", gvcfOutput,
                 "-ERC", "GVCF");
         pb = pb.redirectError(ProcessBuilder.Redirect.INHERIT);
+        if (singleName != null) {
+            List<String> command = pb.command();
+            command.add("-ALIAS");
+            command.add(singleName);
+            pb.command(command);
+        }
         return pb.start();
     }
 
-    public static Process genotypeGVCFs(String reference, String variantInput, String vcfOutput) throws IOException {
+    public static Process genotypeGVCFs(String reference, List<String> variantInput, String vcfOutput) throws IOException {
         ProcessBuilder pb = new ProcessBuilder("gatk", "--java-options", "-Xmx6g", "GenotypeGVCFs",
                 "-R", reference,
-                "-V", variantInput,
                 "-O", vcfOutput);
         pb = pb.redirectError(ProcessBuilder.Redirect.INHERIT);
+        List<String> command = pb.command();
+        for (String variant : variantInput) {
+            command.add("-V");
+            command.add(variant);
+        }
+        pb.command(command);
         return pb.start();
     }
 
+    @Deprecated
     public static Process combineGVCFs(String reference, String[] variantsInput, String vcfOutput) throws IOException {
         ProcessBuilder pb = new ProcessBuilder("gatk", "--java-options", "-Xmx6g", "CombineGVCFs",
                 "-R", reference,
