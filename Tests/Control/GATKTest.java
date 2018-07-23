@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.util.ArrayList;
 
 class GATKTest {
 
@@ -86,7 +87,7 @@ class GATKTest {
     @Test
     void haplotypeCaller() {
         try {
-            Process HC = GATK.haplotypeCaller(reference, marked, gvcf1);
+            Process HC = GATK.haplotypeCaller(reference, marked, gvcf1, null);
             int status = HC.waitFor();
             assert status == 0;
             assert new File(gvcf1).exists();
@@ -98,15 +99,17 @@ class GATKTest {
     @Test
     void genotypeGVCFs() {
         try {
-            Process HC = GATK.haplotypeCaller(reference, marked, gvcf1);
+            Process HC = GATK.haplotypeCaller(reference, marked, gvcf1,null);
             HC.waitFor();
-            HC = GATK.haplotypeCaller(reference, marked, gvcf2);
+            HC = GATK.haplotypeCaller(reference, marked, gvcf2,null);
             HC.waitFor();
-            HC = GATK.haplotypeCaller(reference, marked, gvcf3);
+            HC = GATK.haplotypeCaller(reference, marked, gvcf3,null);
             HC.waitFor();
             Process combine = GATK.combineGVCFs(reference, new String[]{gvcf1, gvcf2, gvcf3}, gvcfComb);
             combine.waitFor();
-            Process GG = GATK.genotypeGVCFs(reference, gvcfComb, vcf);
+            ArrayList<String> comb = new ArrayList<>();
+            comb.add(gvcfComb);
+            Process GG = GATK.genotypeGVCFs(reference, comb, vcf);
             int status = GG.waitFor();
             assert status == 0;
             assert new File(vcf).exists();
@@ -118,9 +121,11 @@ class GATKTest {
     @Test
     void variantReacalibrator() {
         try {
-            Process HC = GATK.haplotypeCaller(reference, marked, gvcf1);
+            Process HC = GATK.haplotypeCaller(reference, marked, gvcf1, null);
             HC.waitFor();
-            Process GG = GATK.genotypeGVCFs(reference, gvcf1, vcfSimple);
+            ArrayList<String> comb = new ArrayList<>();
+            comb.add(gvcf1);
+            Process GG = GATK.genotypeGVCFs(reference, comb, vcfSimple);
             GG.waitFor();
             Process snpModel = GATK.buildSNPModel(reference, vcfSimple, "Tests/tutorialFile/HC/"); // eliminar MQRANKSUM, READPOSRANKSUM, MQ
             snpModel.waitFor();
@@ -138,9 +143,11 @@ class GATKTest {
     @Test
     void printVariants() {
         try {
-            Process HC = GATK.haplotypeCaller(reference, marked, gvcf1);
+            Process HC = GATK.haplotypeCaller(reference, marked, gvcf1, null);
             HC.waitFor();
-            Process GG = GATK.genotypeGVCFs(reference, gvcf1, vcfSimple);
+            ArrayList<String> comb = new ArrayList<>();
+            comb.add(gvcf1);
+            Process GG = GATK.genotypeGVCFs(reference, comb, vcfSimple);
             GG.waitFor();
             Process snpModel = GATK.buildSNPModel(reference, vcfSimple, "Tests/tutorialFile/HC/"); // eliminar MQRANKSUM, READPOSRANKSUM, MQ
             snpModel.waitFor();

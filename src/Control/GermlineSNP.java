@@ -10,7 +10,7 @@ public class GermlineSNP {
 
     private static Timer timer = new Timer();
 
-    public static boolean getVCFileredFromSingelBAM(String reference, String name, String bamPath, String vcfPath) throws IOException {
+    public static boolean getVCFilteredFromSingelBAM(String reference, String name, String bamPath, String vcfPath) throws IOException {
         timer.start();
         System.out.println("*********************\n(" + new Date().toString() + ") Start getting VCF");
 
@@ -33,8 +33,8 @@ public class GermlineSNP {
         return waitforProcess(filterIndel, "SNP filter apply");
     }
 
-    public static boolean getVCFileredFromMultiBAM(String reference, String name, String bamPath, String vcfPath,
-                                                   String sampleA, String sampleB) throws IOException {
+    public static boolean getVCFilteredFromMultiBAM(String reference, String name, String bamPath, String vcfPath,
+                                                    String sampleA, String sampleB) throws IOException {
         timer.start();
         System.out.println("*********************\n(" + new Date().toString() + ") Start getting VCF");
 

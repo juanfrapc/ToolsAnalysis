@@ -46,12 +46,12 @@ class Main {
         if (args.length == 6) {
             String ubamNameA = forward.substring(forward.lastIndexOf("/") + 1, forward.lastIndexOf("_"));
             String ubamNameB = forward_1.substring(forward_1.lastIndexOf("/") + 1, forward.lastIndexOf("_"));
-            clean2Bam(forward, reverse, forward_1, reverse_1, ubamNameA, ubamNameB, name, path);
-            GermlineSNP.getVCFileredFromMultiBAM(reference, name, path + "BAM/", path + "VCF/", ubamNameA, ubamNameB);
+            if (!path.contains("CONTROLS")) cleanBam(forward, reverse, forward_1, reverse_1, ubamNameA, ubamNameB, name, path);
+            GermlineSNP.getVCFilteredFromMultiBAM(reference, name, path + "BAM/", path + "VCF/", ubamNameA, ubamNameB);
         } else {
             String ubamName = forward.substring(forward.lastIndexOf("/") + 1, forward.lastIndexOf("_"));
-            cleanBam(forward, reverse, ubamName, name, path);
-            GermlineSNP.getVCFileredFromSingelBAM(reference, name, path + "BAM/", path + "VCF/");
+            if (!path.contains("CONTROLS")) cleanBam(forward, reverse, ubamName, name, path);
+            GermlineSNP.getVCFilteredFromSingelBAM(reference, name, path + "BAM/", path + "VCF/");
         }
     }
 
@@ -70,8 +70,8 @@ class Main {
         }
     }
 
-    private static void clean2Bam(String forwardA, String reverseA, String forwardB, String reverseB,
-                                  String ubamNameA, String ubamNameB, String name, String path) {
+    private static void cleanBam(String forwardA, String reverseA, String forwardB, String reverseB,
+                                 String ubamNameA, String ubamNameB, String name, String path) {
         String interleavedA = path + "FASTQ/" + ubamNameA + "_interleaved.fq.gz";
         String ubamA = path + "FASTQ/" + ubamNameA + ".ubam";
         String interleavedB = path + "FASTQ/" + ubamNameB + "_interleaved.fq.gz";

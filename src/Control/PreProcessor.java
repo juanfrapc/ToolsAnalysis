@@ -154,7 +154,7 @@ public class PreProcessor {
         if (!waitforProcess(applyBQSR, "Apply BQSR")) return false;
         new File(path + name + ".sortedDeDup.bam").delete();
 
-        System.out.println("********************\ndone with getting BAM******************\n");
+        System.out.println("********************\ndone with getting BAM\n******************\n");
         timer.reset();
         return true;
 

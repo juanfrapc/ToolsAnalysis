@@ -37,7 +37,7 @@ public class GATK {
         ProcessBuilder pb = new ProcessBuilder("gatk", "--java-options", "-Xmx6g", "HaplotypeCaller",
                 "-R", reference,
                 "-I", bamInput,
-                "-o", gvcfOutput,
+                "-O", gvcfOutput,
                 "-ERC", "GVCF");
         pb = pb.redirectError(ProcessBuilder.Redirect.INHERIT);
         if (singleName != null) {
