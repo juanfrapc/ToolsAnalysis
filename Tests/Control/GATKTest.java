@@ -105,11 +105,13 @@ class GATKTest {
             HC.waitFor();
             HC = GATK.haplotypeCaller(reference, marked, gvcf3,null);
             HC.waitFor();
-            Process combine = GATK.combineGVCFs(reference, new String[]{gvcf1, gvcf2, gvcf3}, gvcfComb);
+            ArrayList<String> inputs = new ArrayList<>();
+            inputs.add(gvcf1);
+            inputs.add(gvcf2);
+            inputs.add(gvcf3);
+            Process combine = GATK.combineGVCFs(reference, inputs, gvcfComb);
             combine.waitFor();
-            ArrayList<String> comb = new ArrayList<>();
-            comb.add(gvcfComb);
-            Process GG = GATK.genotypeGVCFs(reference, comb, vcf);
+            Process GG = GATK.genotypeGVCFs(reference, gvcfComb, vcf);
             int status = GG.waitFor();
             assert status == 0;
             assert new File(vcf).exists();
@@ -123,9 +125,7 @@ class GATKTest {
         try {
             Process HC = GATK.haplotypeCaller(reference, marked, gvcf1, null);
             HC.waitFor();
-            ArrayList<String> comb = new ArrayList<>();
-            comb.add(gvcf1);
-            Process GG = GATK.genotypeGVCFs(reference, comb, vcfSimple);
+            Process GG = GATK.genotypeGVCFs(reference, gvcf1, vcfSimple);
             GG.waitFor();
             Process snpModel = GATK.buildSNPModel(reference, vcfSimple, "Tests/tutorialFile/HC/"); // eliminar MQRANKSUM, READPOSRANKSUM, MQ
             snpModel.waitFor();
@@ -145,9 +145,7 @@ class GATKTest {
         try {
             Process HC = GATK.haplotypeCaller(reference, marked, gvcf1, null);
             HC.waitFor();
-            ArrayList<String> comb = new ArrayList<>();
-            comb.add(gvcf1);
-            Process GG = GATK.genotypeGVCFs(reference, comb, vcfSimple);
+            Process GG = GATK.genotypeGVCFs(reference, gvcf1, vcfSimple);
             GG.waitFor();
             Process snpModel = GATK.buildSNPModel(reference, vcfSimple, "Tests/tutorialFile/HC/"); // eliminar MQRANKSUM, READPOSRANKSUM, MQ
             snpModel.waitFor();

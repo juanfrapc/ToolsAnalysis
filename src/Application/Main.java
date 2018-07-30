@@ -46,26 +46,11 @@ class Main {
         if (args.length == 6) {
             String ubamNameA = forward.substring(forward.lastIndexOf("/") + 1, forward.lastIndexOf("_"));
             String ubamNameB = forward_1.substring(forward_1.lastIndexOf("/") + 1, forward.lastIndexOf("_"));
-            if (!path.contains("CONTROLS"))
-                cleanBam(forward, reverse, forward_1, reverse_1, ubamNameA, ubamNameB, name, path);
-            else {
-                File dir = new File(".");
-                for (File file : dir.listFiles()) {
-                    if (file.getName().endsWith(".bam"))
-                        name = file.getName().split(".")[0];
-                }
-            }
+            cleanBam(forward, reverse, forward_1, reverse_1, ubamNameA, ubamNameB, name, path);
             GermlineSNP.getVCFilteredFromMultiBAM(reference, name, path + "BAM/", path + "VCF/", ubamNameA, ubamNameB);
         } else {
             String ubamName = forward.substring(forward.lastIndexOf("/") + 1, forward.lastIndexOf("_"));
-            if (!path.contains("CONTROLS")) cleanBam(forward, reverse, ubamName, name, path);
-            else{
-                File dir = new File(".");
-                for(File file : dir.listFiles()) {
-                    if(file.getName().endsWith(".bam"))
-                        name = file.getName().split(".")[0];
-                }
-            }
+            cleanBam(forward, reverse, ubamName, name, path);
             GermlineSNP.getVCFilteredFromSingelBAM(reference, name, path + "BAM/", path + "VCF/");
         }
     }

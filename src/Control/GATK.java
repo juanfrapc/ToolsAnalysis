@@ -49,22 +49,7 @@ public class GATK {
         return pb.start();
     }
 
-    public static Process genotypeGVCFs(String reference, List<String> variantInput, String vcfOutput) throws IOException {
-        ProcessBuilder pb = new ProcessBuilder("gatk", "--java-options", "-Xmx6g", "GenotypeGVCFs",
-                "-R", reference,
-                "-O", vcfOutput);
-        pb = pb.redirectError(ProcessBuilder.Redirect.INHERIT);
-        List<String> command = pb.command();
-        for (String variant : variantInput) {
-            command.add("-V");
-            command.add(variant);
-        }
-        pb.command(command);
-        return pb.start();
-    }
-
-    @Deprecated
-    public static Process combineGVCFs(String reference, String[] variantsInput, String vcfOutput) throws IOException {
+    public static Process combineGVCFs(String reference, List<String> variantsInput, String vcfOutput) throws IOException {
         ProcessBuilder pb = new ProcessBuilder("gatk", "--java-options", "-Xmx6g", "CombineGVCFs",
                 "-R", reference,
                 "-O", vcfOutput);
@@ -76,6 +61,20 @@ public class GATK {
         pb.command(command);
         pb = pb.redirectError(ProcessBuilder.Redirect.INHERIT);
         return pb.start();
+    }
+
+    public static Process genotypeGVCFs(String reference, String variantInput, String vcfOutput) throws IOException {
+        ProcessBuilder pb = new ProcessBuilder("gatk", "--java-options", "-Xmx6g", "GenotypeGVCFs",
+                "-R", reference,
+                "-V", variantInput,
+                "-O", vcfOutput);
+        pb = pb.redirectError(ProcessBuilder.Redirect.INHERIT);
+        return pb.start();
+    }
+
+
+    public static Process genomicsDBImport(String reference, String[] variantsInput, String dbPath) throws IOException {
+        throw new UnsupportedOperationException("Not implemented yet");
     }
 
     public static Process buildSNPModel(String reference, String input, String path) throws IOException {
