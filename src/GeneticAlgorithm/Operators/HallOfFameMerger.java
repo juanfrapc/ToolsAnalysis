@@ -3,7 +3,6 @@ package GeneticAlgorithm.Operators;
 import GeneticAlgorithm.Model.Individual;
 import GeneticAlgorithm.Model.Population;
 
-import java.util.Iterator;
 import java.util.ListIterator;
 
 public class HallOfFameMerger implements PopulationMerger {
@@ -20,9 +19,11 @@ public class HallOfFameMerger implements PopulationMerger {
         int count = 0;
         if (!iterator1.hasPrevious()) {
             fillWith(iterator2, count, size);
+            result.sort();
             return result;
         } else if (!iterator2.hasPrevious()) {
             fillWith(iterator1, count, size);
+            result.sort();
             return result;
         }
         Individual ind1 = iterator1.previous();
@@ -40,16 +41,20 @@ public class HallOfFameMerger implements PopulationMerger {
                 else break;
             }
         }
+        result.sort();
         System.out.println("Padres:\n" + pop1);
         System.out.println("Hijos:\n" + pop2);
         System.out.println("Mejores:\n" + result);
-        if (count >= size) return result;
+        if (count >= size) {
+            return result;
+        }
         if (!iterator1.hasPrevious()) {
             fillWith(iterator2, count, size);
         }
         if (!iterator2.hasPrevious()) {
             fillWith(iterator1, count, size);
         }
+        result.sort();
         System.out.println("Padres:\n" + pop1);
         System.out.println("Hijos:\n" + pop2);
         System.out.println("Mejores:\n" + result);

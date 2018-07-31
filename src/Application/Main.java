@@ -50,7 +50,8 @@ class Main {
             GermlineSNP.getVCFilteredFromMultiBAM(reference, name, path + "BAM/", path + "VCF/", ubamNameA, ubamNameB);
         } else {
             String ubamName = forward.substring(forward.lastIndexOf("/") + 1, forward.lastIndexOf("_"));
-            cleanBam(forward, reverse, ubamName, name, path);
+            //cleanBam(forward, reverse, ubamName, name, path);
+            name = "DAM_20180730_GATK_GRCH38";
             GermlineSNP.getVCFilteredFromSingelBAM(reference, name, path + "BAM/", path + "VCF/");
         }
     }

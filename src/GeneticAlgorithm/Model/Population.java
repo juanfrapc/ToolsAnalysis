@@ -21,7 +21,12 @@ public class Population implements Iterable<Individual> {
 
     public void initilize(int size, Fitness fitness, Parameter[] initialValues, char[] floats, char[] negatives) {
         for (int i = 0; i < size; i++) {
-            this.addIndividual(Individual.getInitialRandom(fitness, initialValues.clone(), floats, negatives));
+            Parameter[] initialValuesCloned = new Parameter[initialValues.length];
+            for (int j = 0; j < initialValues.length; j++) {
+                initialValuesCloned[j] = initialValues[j].clone();
+            }
+            Individual initialRandom = Individual.getInitialRandom(fitness, initialValuesCloned, floats, negatives);
+            this.addIndividual(initialRandom);
         }
     }
 
@@ -61,7 +66,13 @@ public class Population implements Iterable<Individual> {
         if (!(obj instanceof Population)) return false;
 
         Population pop = (Population) obj;
-        return pop.list.equals(this.list);
+        for (int i = 0; i < this.list.size(); i++) {
+            if (this.list.get(i).getFitness() != pop.list.get(i).getFitness()){
+                return false;
+            }
+        }
+        return true;
+        //return pop.list.equals(this.list);
     }
 
     @Override

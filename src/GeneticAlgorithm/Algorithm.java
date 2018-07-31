@@ -5,36 +5,38 @@ import Application.AlignningStatsTasks.BWABackTrackTask;
 import Application.AlignningStatsTasks.BWAMEMTask;
 import Application.AlignningStatsTasks.BWASWTask;
 import GeneticAlgorithm.Model.Fitness;
-import GeneticAlgorithm.Model.FitnessLambda;
 import GeneticAlgorithm.Model.Individual;
 import GeneticAlgorithm.Model.Population;
 import GeneticAlgorithm.Operators.*;
 import Model.Parameter;
 
 import java.util.Arrays;
-import java.util.Random;
 
 public class Algorithm {
 
-    private static final String forwardPath = "/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/FASTQ/DAM_forward.fastq.gz";
-    private static final String reversePath = "/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/FASTQ/DAM_reverse.fastq.gz";
-    private static final String reference = "/media/uichuimi/DiscoInterno/GENOME_DATA/REFERENCE/gatk_resourcebunde_GRCH38.fasta";
 
     private enum TaskTypes {
         MEM, SW, ALN
     }
 
     public static void main(String[] args) throws CloneNotSupportedException {
+        String forwardPath = "/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/FASTQ/DAM_forward.fastq.gz";
+        String reversePath = "/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/FASTQ/DAM_reverse.fastq.gz";
+        String reference = "/media/uichuimi/DiscoInterno/GENOME_DATA/REFERENCE/gatk_resourcebunde_GRCH38.fasta";
+        String alignerType = args.length > 0 ? args[0] : "MEM";
+        applyEvolution(alignerType, forwardPath, reversePath, reference);
+    }
+
+    static void applyEvolution(String alignerType, String forwardPath, String reversePath, String reference) throws CloneNotSupportedException {
         int populationSize = 6;
         int selectionSize = 6;
         float mutationProbability = (float) 0.05;
-        String alignerType = args.length > 0 ? args[0] : "MEM";
-        AligningTask task = taskSelection(alignerType);
+        AligningTask task = taskSelection(alignerType, forwardPath, reversePath, reference);
 
         Fitness.clearMap();
-        //FreqFitness fitness = new FreqFitness(task, alignerType + "FrequencyGeneticAlgorithm");
-        Random random = new Random();
-        Fitness fitness = new FitnessLambda(random::nextFloat);
+        FreqFitness fitness = new FreqFitness(task, alignerType + "FrequencyGeneticAlgorithm");
+        //Random random = new Random();
+        //Fitness fitness = new FitnessLambda(random::nextFloat);
         Population population = new Population();
         Crossover crossover = new SPCrossover(fitness);
         Mutator mutator = new GaussianMutator(mutationProbability);
@@ -44,9 +46,9 @@ public class Algorithm {
         System.out.println("Inicial Population.");
         System.out.println(population);
 
-        boolean flag = true;
         int iteration = 0;
-        while (flag && iteration < 5) {
+        int unimproved = 0;
+        while (unimproved < 5 && iteration < 30) {
             System.out.println("Iteration " + ++iteration + " ... ... ...");
             Population selected = Selection.roulette(population, selectionSize);
             Population offspring = new Population();
@@ -57,6 +59,7 @@ public class Algorithm {
                 System.out.println("Madre: " + Arrays.toString(mother.getParameters()));
                 Individual[] child = crossover.reproduce(father, mother);
                 System.out.println("Hijos: " + Arrays.toString(child[0].getParameters()) + " y " + Arrays.toString(child[1].getParameters()));
+                System.out.println("----------------------------------------------------------");
                 offspring.addIndividual(child[0]);
                 offspring.addIndividual(child[1]);
             }
@@ -64,23 +67,26 @@ public class Algorithm {
                 mutator.mutate(ind, fitness, getFloats(alignerType), getNegatives(alignerType));
             }
             Population merge = merger.merge(population, offspring, populationSize);
-            if (population.equals(merge)) flag = false;
-            else population = merge;
+            if (population.equals(merge)) unimproved++;
+            else {
+                unimproved = 0;
+                population = merge;
+            }
+            System.out.println(unimproved);
 
-            System.out.println(population);
         }
         System.out.println("END");
     }
 
 
-    private static AligningTask taskSelection(String aligner) {
+    private static AligningTask taskSelection(String aligner, String forward, String reverse, String reference) {
         switch (TaskTypes.valueOf(aligner)) {
             case MEM:
-                return new BWAMEMTask("MemFrequencyGeneticAlgorithm", forwardPath, reversePath, reference, new Parameter[0]);
+                return new BWAMEMTask("MemFrequencyGeneticAlgorithm", forward, reverse, reference, new Parameter[0]);
             case SW:
-                return new BWASWTask("SWFrequencyGeneticAlgorithm", forwardPath, reversePath, reference, new Parameter[0]);
+                return new BWASWTask("SWFrequencyGeneticAlgorithm", forward, reverse, reference, new Parameter[0]);
             case ALN:
-                return new BWABackTrackTask("ALNFrequencyGeneticAlgorithm", forwardPath, reversePath, reference, new Parameter[0]);
+                return new BWABackTrackTask("ALNFrequencyGeneticAlgorithm", forward, reverse, reference, new Parameter[0]);
         }
         return null;
     }

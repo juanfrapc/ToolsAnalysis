@@ -18,11 +18,14 @@ public class GaussianMutator implements Mutator {
     public void mutate(Individual individual, Fitness fitness, char[] floats, char[] negatives) {
         Parameter[] parameters = individual.getParameters();
         Random random = new Random();
+        boolean flag = false;
         for (int i = 1; i < parameters.length; i++) {
             if (random.nextFloat()<probability) {
                 parameters[i].updateRandom(floats, negatives);
-                individual.updateFitness(fitness);
+                System.out.println("*********** MUTADO " + parameters[i].getName() +" *********");
+                flag=true;
             }
         }
+        if(flag) individual.updateFitness(fitness);
     }
 }

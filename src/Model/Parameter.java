@@ -36,8 +36,8 @@ public class Parameter implements Cloneable {
     }
 
     @Override
-    public Parameter clone() throws CloneNotSupportedException {
-        return (Parameter) super.clone();
+    public Parameter clone() {
+        return new Parameter(this.name, this.value);
     }
 
     @Override

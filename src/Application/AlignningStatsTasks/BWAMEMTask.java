@@ -49,7 +49,7 @@ public class BWAMEMTask implements AligningTask {
             if (error == 0) System.out.println(name + ": alineamiento terminado con éxito. " + timer.report());
             else {
                 System.err.println(name + ": Error de alineamiento " + error);
-                return statistics;
+                return null;
             }
         } catch (InterruptedException e) {
             e.printStackTrace();

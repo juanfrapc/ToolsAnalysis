@@ -29,6 +29,7 @@ public class FreqFitness extends Fitness{
 
         task.setParameters(individual.getParameters());
         AlignmentsStatistics stats = task.run();
+        if (stats== null) return 0;
         final AtomicLong result = new AtomicLong(stats.getUniquelyMapped());
         Map<Integer, Long> mapQ = stats.getMultiplyMapQDistribution();
         mapQ.entrySet().stream().parallel().
