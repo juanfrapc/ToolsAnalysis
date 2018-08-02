@@ -1,14 +1,15 @@
 package View;
 
-import Model.AlignmentsStatistics;
-import Model.Parameter;
+import Model.*;
 
 @Deprecated
 public class ConsoleStatsWriter  implements StatWriter{
 
 
     @Override
-    public void write(Parameter[] parameters, AlignmentsStatistics statistics) {
+    public void write(Parameter[] parameters, Statistics originalStatistics) {
+        if (! (originalStatistics instanceof AlignmentsStatistics)) return;
+        AlignmentsStatistics statistics = (AlignmentsStatistics) originalStatistics;
         System.out.println("Estadísitcas:");
         System.out.println("-------------------------");
         long total = statistics.getTotal();

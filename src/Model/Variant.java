@@ -14,7 +14,8 @@ public class Variant implements Iterable {
     public static final int ALT = 4;
     public static final int QUAL = 5;
     public static final int FILTER = 6;
-    public static final int GENOTYPE = 7;
+    public static final int TYPE = 7;
+    public static final int GENOTYPE = 8;
 
     private final int nParam = 11;
     private final String[] params;

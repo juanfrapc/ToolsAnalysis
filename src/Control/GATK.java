@@ -33,7 +33,7 @@ public class GATK {
         return pb.start();
     }
 
-    public static Process haplotypeCaller(String reference, String bamInput, String gvcfOutput,String singleName) throws IOException {
+    public static Process haplotypeCaller(String reference, String bamInput, String gvcfOutput, String singleName) throws IOException {
         ProcessBuilder pb = new ProcessBuilder("gatk", "--java-options", "-Xmx6g", "HaplotypeCaller",
                 "-R", reference,
                 "-I", bamInput,
@@ -103,7 +103,7 @@ public class GATK {
                 "--max-gaussians", "4",
                 "--resource", "mills,known=false,training=true,truth=true,prior=12.0:" + mills,
                 "--resource", "dbsnp,known=true,training=false,truth=false,prior=2.0:" + dbSNP,
-                "-an", "QD","-an", "MQRankSum", "-an", "ReadPosRankSum", "-an", "FS", "-an", "SOR",
+                "-an", "QD", "-an", "MQRankSum", "-an", "ReadPosRankSum", "-an", "FS", "-an", "SOR",
                 "-mode", "INDEL",
                 "-O", path + "indel.recal",
                 "--tranches-file", path + "indel.tranches"
@@ -117,10 +117,20 @@ public class GATK {
                 "-R", reference,
                 "-V", input,
                 "-O", output,
-                "--truth-sensitivity-filter-level", snp?"99.5":"99.0",
-                "--tranches-file", path + (snp? "snp.tranches":"indel.tranches"),
-                "--recal-file",path + (snp? "snp.recal":"indel.recal"),
-                "-mode", snp?"SNP":"INDEL"
+                "--truth-sensitivity-filter-level", snp ? "99.5" : "99.0",
+                "--tranches-file", path + (snp ? "snp.tranches" : "indel.tranches"),
+                "--recal-file", path + (snp ? "snp.recal" : "indel.recal"),
+                "-mode", snp ? "SNP" : "INDEL"
+        );
+        pb = pb.redirectError(ProcessBuilder.Redirect.INHERIT);
+        return pb.start();
+    }
+
+    public static Process Variant2Table(String input, String output) throws IOException {
+        ProcessBuilder pb = new ProcessBuilder("gatk", "--java-options", "-Xmx6g", "VariantsToTable",
+                "-V", input,
+                "-O", output,
+                "-F", "CHROM", "-F", "POS", "-F", "ID", "-F", "REF", "-F", "ALT", "-F", "QUAL", "-F", "FILTER", "-F", "TYPE", "-GF", "GT"
         );
         pb = pb.redirectError(ProcessBuilder.Redirect.INHERIT);
         return pb.start();
