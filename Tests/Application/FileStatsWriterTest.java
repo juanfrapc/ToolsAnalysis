@@ -28,7 +28,7 @@ class FileStatsWriterTest {
     @Test
     void writeTest() {
         String pathSave = "Tests/ejemplo.stat";
-        FileStatsWriter writer = new FileStatsWriter(pathSave);
+        FileAlignStatsWriter writer = new FileAlignStatsWriter(pathSave);
         writer.write(new Parameter[0], statistics);
         try (Stream<String> stream = Files.lines(Paths.get(pathSave))){
             stream.forEach(System.out::println);

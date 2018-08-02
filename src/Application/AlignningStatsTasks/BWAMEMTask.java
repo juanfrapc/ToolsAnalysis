@@ -1,7 +1,7 @@
 package Application.AlignningStatsTasks;
 
 import Application.Aligners.BWAMEMAligner;
-import Application.FileStatsWriter;
+import Application.FileAlignStatsWriter;
 import Model.AlignmentsStatistics;
 import Model.Parameter;
 import Model.Timer;
@@ -62,7 +62,7 @@ public class BWAMEMTask implements AligningTask {
         if (process) System.out.println(name + ": Procesamiento terminado con éxito. " + timer.report());
         else System.err.println(name + ": Error de procesado de estadisticas");
 
-        FileStatsWriter writer = new FileStatsWriter( statsFile);
+        FileAlignStatsWriter writer = new FileAlignStatsWriter( statsFile);
         writer.write(parameters, statistics);
         return statistics;
 

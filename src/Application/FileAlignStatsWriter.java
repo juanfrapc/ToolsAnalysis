@@ -2,24 +2,28 @@ package Application;
 
 import Model.AlignmentsStatistics;
 import Model.Parameter;
+import Model.Statistics;
 import View.StatWriter;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Map;
 
-public class FileStatsWriter implements StatWriter {
+public class FileAlignStatsWriter implements StatWriter {
 
     private final String path;
 
-    public FileStatsWriter(String path) {
+    public FileAlignStatsWriter(String path) {
         this.path = path;
     }
 
     @Override
-    public void write(Parameter[] parameters, AlignmentsStatistics statistics) {
+    public void write(Parameter[] parameters, Statistics originalStatistics) {
+        if (! (originalStatistics instanceof AlignmentsStatistics)) return;
+        AlignmentsStatistics statistics = (AlignmentsStatistics) originalStatistics;
         try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(path))){
             writer.write("Estadísitcas:\n");
             writer.write("Parameters: " + Arrays.toString(parameters)+"\n");

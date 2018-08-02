@@ -4,6 +4,7 @@ import Application.AlignningStatsTasks.AligningTask;
 import GeneticAlgorithm.Model.Fitness;
 import GeneticAlgorithm.Model.Individual;
 import Model.AlignmentsStatistics;
+import Model.Parameter;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -26,11 +27,20 @@ public class FreqFitness extends Fitness{
             System.out.println(Arrays.toString(individual.getParameters()) + ":Fitness ya calculado " + fitness);
             return fitness;
         }
-
+        Parameter[] runningParam = new Parameter[individual.getParameters().length];
+        System.arraycopy(individual.getParameters(), 0, runningParam, 0, runningParam.length-1);
+        runningParam[runningParam.length-1] = new Parameter('p',"");
         task.setParameters(individual.getParameters());
         AlignmentsStatistics stats = task.run();
+
         if (stats== null) return 0;
-        final AtomicLong result = new AtomicLong(stats.getUniquelyMapped());
+//        final AtomicLong result = new AtomicLong(stats.getUniquelyMapped());
+        final AtomicLong result = new AtomicLong(0);
+        Map<Integer, Long> mapQUniq = stats.getUniquelyMapQDistribution();
+        mapQUniq.entrySet().stream().parallel().
+                forEach(entry -> {
+                    if (entry.getKey() >= 20) result.addAndGet(entry.getValue());
+                });
         Map<Integer, Long> mapQ = stats.getMultiplyMapQDistribution();
         mapQ.entrySet().stream().parallel().
                 forEach(entry -> {

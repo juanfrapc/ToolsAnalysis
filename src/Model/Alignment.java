@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Arrays;
 import java.util.Iterator;
 
-public class Alignment implements Iterable<String>{
+public class Alignment implements Iterable<String> {
 
 
     public static final int QNAME = 0;
@@ -18,7 +18,7 @@ public class Alignment implements Iterable<String>{
     public static final int PNEXT = 7;
     public static final int TLEN = 8;
     public static final int SEQ = 9;
-    public static final int QUAL= 10;
+    public static final int QUAL = 10;
 
     private final int nParam = 11;
     private final String[] params;
@@ -43,7 +43,7 @@ public class Alignment implements Iterable<String>{
 
             @Override
             public boolean hasNext() {
-                return i<nParam;
+                return i < nParam;
             }
 
             @Override
@@ -53,14 +53,14 @@ public class Alignment implements Iterable<String>{
         };
     }
 
-    boolean checkOptionalParm(String flag){
+    boolean checkOptionalParm(String flag) {
         for (int i = nParam; i < params.length; i++) {
             if (params[i].startsWith(flag)) return true;
         }
         return false;
     }
 
-    public String getOptionalParam(String flag){
+    public String getOptionalParam(String flag) {
         for (int i = nParam; i < params.length; i++) {
             if (params[i].startsWith(flag)) return params[i];
         }
@@ -79,8 +79,6 @@ public class Alignment implements Iterable<String>{
 
         Alignment strings = (Alignment) o;
 
-        if (nParam != strings.nParam) return false;
-        // Probably incorrect - comparing Object[] arrays with Arrays.equals
         return Arrays.equals(params, strings.params);
     }
 

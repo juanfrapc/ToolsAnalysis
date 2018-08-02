@@ -14,7 +14,7 @@ import static Model.Alignment.RNAME;
 import static java.lang.Integer.parseInt;
 import static java.lang.Integer.toBinaryString;
 
-public class AlignmentsStatistics {
+public class AlignmentsStatistics implements Statistics{
 
     private final AtomicLong total;
     private final AtomicLong unmapped;

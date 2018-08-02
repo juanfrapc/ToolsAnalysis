@@ -2,7 +2,7 @@ package Application.AlignningStatsTasks;
 
 import Application.Aligners.BWABackTrackAlnAligner;
 import Application.Aligners.BWABackTrackSampe;
-import Application.FileStatsWriter;
+import Application.FileAlignStatsWriter;
 import Model.Aligner;
 import Model.AlignmentsStatistics;
 import Model.Parameter;
@@ -102,7 +102,7 @@ public class BWABackTrackTask implements AligningTask{
         if (process) System.out.println(name + ": Procesamiento terminado con éxito. " + timer.report());
         else System.err.println(name + ": Error de procesado de estadisticas");
 
-        FileStatsWriter writer = new FileStatsWriter( statsFile);
+        FileAlignStatsWriter writer = new FileAlignStatsWriter( statsFile);
         writer.write(parameters, statistics);
         return statistics;
 
