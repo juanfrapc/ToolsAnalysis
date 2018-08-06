@@ -85,10 +85,11 @@ public class Algorithm {
                 population = merge;
             }
             Individual best = population.getBest();
-            writer.append(best.getFitness() + "->" + Arrays.toString(best.getParameters())+"\n");
-//            System.out.println(best.getFitness() + "->" + Arrays.toString(best.getParameters())+"\n");
+//            writer.append(best.getFitness() + "->" + Arrays.toString(best.getParameters())+"\n");
+            System.out.println(best.getFitness() + "->" + Arrays.toString(best.getParameters())+"\n");
             if (iteration % 10 == 0) {
-                PreProcessor.getPreprocessedFromInterleavedParm("DAM.ubam", fullFastq, reference, "DAM_GEN",
+                PreProcessor.getPreprocessedFromInterleavedParm("/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/FASTQ/DAM.ubam",
+                        fullFastq, reference, "DAM_GEN",
                         "/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/BAM/", best.getParameters());
                 GermlineSNP.getVCFilteredFromSingelBAM(reference, "DAM_GEN","/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/BAM/",
                         "/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/VCF/");
@@ -96,8 +97,8 @@ public class Algorithm {
                 File variants;
                 VCF2StatsParser.process(new File("/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/BAM/VCF/DAM_GEN_FullRecall.vcf"),
                         variantStatistics,true);
-                writer.append("##### " + variantStatistics.getFalsePositive() + "->" + Arrays.toString(best.getParameters()) + "\n");
-//                System.out.println("##### " + variantStatistics.getFalsePositive() + "->" + Arrays.toString(best.getParameters()) + "\n");
+//                writer.append("##### " + variantStatistics.getFalsePositive() + "->" + Arrays.toString(best.getParameters()) + "\n");
+                System.out.println("##### " + variantStatistics.getFalsePositive() + "->" + Arrays.toString(best.getParameters()) + "\n");
             }
         }
         System.out.println("END");

@@ -64,7 +64,8 @@ public class Individual implements Comparable<Individual>, Cloneable {
 
         Individual that = (Individual) o;
 
-        return Float.compare(that.getFitness(), getFitness()) == 0 && Arrays.equals(getParameters(), that.getParameters());
+//        return Float.compare(that.getFitness(), getFitness()) == 0 && Arrays.equals(getParameters(), that.getParameters());
+        return Arrays.equals(getParameters(), that.getParameters());
     }
 
     @Override

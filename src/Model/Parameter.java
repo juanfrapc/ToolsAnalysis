@@ -58,7 +58,7 @@ public class Parameter implements Cloneable {
         try {
             return Integer.parseInt(getValue());
         }catch (NumberFormatException e){
-            return (int)Float.parseFloat(getValue())*100;
+            return (int)(Float.parseFloat(getValue())*100);
         }
     }
 
