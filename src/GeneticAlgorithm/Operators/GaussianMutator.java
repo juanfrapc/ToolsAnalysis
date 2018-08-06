@@ -22,7 +22,6 @@ public class GaussianMutator implements Mutator {
         for (int i = 1; i < parameters.length; i++) {
             if (random.nextFloat()<probability) {
                 parameters[i].updateRandom(floats, negatives);
-                System.out.println("*********** MUTADO " + parameters[i].getName() +" *********");
                 flag=true;
             }
         }

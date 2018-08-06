@@ -134,6 +134,32 @@ public class PreProcessor {
         return afterBwa(reference,path,name);
     }
 
+    public static boolean getPreprocessedFromInterleavedParm(
+            String bamUnmapped, String fastq, String reference, String name, String path, Parameter[] parameters) throws IOException, InterruptedException {
+        timer.start();
+
+        System.out.println("(" + new Date().toString() + ") Start getting Bam from interleaved");
+        Parameter[] execParam = new Parameter[parameters.length + 1];
+        System.arraycopy(parameters, 0, execParam, 0, parameters.length);
+        execParam[parameters.length] = new Parameter('p', "");
+
+        BWAMEMAligner bwa = new BWAMEMAligner(fastq, "", reference, path + name + ".sam", path + name + ".log", execParam);
+        if (!waitforProcess(bwa.run(), "alineamiento bwa")) return false;
+
+        Process sam2Bam = Samtools.sam2BamParallel(path + name + ".sam", path + name + ".bam");
+        if (!waitforProcess(sam2Bam, "sam2bam")) return false;
+        new File(path + name + ".sam").delete();
+        new File(path + name + ".log").delete();
+
+        Process merge = Picard.mergeBamAlignment(bamUnmapped, path + name + ".bam", path + name + "_merged.bam", reference);
+        if (!waitforProcess(merge, "Merge Bam Alignment")) return false;
+        new File(path + name + ".bam").delete();
+        new File(path + name + "_merged.bam").renameTo(new File(path + name + ".bam"));
+        new File(path + name + "_merged.bai").renameTo(new File(path + name + ".bam.bai"));
+
+        return afterBwa(reference,path,name);
+    }
+
     private static boolean afterBwa(String reference, String path, String name) throws IOException {
         Process sort = Samtools.sortBamParallel(path + name + ".bam", path + name + ".sorted.bam");
         if (!waitforProcess(sort, "sort")) return false;

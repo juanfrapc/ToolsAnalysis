@@ -72,4 +72,9 @@ public class BWASWTask implements AligningTask {
         this.parameters = parameters;
     }
 
+    @Override
+    public String getName() {
+        return "SW";
+    }
+
 }

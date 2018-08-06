@@ -20,9 +20,7 @@ public class VCF2StatsParser {
         }catch (FileNotFoundException ex){
             System.out.println("Error FILENOTFOUND");
             return false;
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
         return true;

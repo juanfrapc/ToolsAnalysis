@@ -8,4 +8,6 @@ public interface AligningTask {
     AlignmentsStatistics run();
 
     void setParameters(Parameter[] parameters);
+
+    String getName();
 }

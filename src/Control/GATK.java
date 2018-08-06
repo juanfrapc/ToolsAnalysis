@@ -18,7 +18,7 @@ public class GATK {
                 "-I", bamInput,
                 "-O", tableOutput,
                 "--known-sites", dbSNP);
-        pb = pb.redirectError(ProcessBuilder.Redirect.INHERIT);
+//        pb = pb.redirectError(ProcessBuilder.Redirect.INHERIT);
         return pb.start();
     }
 
@@ -29,7 +29,7 @@ public class GATK {
                 "-O", bamOutput,
                 "-bqsr", table,
                 "--TMP_DIR", path);
-        pb = pb.redirectError(ProcessBuilder.Redirect.INHERIT);
+//        pb = pb.redirectError(ProcessBuilder.Redirect.INHERIT);
         return pb.start();
     }
 
@@ -38,8 +38,9 @@ public class GATK {
                 "-R", reference,
                 "-I", bamInput,
                 "-O", gvcfOutput,
-                "-ERC", "GVCF");
-        pb = pb.redirectError(ProcessBuilder.Redirect.INHERIT);
+                "-ERC", "GVCF",
+                "--dbsnp", dbSNP);
+//        pb = pb.redirectError(ProcessBuilder.Redirect.INHERIT);
         if (singleName != null) {
             List<String> command = pb.command();
             command.add("-ALIAS");
@@ -59,7 +60,7 @@ public class GATK {
             command.add(variant);
         }
         pb.command(command);
-        pb = pb.redirectError(ProcessBuilder.Redirect.INHERIT);
+//        pb = pb.redirectError(ProcessBuilder.Redirect.INHERIT);
         return pb.start();
     }
 
@@ -68,7 +69,7 @@ public class GATK {
                 "-R", reference,
                 "-V", variantInput,
                 "-O", vcfOutput);
-        pb = pb.redirectError(ProcessBuilder.Redirect.INHERIT);
+//        pb = pb.redirectError(ProcessBuilder.Redirect.INHERIT);
         return pb.start();
     }
 
@@ -86,13 +87,13 @@ public class GATK {
                 "--resource", "1000G,known=false,training=true,truth=false,prior=10.0:" + milG,
                 "--resource", "dbsnp,known=true,training=false,truth=false,prior=2.0:" + dbSNP,
                 "-an", "QD",
-                //"-an", "MQ", "-an", "MQRankSum","-an", "ReadPosRankSum",
+                "-an", "MQ", "-an", "MQRankSum","-an", "ReadPosRankSum",
                 "-an", "FS", "-an", "SOR",
                 "-mode", "SNP",
                 "-O", path + "snp.recal",
                 "--tranches-file", path + "snp.tranches"
         );
-        pb = pb.redirectError(ProcessBuilder.Redirect.INHERIT);
+//        pb = pb.redirectError(ProcessBuilder.Redirect.INHERIT);
         return pb.start();
     }
 
@@ -108,7 +109,7 @@ public class GATK {
                 "-O", path + "indel.recal",
                 "--tranches-file", path + "indel.tranches"
         );
-        pb = pb.redirectError(ProcessBuilder.Redirect.INHERIT);
+//        pb = pb.redirectError(ProcessBuilder.Redirect.INHERIT);
         return pb.start();
     }
 
@@ -122,7 +123,7 @@ public class GATK {
                 "--recal-file", path + (snp ? "snp.recal" : "indel.recal"),
                 "-mode", snp ? "SNP" : "INDEL"
         );
-        pb = pb.redirectError(ProcessBuilder.Redirect.INHERIT);
+//        pb = pb.redirectError(ProcessBuilder.Redirect.INHERIT);
         return pb.start();
     }
 
@@ -132,7 +133,7 @@ public class GATK {
                 "-O", output,
                 "-F", "CHROM", "-F", "POS", "-F", "ID", "-F", "REF", "-F", "ALT", "-F", "QUAL", "-F", "FILTER", "-F", "TYPE", "-GF", "GT"
         );
-        pb = pb.redirectError(ProcessBuilder.Redirect.INHERIT);
+//        pb = pb.redirectError(ProcessBuilder.Redirect.INHERIT);
         return pb.start();
     }
 

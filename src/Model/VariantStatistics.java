@@ -26,7 +26,7 @@ public class VariantStatistics implements Statistics{
     }
 
     public void update(Variant variant, boolean woman) {
-        if (!variant.getParam(FILTER).equals("PASS")) return;
+        if (!variant.getParam(FILTER).equals("PASS") || !variant.getParam(FILTER).equals(".")) return;
         total.incrementAndGet();
         if (woman) {
             if (variant.getParam(CHROM).equals("chrY")) falsePositive.incrementAndGet();

@@ -27,10 +27,12 @@ public class FreqFitness extends Fitness{
             System.out.println(Arrays.toString(individual.getParameters()) + ":Fitness ya calculado " + fitness);
             return fitness;
         }
-        Parameter[] runningParam = new Parameter[individual.getParameters().length];
-        System.arraycopy(individual.getParameters(), 0, runningParam, 0, runningParam.length-1);
-        runningParam[runningParam.length-1] = new Parameter('p',"");
-        task.setParameters(individual.getParameters());
+        if (task.getName().equals("MEM")) {
+            Parameter[] runningParam = new Parameter[individual.getParameters().length];
+            System.arraycopy(individual.getParameters(), 0, runningParam, 0, runningParam.length - 1);
+            runningParam[runningParam.length - 1] = new Parameter('p', "");
+            task.setParameters(runningParam);
+        }
         AlignmentsStatistics stats = task.run();
 
         if (stats== null) return 0;

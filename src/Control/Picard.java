@@ -15,7 +15,7 @@ public class Picard {
                 "ASSUME_SORT_ORDER=coordinate",
                 "METRICS_FILE="+metrics,
                 "TMP_DIR=/tmp" );
-        pb = pb.redirectError(ProcessBuilder.Redirect.INHERIT);
+//        pb = pb.redirectError(ProcessBuilder.Redirect.INHERIT);
         return pb.start();
     }
 
@@ -28,7 +28,7 @@ public class Picard {
                 "SAMPLE_NAME="+ name,
                 "LIBRARY_NAME=SureSelect-50MB",
                 "PLATFORM=illumina");
-        pb = pb.redirectError(ProcessBuilder.Redirect.INHERIT);
+//        pb = pb.redirectError(ProcessBuilder.Redirect.INHERIT);
         return pb.start();
     }
 
@@ -38,7 +38,7 @@ public class Picard {
  		    	"O=" + output,
 	        	"M=" + metrics,
     	    	"TMP_DIR=/tmp");
-        pb = pb.redirectError(ProcessBuilder.Redirect.INHERIT);
+//        pb = pb.redirectError(ProcessBuilder.Redirect.INHERIT);
         return pb.start();
     }
 
@@ -51,7 +51,7 @@ public class Picard {
                 "INTERLEAVE=true",
                 "NON_PF=true",
     	    	"TMP_DIR=/tmp");
-        pb = pb.redirectError(ProcessBuilder.Redirect.INHERIT);
+//        pb = pb.redirectError(ProcessBuilder.Redirect.INHERIT);
         return pb.start();
     }
 
@@ -67,7 +67,7 @@ public class Picard {
                 "PRIMARY_ALIGNMENT_STRATEGY=MostDistant",
                 "ATTRIBUTES_TO_RETAIN=XS",
     	    	"TMP_DIR=/tmp");
-        pb = pb.redirectError(ProcessBuilder.Redirect.INHERIT);
+//        pb = pb.redirectError(ProcessBuilder.Redirect.INHERIT);
         return pb.start();
     }
 }

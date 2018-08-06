@@ -111,4 +111,9 @@ public class BWABackTrackTask implements AligningTask{
     public void setParameters(Parameter[] parameters) {
         this.parameters = parameters;
     }
+
+    @Override
+    public String getName() {
+        return "BWABackTrack";
+    }
 }

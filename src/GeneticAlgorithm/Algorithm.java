@@ -4,12 +4,20 @@ import Application.AlignningStatsTasks.AligningTask;
 import Application.AlignningStatsTasks.BWABackTrackTask;
 import Application.AlignningStatsTasks.BWAMEMTask;
 import Application.AlignningStatsTasks.BWASWTask;
+import Control.GermlineSNP;
+import Control.PreProcessor;
+import Control.VCF2StatsParser;
 import GeneticAlgorithm.Model.Fitness;
 import GeneticAlgorithm.Model.Individual;
 import GeneticAlgorithm.Model.Population;
 import GeneticAlgorithm.Operators.*;
 import Model.Parameter;
+import Model.VariantStatistics;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Arrays;
 
 public class Algorithm {
@@ -19,15 +27,21 @@ public class Algorithm {
         MEM, SW, ALN
     }
 
-    public static void main(String[] args) throws CloneNotSupportedException {
-        String forwardPath = "/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/FASTQ/DAM_forward.fastq.gz";
-        String reversePath = "/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/FASTQ/DAM_reverse.fastq.gz";
+    public static BufferedWriter writer;
+
+    public static void main(String[] args) throws CloneNotSupportedException, IOException, InterruptedException {
+        String forwardPath = "/media/uichuimi/DiscoInterno/GENOME_DATA/DAM_SIMPLIFIED/FASTQ/simplified_forward.fastq.gz";
+        String reversePath = "/media/uichuimi/DiscoInterno/GENOME_DATA/DAM_SIMPLIFIED/FASTQ/simplified_reverse.fastq.gz";
+        String interleavedPath = "/media/uichuimi/DiscoInterno/GENOME_DATA/DAM_SIMPLIFIED/FASTQ/simplified_interleaved.fq.gz";
+
+        String fullFastq = "/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/FASTQ/simplified_reverse.fastq.gz";
         String reference = "/media/uichuimi/DiscoInterno/GENOME_DATA/REFERENCE/gatk_resourcebunde_GRCH38.fasta";
         String alignerType = args.length > 0 ? args[0] : "MEM";
-        applyEvolution(alignerType, forwardPath, reversePath, reference);
+        writer = new BufferedWriter(new FileWriter(new File("/home/juanfrapc/GENOME_DATA/stats/stats.txt"), true));
+        applyEvolution(alignerType, alignerType.equals("MEM")?interleavedPath:forwardPath, reversePath, reference, fullFastq);
     }
 
-    static void applyEvolution(String alignerType, String forwardPath, String reversePath, String reference) throws CloneNotSupportedException {
+    static void applyEvolution(String alignerType, String forwardPath, String reversePath, String reference, String fullFastq) throws CloneNotSupportedException, IOException, InterruptedException {
         int populationSize = 6;
         int selectionSize = 6;
         float mutationProbability = (float) 0.05;
@@ -35,8 +49,6 @@ public class Algorithm {
 
         Fitness.clearMap();
         FreqFitness fitness = new FreqFitness(task, alignerType + "FrequencyGeneticAlgorithm");
-        //Random random = new Random();
-        //Fitness fitness = new FitnessLambda(random::nextFloat);
         Population population = new Population();
         Crossover crossover = new SPCrossover(fitness);
         Mutator mutator = new GaussianMutator(mutationProbability);
@@ -48,7 +60,7 @@ public class Algorithm {
 
         int iteration = 0;
         int unimproved = 0;
-        while (unimproved < 5 && iteration < 30) {
+        while (unimproved < 5 && iteration < 50) {
             System.out.println("Iteration " + ++iteration + " ... ... ...");
             Population selected = Selection.roulette(population, selectionSize);
             Population offspring = new Population();
@@ -72,8 +84,21 @@ public class Algorithm {
                 unimproved = 0;
                 population = merge;
             }
-            System.out.println(unimproved);
-
+            Individual best = population.getBest();
+            writer.append(best.getFitness() + "->" + Arrays.toString(best.getParameters())+"\n");
+//            System.out.println(best.getFitness() + "->" + Arrays.toString(best.getParameters())+"\n");
+            if (iteration % 10 == 0) {
+                PreProcessor.getPreprocessedFromInterleavedParm("DAM.ubam", fullFastq, reference, "DAM_GEN",
+                        "/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/BAM/", best.getParameters());
+                GermlineSNP.getVCFilteredFromSingelBAM(reference, "DAM_GEN","/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/BAM/",
+                        "/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/VCF/");
+                VariantStatistics variantStatistics = new VariantStatistics();
+                File variants;
+                VCF2StatsParser.process(new File("/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/BAM/VCF/DAM_GEN_FullRecall.vcf"),
+                        variantStatistics,true);
+                writer.append("##### " + variantStatistics.getFalsePositive() + "->" + Arrays.toString(best.getParameters()) + "\n");
+//                System.out.println("##### " + variantStatistics.getFalsePositive() + "->" + Arrays.toString(best.getParameters()) + "\n");
+            }
         }
         System.out.println("END");
     }
@@ -82,7 +107,7 @@ public class Algorithm {
     private static AligningTask taskSelection(String aligner, String forward, String reverse, String reference) {
         switch (TaskTypes.valueOf(aligner)) {
             case MEM:
-                return new BWAMEMTask("MemFrequencyGeneticAlgorithm", forward, reverse, reference, new Parameter[0]);
+                return new BWAMEMTask("MemFrequencyGeneticAlgorithm", forward, "", reference, new Parameter[0]);
             case SW:
                 return new BWASWTask("SWFrequencyGeneticAlgorithm", forward, reverse, reference, new Parameter[0]);
             case ALN:

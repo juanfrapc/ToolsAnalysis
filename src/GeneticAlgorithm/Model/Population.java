@@ -87,5 +87,15 @@ public class Population implements Iterable<Individual> {
         }
         return result.toString();
     }
+
+    public Individual getBest() {
+        Individual best = null;
+        for (Individual individual : this) {
+            if (best == null || best.getFitness() <= individual.getFitness() ){
+                best = individual;
+            }
+        };
+        return best;
+    }
 }
 
