@@ -1,6 +1,10 @@
 package Control;
 
+import Application.Aligners.BWABackTrackAlnAligner;
+import Application.Aligners.BWABackTrackSampe;
 import Application.Aligners.BWAMEMAligner;
+import Application.Aligners.BWASWAligner;
+import Model.Aligner;
 import Model.Parameter;
 import Model.Timer;
 
@@ -56,7 +60,7 @@ public class PreProcessor {
         new File(path + name + "_merged.bam").renameTo(new File(path + name + ".bam"));
         new File(path + name + "_merged.bai").renameTo(new File(path + name + ".bam.bai"));
 
-        return afterBwa(reference,path,name);
+        return afterBwa(reference, path, name);
     }
 
     public static boolean getPreprocessedFrom2Interleaved(String bamUnmappedA, String bamUnmappedB, String fastqA, String fastqB,
@@ -93,11 +97,11 @@ public class PreProcessor {
 
         Process sortA = Samtools.sortBamParallel(path + nameA + ".bam", path + nameA + ".sorted.bam");
         if (!waitforProcess(sortA, "sort A")) return false;
-        Process indexA = Samtools.index( path + nameA + ".sorted.bam");
+        Process indexA = Samtools.index(path + nameA + ".sorted.bam");
         if (!waitforProcess(indexA, "index sort A")) return false;
         Process sortB = Samtools.sortBamParallel(path + nameB + ".bam", path + nameB + ".sorted.bam");
         if (!waitforProcess(sortB, "sort B")) return false;
-        Process indexB = Samtools.index( path + nameB + ".sorted.bam");
+        Process indexB = Samtools.index(path + nameB + ".sorted.bam");
         if (!waitforProcess(indexB, "index sort B")) return false;
 
         new File(path + nameA + ".bam").delete();
@@ -107,7 +111,7 @@ public class PreProcessor {
 
         Process merge = Samtools.merge(path + name + ".bam", path + nameA + ".sorted.bam", path + nameB + ".sorted.bam");
         if (!waitforProcess(merge, "Merging aligned")) return false;
-        Process indexMerged = Samtools.index( path + name + ".bam");
+        Process indexMerged = Samtools.index(path + name + ".bam");
         if (!waitforProcess(indexMerged, "index sort merged")) return false;
 
         new File(path + nameA + ".sorted.bam").delete();
@@ -115,7 +119,7 @@ public class PreProcessor {
         new File(path + nameB + ".sorted.bam").delete();
         new File(path + nameB + ".sorted.bam.bai").delete();
 
-        return afterBwa(reference,path,name);
+        return afterBwa(reference, path, name);
     }
 
     public static boolean getPreprocessedFromPaired(String forward, String reverse, String reference, String name, String path) throws IOException, InterruptedException {
@@ -131,19 +135,44 @@ public class PreProcessor {
         if (!waitforProcess(sam2Bam, "sam2bam")) return false;
         new File(path + name + ".sam").delete();
 
-        return afterBwa(reference,path,name);
+        return afterBwa(reference, path, name);
     }
 
     public static boolean getPreprocessedFromInterleavedParm(
-            String bamUnmapped, String fastq, String reference, String name, String path, Parameter[] parameters) throws IOException, InterruptedException {
+            String bamUnmapped, String fastq, String reference, String name, String path, Parameter[] parameters, String alignerType)
+            throws IOException, InterruptedException {
         timer.start();
 
         System.out.println("(" + new Date().toString() + ") Start getting Bam from interleaved");
-        Parameter[] execParam = new Parameter[parameters.length + 1];
-        System.arraycopy(parameters, 0, execParam, 0, parameters.length);
-        execParam[parameters.length] = new Parameter('p', "");
 
-        BWAMEMAligner bwa = new BWAMEMAligner(fastq, "", reference, path + name + ".sam", path + name + ".log", execParam);
+        Aligner bwa = null;
+        switch (alignerType) {
+            case "MEM":
+                Parameter[] execParam = new Parameter[parameters.length + 1];
+                System.arraycopy(parameters, 0, execParam, 0, parameters.length);
+                execParam[parameters.length] = new Parameter('p', "");
+                bwa = new BWAMEMAligner(fastq, "", reference, path + name + ".sam", path + name + ".log", execParam);
+                break;
+            case "SW":
+                bwa = new BWASWAligner("/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/FASTQ/DAM_forward.fastq.gz",
+                        "/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/FASTQ/DAM_reverse.fastq.gz",
+                        reference, path + name + ".sam", path + name + ".log", parameters);
+                break;
+            case "ALN":
+                bwa = new BWABackTrackAlnAligner("/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/FASTQ/DAM_forward.fastq.gz",
+                        reference, path + name + "forward.sai", path + name + ".log", parameters);
+                if (!waitforProcess(bwa.run(), "alineamiento bwa sai forward")) return false;
+                bwa = new BWABackTrackAlnAligner("/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/FASTQ/DAM_reverse.fastq.gz",
+                        reference, path + name + "reverse.sai", path + name + ".log", parameters);
+                if (!waitforProcess(bwa.run(), "alineamiento bwa sai reverse")) return false;
+                bwa = new BWABackTrackSampe(path + name + "forward.sai",
+                        "/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/FASTQ/DAM_forward.fastq.gz",
+                        path + name + "reverse.sai",
+                        "/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/FASTQ/DAM_reverse.fastq.gz",
+                        reference, path + name + ".sam", path + name + ".log");
+                if (!waitforProcess(bwa.run(), "alineamiento bwa sampe")) return false;
+                break;
+        }
         if (!waitforProcess(bwa.run(), "alineamiento bwa")) return false;
 
         Process sam2Bam = Samtools.sam2BamParallel(path + name + ".sam", path + name + ".bam");
@@ -157,13 +186,13 @@ public class PreProcessor {
         new File(path + name + "_merged.bam").renameTo(new File(path + name + ".bam"));
         new File(path + name + "_merged.bai").renameTo(new File(path + name + ".bam.bai"));
 
-        return afterBwa(reference,path,name);
+        return afterBwa(reference, path, name);
     }
 
     private static boolean afterBwa(String reference, String path, String name) throws IOException {
         Process sort = Samtools.sortBamParallel(path + name + ".bam", path + name + ".sorted.bam");
         if (!waitforProcess(sort, "sort")) return false;
-        Process index = Samtools.index( path + name + ".sorted.bam");
+        Process index = Samtools.index(path + name + ".sorted.bam");
         if (!waitforProcess(index, "index sort")) return false;
         new File(path + name + ".bam").delete();
         new File(path + name + ".bam.bai").delete();
@@ -176,7 +205,7 @@ public class PreProcessor {
         Process recall = GATK.baseReacalibrator(reference, path + name + ".sortedDeDup.bam", path + name + ".recall_data.table");
         if (!waitforProcess(recall, "recall")) return false;
 
-        Process applyBQSR = GATK.applyBQSR(reference, path + name + ".sortedDeDup.bam", path + name + ".bam", path +name+ ".recall_data.table", path);
+        Process applyBQSR = GATK.applyBQSR(reference, path + name + ".sortedDeDup.bam", path + name + ".bam", path + name + ".recall_data.table", path);
         if (!waitforProcess(applyBQSR, "Apply BQSR")) return false;
         new File(path + name + ".sortedDeDup.bam").delete();
 
@@ -190,7 +219,8 @@ public class PreProcessor {
         try {
             int status = process.waitFor();
             timer.stop();
-            if (status == 0) System.out.println("*********************\n " + name + " terminado con exito: " + timer.report());
+            if (status == 0)
+                System.out.println("*********************\n " + name + " terminado con exito: " + timer.report());
             else {
                 System.out.println("error en " + name);
                 return false;

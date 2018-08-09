@@ -28,9 +28,9 @@ public class BWASWTask implements AligningTask {
         this.reversePath = reversePath;
         this.reference = reference;
         this.parameters = parameters;
-        this.outFile = "/home/juanfrapc/GENOME_DATA/DAM/BAM/" + name + ".sam";
-        this.logFile = "/home/juanfrapc/GENOME_DATA/DAM/log/" + name + ".log";
-        this.statsFile = "/home/juanfrapc/GENOME_DATA/DAM/stats/" + name + ".stat";
+        this.outFile = "/home/juanfrapc/GENOME_DATA/BAM/" + name + ".sam";
+        this.logFile = "/home/juanfrapc/GENOME_DATA/log/" + name + ".log";
+        this.statsFile = "/home/juanfrapc/GENOME_DATA/stats/" + name + ".stat";
         this.statistics = new AlignmentsStatistics();
     }
 

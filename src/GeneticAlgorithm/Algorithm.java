@@ -29,20 +29,27 @@ public class Algorithm {
 
     public static BufferedWriter writer;
 
+    static {
+        try {
+            writer = new BufferedWriter(new FileWriter(new File("/home/juanfrapc/GENOME_DATA/stats/stats.txt"), true));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) throws CloneNotSupportedException, IOException, InterruptedException {
         String forwardPath = "/media/uichuimi/DiscoInterno/GENOME_DATA/DAM_SIMPLIFIED/FASTQ/simplified_forward.fastq.gz";
         String reversePath = "/media/uichuimi/DiscoInterno/GENOME_DATA/DAM_SIMPLIFIED/FASTQ/simplified_reverse.fastq.gz";
         String interleavedPath = "/media/uichuimi/DiscoInterno/GENOME_DATA/DAM_SIMPLIFIED/FASTQ/simplified_interleaved.fq.gz";
 
-        String fullFastq = "/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/FASTQ/simplified_reverse.fastq.gz";
+        String fullFastq = "/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/FASTQ/DAM_interleaved.fq.gz";
         String reference = "/media/uichuimi/DiscoInterno/GENOME_DATA/REFERENCE/gatk_resourcebunde_GRCH38.fasta";
         String alignerType = args.length > 0 ? args[0] : "MEM";
-        writer = new BufferedWriter(new FileWriter(new File("/home/juanfrapc/GENOME_DATA/stats/stats.txt"), true));
         applyEvolution(alignerType, alignerType.equals("MEM")?interleavedPath:forwardPath, reversePath, reference, fullFastq);
     }
 
     static void applyEvolution(String alignerType, String forwardPath, String reversePath, String reference, String fullFastq) throws CloneNotSupportedException, IOException, InterruptedException {
-        int populationSize = 6;
+        int populationSize = 10;
         int selectionSize = 6;
         float mutationProbability = (float) 0.05;
         AligningTask task = taskSelection(alignerType, forwardPath, reversePath, reference);
@@ -57,10 +64,11 @@ public class Algorithm {
 
         System.out.println("Inicial Population.");
         System.out.println(population);
+        writer.append("New try\n");
 
         int iteration = 0;
         int unimproved = 0;
-        while (unimproved < 5 && iteration < 50) {
+        while (unimproved < 10 && iteration < 100) {
             System.out.println("Iteration " + ++iteration + " ... ... ...");
             Population selected = Selection.roulette(population, selectionSize);
             Population offspring = new Population();
@@ -85,23 +93,24 @@ public class Algorithm {
                 population = merge;
             }
             Individual best = population.getBest();
-//            writer.append(best.getFitness() + "->" + Arrays.toString(best.getParameters())+"\n");
-            System.out.println(best.getFitness() + "->" + Arrays.toString(best.getParameters())+"\n");
+            writer.append(best.getFitness() + "->" + Arrays.toString(best.getParameters())+"\n");
+            System.out.println("best:" + best.getFitness() + "->" + Arrays.toString(best.getParameters())+"\n");
             if (iteration % 10 == 0) {
                 PreProcessor.getPreprocessedFromInterleavedParm("/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/FASTQ/DAM.ubam",
                         fullFastq, reference, "DAM_GEN",
-                        "/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/BAM/", best.getParameters());
+                        "/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/BAM/", best.getParameters(), alignerType);
                 GermlineSNP.getVCFilteredFromSingelBAM(reference, "DAM_GEN","/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/BAM/",
                         "/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/VCF/");
                 VariantStatistics variantStatistics = new VariantStatistics();
                 File variants;
                 VCF2StatsParser.process(new File("/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/BAM/VCF/DAM_GEN_FullRecall.vcf"),
                         variantStatistics,true);
-//                writer.append("##### " + variantStatistics.getFalsePositive() + "->" + Arrays.toString(best.getParameters()) + "\n");
+                writer.append("##### " + variantStatistics.getFalsePositive() + "->" + Arrays.toString(best.getParameters()) + "\n");
                 System.out.println("##### " + variantStatistics.getFalsePositive() + "->" + Arrays.toString(best.getParameters()) + "\n");
             }
         }
         System.out.println("END");
+        writer.close();
     }
 
 
