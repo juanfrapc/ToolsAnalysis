@@ -49,6 +49,14 @@ public class Algorithm {
     }
 
     static void applyEvolution(String alignerType, String forwardPath, String reversePath, String reference, String fullFastq) throws CloneNotSupportedException, IOException, InterruptedException {
+
+        VariantStatistics variantStatistics = new VariantStatistics();
+        VCF2StatsParser.process(new File("/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/VCF/DAM_FullRecall.vcf"),
+                variantStatistics, true);
+        float falsePositive = ((float) variantStatistics.getFalsePositive()) / ((float) variantStatistics.getTotal());
+        writer.append("##### " + variantStatistics.getFalsePositive() + "(" + falsePositive + ")" + "-> default\n" );
+        System.out.println("##### " + variantStatistics.getFalsePositive() + "(" + falsePositive + "-> default\n");
+
         int populationSize = 10;
         int selectionSize = 6;
         float mutationProbability = (float) 0.05;
@@ -64,7 +72,7 @@ public class Algorithm {
 
         System.out.println("Inicial Population.");
         System.out.println(population);
-        writer.append("New try\n");
+        writer.append("New try " + alignerType +"\n");
 
         int iteration = 0;
         int unimproved = 0;
@@ -101,12 +109,13 @@ public class Algorithm {
                         "/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/BAM/", best.getParameters(), alignerType);
                 GermlineSNP.getVCFilteredFromSingelBAM(reference, "DAM_GEN","/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/BAM/",
                         "/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/VCF/");
-                VariantStatistics variantStatistics = new VariantStatistics();
+                variantStatistics.clear();
                 File variants;
-                VCF2StatsParser.process(new File("/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/BAM/VCF/DAM_GEN_FullRecall.vcf"),
+                VCF2StatsParser.process(new File("/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/VCF/DAM_GEN_FullRecall.vcf"),
                         variantStatistics,true);
-                writer.append("##### " + variantStatistics.getFalsePositive() + "->" + Arrays.toString(best.getParameters()) + "\n");
-                System.out.println("##### " + variantStatistics.getFalsePositive() + "->" + Arrays.toString(best.getParameters()) + "\n");
+                falsePositive = ((float)variantStatistics.getFalsePositive())/((float)variantStatistics.getTotal());
+                writer.append("##### " + variantStatistics.getFalsePositive() + "(" + falsePositive +")"+ "->" + Arrays.toString(best.getParameters()) + "\n");
+                System.out.println("##### " + variantStatistics.getFalsePositive() + "(" + falsePositive + "->" + Arrays.toString(best.getParameters()) + "\n");
             }
         }
         System.out.println("END");

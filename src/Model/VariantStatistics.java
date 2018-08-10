@@ -37,4 +37,9 @@ public class VariantStatistics implements Statistics{
 
 
     }
+
+    public void clear() {
+        total.set(0);
+        falsePositive.set(0);
+    }
 }
