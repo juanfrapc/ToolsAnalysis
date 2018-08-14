@@ -45,20 +45,21 @@ public class Algorithm {
         String fullFastq = "/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/FASTQ/DAM_interleaved.fq.gz";
         String reference = "/media/uichuimi/DiscoInterno/GENOME_DATA/REFERENCE/gatk_resourcebunde_GRCH38.fasta";
         String alignerType = args.length > 0 ? args[0] : "MEM";
-        applyEvolution(alignerType, alignerType.equals("MEM")?interleavedPath:forwardPath, reversePath, reference, fullFastq);
+        applyEvolution(alignerType, alignerType.equals("MEM") ? interleavedPath : forwardPath, reversePath, reference, fullFastq);
     }
 
     static void applyEvolution(String alignerType, String forwardPath, String reversePath, String reference, String fullFastq) throws CloneNotSupportedException, IOException, InterruptedException {
 
         VariantStatistics variantStatistics = new VariantStatistics();
-        VCF2StatsParser.process(new File("/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/VCF/DAM_FullRecall.vcf"),
+        VCF2StatsParser.process(new File("/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/VCF/DAM_20180730_GATK_GRCH38_FullRecal.vcf"),
                 variantStatistics, true);
+        System.out.println(variantStatistics.getTotal());
         float falsePositive = ((float) variantStatistics.getFalsePositive()) / ((float) variantStatistics.getTotal());
-        writer.append("##### " + variantStatistics.getFalsePositive() + "(" + falsePositive + ")" + "-> default\n" );
-        System.out.println("##### " + variantStatistics.getFalsePositive() + "(" + falsePositive + "-> default\n");
+        writer.append("##### " + variantStatistics.getFalsePositive() + "(" + falsePositive + ")" + "-> default\n");
+        System.out.println("##### " + variantStatistics.getFalsePositive() + "(" + falsePositive + ")" + "-> default");
 
-        int populationSize = 10;
-        int selectionSize = 6;
+        int populationSize = 16;
+        int selectionSize = 10;
         float mutationProbability = (float) 0.05;
         AligningTask task = taskSelection(alignerType, forwardPath, reversePath, reference);
 
@@ -72,11 +73,11 @@ public class Algorithm {
 
         System.out.println("Inicial Population.");
         System.out.println(population);
-        writer.append("New try " + alignerType +"\n");
+        writer.append("New try " + alignerType + "\n");
 
         int iteration = 0;
         int unimproved = 0;
-        while (unimproved < 10 && iteration < 100) {
+        while (unimproved < 5 && iteration < 100 || iteration < 15) {
             System.out.println("Iteration " + ++iteration + " ... ... ...");
             Population selected = Selection.roulette(population, selectionSize);
             Population offspring = new Population();
@@ -101,20 +102,24 @@ public class Algorithm {
                 population = merge;
             }
             Individual best = population.getBest();
-            writer.append(best.getFitness() + "->" + Arrays.toString(best.getParameters())+"\n");
-            System.out.println("best:" + best.getFitness() + "->" + Arrays.toString(best.getParameters())+"\n");
+            writer.append(best.getFitness() + "->" + Arrays.toString(best.getParameters()) + "\n");
+            System.out.println("best:" + best.getFitness() + "->" + Arrays.toString(best.getParameters()) + "\n");
             if (iteration % 10 == 0) {
-                PreProcessor.getPreprocessedFromInterleavedParm("/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/FASTQ/DAM.ubam",
-                        fullFastq, reference, "DAM_GEN",
-                        "/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/BAM/", best.getParameters(), alignerType);
-                GermlineSNP.getVCFilteredFromSingelBAM(reference, "DAM_GEN","/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/BAM/",
-                        "/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/VCF/");
-                variantStatistics.clear();
-                File variants;
-                VCF2StatsParser.process(new File("/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/VCF/DAM_GEN_FullRecall.vcf"),
-                        variantStatistics,true);
-                falsePositive = ((float)variantStatistics.getFalsePositive())/((float)variantStatistics.getTotal());
-                writer.append("##### " + variantStatistics.getFalsePositive() + "(" + falsePositive +")"+ "->" + Arrays.toString(best.getParameters()) + "\n");
+                if (Fitness.containsVCF(best)) {
+                    falsePositive = Fitness.getVCFFitness(best);
+                } else {
+                    PreProcessor.getPreprocessedFromInterleavedParm("/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/FASTQ/DAM.ubam",
+                            fullFastq, reference, "DAM_GEN",
+                            "/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/BAM/", best.getParameters(), alignerType);
+                    GermlineSNP.getVCFilteredFromSingelBAM(reference, "DAM_GEN", "/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/BAM/",
+                            "/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/VCF/");
+                    variantStatistics.clear();
+                    VCF2StatsParser.process(new File("/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/VCF/DAM_GEN_FullRecal.vcf"),
+                            variantStatistics, true);
+                    falsePositive = ((float) variantStatistics.getFalsePositive()) / ((float) variantStatistics.getTotal());
+                    Fitness.putVCF(best, falsePositive);
+                }
+                writer.append("##### " + variantStatistics.getFalsePositive() + "(" + falsePositive + ")" + "->" + Arrays.toString(best.getParameters()) + "\n");
                 System.out.println("##### " + variantStatistics.getFalsePositive() + "(" + falsePositive + "->" + Arrays.toString(best.getParameters()) + "\n");
             }
         }
