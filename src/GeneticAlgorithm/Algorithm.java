@@ -38,20 +38,26 @@ public class Algorithm {
     }
 
     public static void main(String[] args) throws CloneNotSupportedException, IOException, InterruptedException {
-        String forwardPath = "/media/uichuimi/DiscoInterno/GENOME_DATA/DAM_SIMPLIFIED/FASTQ/simplified_forward.fastq.gz";
-        String reversePath = "/media/uichuimi/DiscoInterno/GENOME_DATA/DAM_SIMPLIFIED/FASTQ/simplified_reverse.fastq.gz";
-        String interleavedPath = "/media/uichuimi/DiscoInterno/GENOME_DATA/DAM_SIMPLIFIED/FASTQ/simplified_interleaved.fq.gz";
-
-        String fullFastq = "/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/FASTQ/DAM_interleaved.fq.gz";
+        String pathSimplified = "/media/uichuimi/DiscoInterno/GENOME_DATA/DAM_SIMPLIFIED/";
+        String pathFull = "/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/";
         String reference = "/media/uichuimi/DiscoInterno/GENOME_DATA/REFERENCE/gatk_resourcebunde_GRCH38.fasta";
+        String originalVCF = pathFull + "VCF/DAM_20180730_GATK_GRCH38_FullRecal.vcf";
+        String name = "DAM";
+
         String alignerType = args.length > 0 ? args[0] : "MEM";
-        applyEvolution(alignerType, alignerType.equals("MEM") ? interleavedPath : forwardPath, reversePath, reference, fullFastq);
+        applyEvolution(alignerType, reference, pathSimplified, pathFull, originalVCF, name);
     }
 
-    static void applyEvolution(String alignerType, String forwardPath, String reversePath, String reference, String fullFastq) throws CloneNotSupportedException, IOException, InterruptedException {
+    static void applyEvolution(String alignerType, String reference, String pathSimplified, String pathFull, String originalVCF, String name) throws CloneNotSupportedException, IOException, InterruptedException {
+        String interleavedPath = pathSimplified + "FASTQ/simplified_interleaved.fq.gz";
+        String forwardPath = alignerType.equals("MEM") ? interleavedPath : pathSimplified + "FASTQ/simplified_forward.fastq.gz";
+        String reversePath = pathSimplified + "FASTQ/simplified_reverse.fastq.gz";
+
+        String fullFastq = pathFull + "FASTQ/DAM_interleaved.fq.gz";
+        String ubam= pathFull + "FASTQ/"+name+".ubam";
 
         VariantStatistics variantStatistics = new VariantStatistics();
-        VCF2StatsParser.process(new File("/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/VCF/DAM_20180730_GATK_GRCH38_FullRecal.vcf"),
+        VCF2StatsParser.process(new File(originalVCF),
                 variantStatistics, true);
         System.out.println(variantStatistics.getTotal());
         float falsePositive = ((float) variantStatistics.getFalsePositive()) / ((float) variantStatistics.getTotal());
@@ -60,7 +66,7 @@ public class Algorithm {
 
         int populationSize = 16;
         int selectionSize = 10;
-        float mutationProbability = (float) 0.05;
+        float mutationProbability = (float) 0.1;
         AligningTask task = taskSelection(alignerType, forwardPath, reversePath, reference);
 
         Fitness.clearMap();
@@ -108,13 +114,11 @@ public class Algorithm {
                 if (Fitness.containsVCF(best)) {
                     falsePositive = Fitness.getVCFFitness(best);
                 } else {
-                    PreProcessor.getPreprocessedFromInterleavedParm("/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/FASTQ/DAM.ubam",
-                            fullFastq, reference, "DAM_GEN",
-                            "/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/BAM/", best.getParameters(), alignerType);
-                    GermlineSNP.getVCFilteredFromSingelBAM(reference, "DAM_GEN", "/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/BAM/",
-                            "/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/VCF/");
+                    PreProcessor.getPreprocessedFromInterleavedParm(ubam,fullFastq, reference, name +"_GEN",
+                            pathFull + "BAM/", best.getParameters(), alignerType);
+                    GermlineSNP.getVCFilteredFromSingelBAM(reference, name + "_GEN", pathFull + "BAM/",pathFull + "VCF/");
                     variantStatistics.clear();
-                    VCF2StatsParser.process(new File("/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/VCF/DAM_GEN_FullRecal.vcf"),
+                    VCF2StatsParser.process(new File(pathFull + "VCF/"+name+"_GEN_FullRecal.vcf"),
                             variantStatistics, true);
                     falsePositive = ((float) variantStatistics.getFalsePositive()) / ((float) variantStatistics.getTotal());
                     Fitness.putVCF(best, falsePositive);

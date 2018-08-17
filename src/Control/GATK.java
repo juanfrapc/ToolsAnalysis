@@ -1,6 +1,5 @@
 package Control;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -41,7 +40,7 @@ public class GATK {
                 "-O", gvcfOutput,
                 "-ERC", "GVCF",
                 "--dbsnp", dbSNP);
-        pb = pb.redirectError(new File("/home/juanfrapc/GENOME_DATA/log/MemFrequencyGeneticAlgorithm.log"));
+//        pb = pb.redirectError(new File("/home/juanfrapc/GENOME_DATA/log/MemFrequencyGeneticAlgorithm.log"));
 //        pb = pb.redirectError(ProcessBuilder.Redirect.INHERIT);
         if (singleName != null) {
             List<String> command = pb.command();
