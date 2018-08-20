@@ -4,8 +4,6 @@ import Application.AlignningStatsTasks.AligningTask;
 import Application.AlignningStatsTasks.BWABackTrackTask;
 import Application.AlignningStatsTasks.BWAMEMTask;
 import Application.AlignningStatsTasks.BWASWTask;
-import Control.GermlineSNP;
-import Control.PreProcessor;
 import Control.VCF2StatsParser;
 import GeneticAlgorithm.Model.Fitness;
 import GeneticAlgorithm.Model.Individual;
@@ -38,27 +36,32 @@ public class Algorithm {
     }
 
     public static void main(String[] args) throws CloneNotSupportedException, IOException, InterruptedException {
+        String name = "DAM";
         String pathSimplified = "/media/uichuimi/DiscoInterno/GENOME_DATA/DAM_SIMPLIFIED/";
         String pathFull = "/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/";
-        String reference = "/media/uichuimi/DiscoInterno/GENOME_DATA/REFERENCE/gatk_resourcebunde_GRCH38.fasta";
         String originalVCF = pathFull + "VCF/DAM_20180730_GATK_GRCH38_FullRecal.vcf";
-        String name = "DAM";
+        String reference = "/media/uichuimi/DiscoInterno/GENOME_DATA/REFERENCE/gatk_resourcebunde_GRCH38.fasta";
+        boolean woman = true;
+        if (args.length > 1) {
+            name = args[1].split("=")[1].trim();
+            pathSimplified = args[2].split("=")[1].trim();
+            pathFull = args[3].split("=")[1].trim();
+            originalVCF = args[4].split("=")[1].trim();
+            woman = args[5].split("=")[1].trim().contains("woman");
+        }
 
         String alignerType = args.length > 0 ? args[0] : "MEM";
-        applyEvolution(alignerType, reference, pathSimplified, pathFull, originalVCF, name);
+        applyEvolution(alignerType, reference, pathSimplified, pathFull, originalVCF, name, woman);
     }
 
-    static void applyEvolution(String alignerType, String reference, String pathSimplified, String pathFull, String originalVCF, String name) throws CloneNotSupportedException, IOException, InterruptedException {
+    static void applyEvolution(String alignerType, String reference, String pathSimplified, String pathFull, String originalVCF, String name, boolean woman) throws CloneNotSupportedException, IOException, InterruptedException {
         String interleavedPath = pathSimplified + "FASTQ/simplified_interleaved.fq.gz";
         String forwardPath = alignerType.equals("MEM") ? interleavedPath : pathSimplified + "FASTQ/simplified_forward.fastq.gz";
         String reversePath = pathSimplified + "FASTQ/simplified_reverse.fastq.gz";
 
-        String fullFastq = pathFull + "FASTQ/DAM_interleaved.fq.gz";
-        String ubam= pathFull + "FASTQ/"+name+".ubam";
-
         VariantStatistics variantStatistics = new VariantStatistics();
         VCF2StatsParser.process(new File(originalVCF),
-                variantStatistics, true);
+                variantStatistics, woman);
         System.out.println(variantStatistics.getTotal());
         float falsePositive = ((float) variantStatistics.getFalsePositive()) / ((float) variantStatistics.getTotal());
         writer.append("##### " + variantStatistics.getFalsePositive() + "(" + falsePositive + ")" + "-> default\n");
@@ -71,6 +74,7 @@ public class Algorithm {
 
         Fitness.clearMap();
         FreqFitness fitness = new FreqFitness(task, alignerType + "FrequencyGeneticAlgorithm");
+        FalsePositiveFitness falsePositiveFitness = new FalsePositiveFitness(reference, name, pathFull, alignerType);
         Population population = new Population();
         Crossover crossover = new SPCrossover(fitness);
         Mutator mutator = new GaussianMutator(mutationProbability);
@@ -111,18 +115,7 @@ public class Algorithm {
             writer.append(best.getFitness() + "->" + Arrays.toString(best.getParameters()) + "\n");
             System.out.println("best:" + best.getFitness() + "->" + Arrays.toString(best.getParameters()) + "\n");
             if (iteration % 10 == 0) {
-                if (Fitness.containsVCF(best)) {
-                    falsePositive = Fitness.getVCFFitness(best);
-                } else {
-                    PreProcessor.getPreprocessedFromInterleavedParm(ubam,fullFastq, reference, name +"_GEN",
-                            pathFull + "BAM/", best.getParameters(), alignerType);
-                    GermlineSNP.getVCFilteredFromSingelBAM(reference, name + "_GEN", pathFull + "BAM/",pathFull + "VCF/");
-                    variantStatistics.clear();
-                    VCF2StatsParser.process(new File(pathFull + "VCF/"+name+"_GEN_FullRecal.vcf"),
-                            variantStatistics, true);
-                    falsePositive = ((float) variantStatistics.getFalsePositive()) / ((float) variantStatistics.getTotal());
-                    Fitness.putVCF(best, falsePositive);
-                }
+                falsePositive = falsePositiveFitness.eval(best);
                 writer.append("##### " + variantStatistics.getFalsePositive() + "(" + falsePositive + ")" + "->" + Arrays.toString(best.getParameters()) + "\n");
                 System.out.println("##### " + variantStatistics.getFalsePositive() + "(" + falsePositive + "->" + Arrays.toString(best.getParameters()) + "\n");
             }

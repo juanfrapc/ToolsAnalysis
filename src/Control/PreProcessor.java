@@ -154,21 +154,22 @@ public class PreProcessor {
                 bwa = new BWAMEMAligner(fastq, "", reference, path + name + ".sam", path + name + ".log", execParam);
                 break;
             case "SW":
-                bwa = new BWASWAligner("/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/FASTQ/DAM_forward.fastq.gz",
-                        "/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/FASTQ/DAM_reverse.fastq.gz",
+                String fastqPath = path.split("BAM")[0] + "FASTQ/";
+                bwa = new BWASWAligner(fastqPath + name + "_forward.fastq.gz",fastqPath + name + "_reverse.fastq.gz",
                         reference, path + name + ".sam", path + name + ".log", parameters);
                 break;
             case "ALN":
-                bwa = new BWABackTrackAlnAligner("/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/FASTQ/DAM_forward.fastq.gz",
+                fastqPath = path.split("BAM")[0] + "FASTQ/";
+                bwa = new BWABackTrackAlnAligner(fastqPath + name + "_forward.fastq.gz",
                         reference, path + name + "forward.sai", path + name + ".log", parameters);
                 if (!waitforProcess(bwa.run(), "alineamiento bwa sai forward")) return false;
-                bwa = new BWABackTrackAlnAligner("/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/FASTQ/DAM_reverse.fastq.gz",
+                bwa = new BWABackTrackAlnAligner(fastqPath + name + "_reverse.fastq.gz",
                         reference, path + name + "reverse.sai", path + name + ".log", parameters);
                 if (!waitforProcess(bwa.run(), "alineamiento bwa sai reverse")) return false;
                 bwa = new BWABackTrackSampe(path + name + "forward.sai",
-                        "/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/FASTQ/DAM_forward.fastq.gz",
+                        fastqPath + name + "_forward.fastq.gz",
                         path + name + "reverse.sai",
-                        "/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/FASTQ/DAM_reverse.fastq.gz",
+                        fastqPath + name + "_reverse.fastq.gz",
                         reference, path + name + ".sam", path + name + ".log");
                 if (!waitforProcess(bwa.run(), "alineamiento bwa sampe")) return false;
                 break;
