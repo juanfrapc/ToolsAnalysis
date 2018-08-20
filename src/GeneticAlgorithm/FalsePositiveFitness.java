@@ -21,8 +21,8 @@ public class FalsePositiveFitness extends Fitness {
     private String alignerType;
 
     public FalsePositiveFitness(String reference, String name, String pathFull, String alignerType) {
-        this.ubam = pathFull + "FASTQ/"+name+".ubam";
-        this.fullFastq = pathFull + "FASTQ/"+name+"_interleaved.fq.gz";
+        this.ubam = pathFull + "FASTQ/" + name + ".ubam";
+        this.fullFastq = pathFull + "FASTQ/" + name + "_interleaved.fq.gz";
         this.reference = reference;
         this.name = name;
         this.pathFull = pathFull;
@@ -43,11 +43,19 @@ public class FalsePositiveFitness extends Fitness {
                 e.printStackTrace();
             }
             VariantStatistics variantStatistics = new VariantStatistics();
-            VCF2StatsParser.process(new File(pathFull + "VCF/" + name + "_GEN_FullRecal.vcf"),
-                    variantStatistics, true);
+            if (new File(pathFull + "VCF/" + name + "_GEN_FullRecal.vcf").exists()) {
+                VCF2StatsParser.process(new File(pathFull + "VCF/" + name + "_GEN_FullRecal.vcf"),
+                        variantStatistics, true);
+            } else if (new File(pathFull + "VCF/" + name + "_GEN_SNPRecal.vcf").exists()) {
+                VCF2StatsParser.process(new File(pathFull + "VCF/" + name + "_GEN_SNPRecal.vcf"),
+                        variantStatistics, true);
+            } else {
+                VCF2StatsParser.process(new File(pathFull + "VCF/" + name + "_GEN_raw.vcf"),
+                        variantStatistics, true);
+            }
             falsePositive = ((float) variantStatistics.getFalsePositive()) / ((float) variantStatistics.getTotal());
             Fitness.putVCF(individual, falsePositive);
         }
-    return falsePositive;
+        return falsePositive;
     }
 }

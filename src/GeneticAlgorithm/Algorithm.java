@@ -37,20 +37,28 @@ public class Algorithm {
 
     public static void main(String[] args) throws CloneNotSupportedException, IOException, InterruptedException {
         String name = "DAM";
-        String pathSimplified = "/media/uichuimi/DiscoInterno/GENOME_DATA/DAM_SIMPLIFIED/";
-        String pathFull = "/media/uichuimi/DiscoInterno/GENOME_DATA/DAM/";
-        String originalVCF = pathFull + "VCF/DAM_20180730_GATK_GRCH38_FullRecal.vcf";
         String reference = "/media/uichuimi/DiscoInterno/GENOME_DATA/REFERENCE/gatk_resourcebunde_GRCH38.fasta";
+        String originalVCFName = "DAM_20180730_GATK_GRCH38_FullRecal.vcf";
         boolean woman = true;
-        if (args.length > 1) {
-            name = args[1].split("=")[1].trim();
-            pathSimplified = args[2].split("=")[1].trim();
-            pathFull = args[3].split("=")[1].trim();
-            originalVCF = args[4].split("=")[1].trim();
-            woman = args[5].split("=")[1].trim().contains("woman");
-        }
+        String alignerType = "MEM";
 
-        String alignerType = args.length > 0 ? args[0] : "MEM";
+        for (String arg : args) {
+            if (arg.contains("ALIGNER")) alignerType = arg.split("=")[1].trim();
+            if (arg.contains("NAME")) name = arg.split("=")[1].trim();
+            if (arg.contains("VCF")) originalVCFName= arg.split("=")[1].trim();
+            if (arg.contains("WOMAN")) {
+                String token = arg.split("=")[1].trim();
+                if (!(token.contains("True") | token.contains("False") )) {
+                    System.out.println("error");
+                    System.exit(1);
+                }
+                woman = token.contains("True");
+            }
+        }
+        String pathSimplified = "/media/uichuimi/DiscoInterno/GENOME_DATA/" + name + "_SIMPLIFIED/";
+        String pathFull = "/media/uichuimi/DiscoInterno/GENOME_DATA/" + name + "/";
+        String originalVCF = pathFull + "VCF/" + originalVCFName;
+
         applyEvolution(alignerType, reference, pathSimplified, pathFull, originalVCF, name, woman);
     }
 
@@ -118,6 +126,7 @@ public class Algorithm {
                 falsePositive = falsePositiveFitness.eval(best);
                 writer.append("##### " + variantStatistics.getFalsePositive() + "(" + falsePositive + ")" + "->" + Arrays.toString(best.getParameters()) + "\n");
                 System.out.println("##### " + variantStatistics.getFalsePositive() + "(" + falsePositive + "->" + Arrays.toString(best.getParameters()) + "\n");
+                writer.flush();
             }
         }
         System.out.println("END");
