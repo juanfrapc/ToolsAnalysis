@@ -20,7 +20,8 @@ public class Population implements Iterable<Individual> {
     }
 
     public void initilize(int size, Fitness fitness, Parameter[] initialValues, char[] floats, char[] negatives) {
-        for (int i = 0; i < size; i++) {
+        this.addIndividual(new Individual(initialValues, fitness));
+        for (int i = 1; i < size; i++) {
             Parameter[] initialValuesCloned = new Parameter[initialValues.length];
             for (int j = 0; j < initialValues.length; j++) {
                 initialValuesCloned[j] = initialValues[j].clone();

@@ -19,6 +19,7 @@ public class FalsePositiveFitness extends Fitness {
     private String name;
     private String pathFull;
     private String alignerType;
+    private VariantStatistics variantStatistics;
 
     public FalsePositiveFitness(String reference, String name, String pathFull, String alignerType) {
         this.ubam = pathFull + "FASTQ/" + name + ".ubam";
@@ -27,6 +28,7 @@ public class FalsePositiveFitness extends Fitness {
         this.name = name;
         this.pathFull = pathFull;
         this.alignerType = alignerType;
+        variantStatistics = new VariantStatistics();
     }
 
     @Override
@@ -42,7 +44,6 @@ public class FalsePositiveFitness extends Fitness {
             } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
             }
-            VariantStatistics variantStatistics = new VariantStatistics();
             if (new File(pathFull + "VCF/" + name + "_GEN_FullRecal.vcf").exists()) {
                 VCF2StatsParser.process(new File(pathFull + "VCF/" + name + "_GEN_FullRecal.vcf"),
                         variantStatistics, true);
@@ -57,5 +58,9 @@ public class FalsePositiveFitness extends Fitness {
             Fitness.putVCF(individual, falsePositive);
         }
         return falsePositive;
+    }
+
+    public long getFalsePositive(){
+        return variantStatistics.getFalsePositive();
     }
 }

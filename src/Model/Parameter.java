@@ -24,8 +24,10 @@ public class Parameter implements Cloneable {
         return value;
     }
 
-    private void setValue(String value) {
-        this.value = this.name == 'r' ? value : ((int) Double.parseDouble(value)) + "";
+    private void setValue(String value, char[] floats) {
+        if (contains(floats, getName())) this.value = value;
+        else this.value = ((int) Double.parseDouble(value)) + "";
+//        this.value = this.name == 'r' ? value : ((int) Double.parseDouble(value)) + "";
     }
 
     @Override
@@ -57,8 +59,8 @@ public class Parameter implements Cloneable {
         //result = 31 * result + (getValue() != null ? getValue().hashCode() : 0);
         try {
             return Integer.parseInt(getValue());
-        }catch (NumberFormatException e){
-            return (int)(Float.parseFloat(getValue())*100);
+        } catch (NumberFormatException e) {
+            return (int) (Float.parseFloat(getValue()) * 100);
         }
     }
 
@@ -66,11 +68,12 @@ public class Parameter implements Cloneable {
         Random random = new Random();
         double old = Double.parseDouble(getValue());
         double v = random.nextGaussian();
+        if (getName() == 'n') v*=0.25;
         if (!contains(floats, getName())) {
             v = Math.ceil(v);
         }
         double ne = old + v < 0 && !contains(negatives, getName()) ? 1 : old + v;
-        setValue(ne + "");
+        setValue(ne + "", floats);
     }
 
     private boolean contains(char[] array, char value) {

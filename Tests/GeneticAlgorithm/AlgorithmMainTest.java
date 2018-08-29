@@ -2,10 +2,6 @@ package GeneticAlgorithm;
 
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-
-import static GeneticAlgorithm.Algorithm.applyEvolution;
-
 class AlgorithmMainTest {
 
 
@@ -15,11 +11,11 @@ class AlgorithmMainTest {
         String forward = "Tests/tutorialFile/altalt.read1.fq";
 //        String forward = "Tests/tutorialFile/altalt_interleaved.fq.gz";
         String reverse = "Tests/tutorialFile/altalt.read2.fq";
-        try {
-            applyEvolution("ALN", forward, reverse, reference, forward);
-        } catch (CloneNotSupportedException | InterruptedException | IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            applyEvolution("ALN", reference,forward, reverse, forward);
+//        } catch (CloneNotSupportedException | InterruptedException | IOException e) {
+//            e.printStackTrace();
+//        }
 
     }
 }

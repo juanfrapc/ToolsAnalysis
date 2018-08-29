@@ -41,14 +41,14 @@ public class Algorithm {
         String originalVCFName = "DAM_20180730_GATK_GRCH38_FullRecal.vcf";
         boolean woman = true;
         String alignerType = "MEM";
-
+        if (args.length != 4) System.exit(1);
         for (String arg : args) {
             if (arg.contains("ALIGNER")) alignerType = arg.split("=")[1].trim();
             if (arg.contains("NAME")) name = arg.split("=")[1].trim();
-            if (arg.contains("VCF")) originalVCFName= arg.split("=")[1].trim();
+            if (arg.contains("VCF")) originalVCFName = arg.split("=")[1].trim();
             if (arg.contains("WOMAN")) {
                 String token = arg.split("=")[1].trim();
-                if (!(token.contains("True") | token.contains("False") )) {
+                if (!(token.contains("True") | token.contains("False"))) {
                     System.out.println("error");
                     System.exit(1);
                 }
@@ -75,9 +75,9 @@ public class Algorithm {
         writer.append("##### " + variantStatistics.getFalsePositive() + "(" + falsePositive + ")" + "-> default\n");
         System.out.println("##### " + variantStatistics.getFalsePositive() + "(" + falsePositive + ")" + "-> default");
 
-        int populationSize = 16;
+        int populationSize = 12;
         int selectionSize = 10;
-        float mutationProbability = (float) 0.1;
+        float mutationProbability = (float) 0.05;
         AligningTask task = taskSelection(alignerType, forwardPath, reversePath, reference);
 
         Fitness.clearMap();
@@ -124,8 +124,8 @@ public class Algorithm {
             System.out.println("best:" + best.getFitness() + "->" + Arrays.toString(best.getParameters()) + "\n");
             if (iteration % 10 == 0) {
                 falsePositive = falsePositiveFitness.eval(best);
-                writer.append("##### " + variantStatistics.getFalsePositive() + "(" + falsePositive + ")" + "->" + Arrays.toString(best.getParameters()) + "\n");
-                System.out.println("##### " + variantStatistics.getFalsePositive() + "(" + falsePositive + "->" + Arrays.toString(best.getParameters()) + "\n");
+                writer.append("##### " + falsePositiveFitness.getFalsePositive() + "(" + falsePositive + ")" + "->" + Arrays.toString(best.getParameters()) + "\n");
+                System.out.println("##### " + falsePositiveFitness.getFalsePositive() + "(" + falsePositive + "->" + Arrays.toString(best.getParameters()) + "\n");
                 writer.flush();
             }
         }

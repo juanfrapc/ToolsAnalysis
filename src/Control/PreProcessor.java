@@ -152,29 +152,40 @@ public class PreProcessor {
                 System.arraycopy(parameters, 0, execParam, 0, parameters.length);
                 execParam[parameters.length] = new Parameter('p', "");
                 bwa = new BWAMEMAligner(fastq, "", reference, path + name + ".sam", path + name + ".log", execParam);
+                if (!waitforProcess(bwa.run(), "alineamiento bwa")) return false;
                 break;
             case "SW":
                 String fastqPath = path.split("BAM")[0] + "FASTQ/";
-                bwa = new BWASWAligner(fastqPath + name + "_forward.fastq.gz",fastqPath + name + "_reverse.fastq.gz",
+                bwa = new BWASWAligner(fastqPath + name.replace("_GEN", "") + "_forward.fastq.gz", fastqPath + name.replace("_GEN", "") + "_reverse.fastq.gz",
                         reference, path + name + ".sam", path + name + ".log", parameters);
+                if (!waitforProcess(bwa.run(), "alineamiento bwa")) return false;
+
+                Process clean = Picard.clean(path + name + ".sam", path + name + "_clean.sam");
+                if (!waitforProcess(clean, "cleaning")) return false;
+                new File(path + name + ".sam").delete();
+                new File(path + name + "_clean.sam").renameTo(new File(path + name + ".sam"));
                 break;
             case "ALN":
                 fastqPath = path.split("BAM")[0] + "FASTQ/";
-                bwa = new BWABackTrackAlnAligner(fastqPath + name + "_forward.fastq.gz",
+                bwa = new BWABackTrackAlnAligner(fastqPath + name.replace("_GEN", "") + "_forward.fastq.gz",
                         reference, path + name + "forward.sai", path + name + ".log", parameters);
                 if (!waitforProcess(bwa.run(), "alineamiento bwa sai forward")) return false;
-                bwa = new BWABackTrackAlnAligner(fastqPath + name + "_reverse.fastq.gz",
+                bwa = new BWABackTrackAlnAligner(fastqPath + name.replace("_GEN", "") + "_reverse.fastq.gz",
                         reference, path + name + "reverse.sai", path + name + ".log", parameters);
                 if (!waitforProcess(bwa.run(), "alineamiento bwa sai reverse")) return false;
                 bwa = new BWABackTrackSampe(path + name + "forward.sai",
-                        fastqPath + name + "_forward.fastq.gz",
+                        fastqPath + name.replace("_GEN", "") + "_forward.fastq.gz",
                         path + name + "reverse.sai",
-                        fastqPath + name + "_reverse.fastq.gz",
+                        fastqPath + name.replace("_GEN", "") + "_reverse.fastq.gz",
                         reference, path + name + ".sam", path + name + ".log");
                 if (!waitforProcess(bwa.run(), "alineamiento bwa sampe")) return false;
+
+                clean = Picard.clean(path + name + ".sam", path + name + "_clean.sam");
+                if (!waitforProcess(clean, "cleaning")) return false;
+                new File(path + name + ".sam").delete();
+                new File(path + name + "_clean.sam").renameTo(new File(path + name + ".sam"));
                 break;
         }
-        if (!waitforProcess(bwa.run(), "alineamiento bwa")) return false;
 
         Process sam2Bam = Samtools.sam2BamParallel(path + name + ".sam", path + name + ".bam");
         if (!waitforProcess(sam2Bam, "sam2bam")) return false;
@@ -186,7 +197,6 @@ public class PreProcessor {
         new File(path + name + ".bam").delete();
         new File(path + name + "_merged.bam").renameTo(new File(path + name + ".bam"));
         new File(path + name + "_merged.bai").renameTo(new File(path + name + ".bam.bai"));
-
         return afterBwa(reference, path, name);
     }
 

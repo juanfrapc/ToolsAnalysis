@@ -40,6 +40,8 @@ public class GATK {
                 "-O", gvcfOutput,
                 "-ERC", "GVCF",
                 "--dbsnp", dbSNP);
+//                "-L", "chrX",
+//                "-L", "chrY");
 //        pb = pb.redirectError(new File("/home/juanfrapc/GENOME_DATA/log/MemFrequencyGeneticAlgorithm.log"));
 //        pb = pb.redirectError(ProcessBuilder.Redirect.INHERIT);
         if (singleName != null) {

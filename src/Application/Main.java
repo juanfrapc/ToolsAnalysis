@@ -3,12 +3,14 @@ package Application;
 import Application.AlignningStatsTasks.BWABackTrackTask;
 import Application.AlignningStatsTasks.BWAMEMTask;
 import Application.AlignningStatsTasks.BWASWTask;
-import Control.GATK;
+import Control.GermlineSNP;
 import Control.PreProcessor;
 import Model.Parameter;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 class Main {
 
@@ -21,41 +23,36 @@ class Main {
 //        String path19 = "/media/uichuimi/DiscoInterno/GENOME_DATA/NIV/NIV19/";
 //        cleanBam(forwardniv19, reverseniv19,"niv19", "niv19", path19);
 
-        GATK.applyVQSR(reference,
-                "/media/uichuimi/DiscoInterno/GENOME_DATA/DAM_SIMPLIFIED/VCF/simplified_20180803_GATK_GRCH38.vcf",
-                "/media/uichuimi/DiscoInterno/GENOME_DATA/DAM_SIMPLIFIED/VCF/simplified_20180803_GATK_GRCH38_recal.vcf",
-                "/media/uichuimi/DiscoInterno/GENOME_DATA/DAM_SIMPLIFIED/VCF/",
-                false).waitFor();
-//        String name = null;
-//        String forward = null;
-//        String reverse = null;
-//        String forward_1 = null;
-//        String reverse_1 = null;
-//        String path = null;
-//        if (args.length != 4 && args.length != 6) {
-//            System.out.println("error en parámetros");
-//            return;
-//        }
-//        for (String arg : args) {
-//            if (arg.contains("NAME")) name = arg.split("=")[1] + "_" +
-//                    DateTimeFormatter.ofPattern("yyyyMMdd").format(LocalDate.now()) + "_" +
-//                    "GATK_GRCH38";
-//            if (arg.contains("FQ1")) forward = arg.split("=")[1];
-//            if (arg.contains("FQ2")) reverse = arg.split("=")[1];
-//            if (arg.contains("FQ3")) forward_1 = arg.split("=")[1];
-//            if (arg.contains("FQ4")) reverse_1 = arg.split("=")[1];
-//            if (arg.contains("PATH")) path = arg.split("=")[1];
-//        }
-//        if (args.length == 6) {
-//            String ubamNameA = forward.substring(forward.lastIndexOf("/") + 1, forward.lastIndexOf("_"));
-//            String ubamNameB = forward_1.substring(forward_1.lastIndexOf("/") + 1, forward.lastIndexOf("_"));
-//            cleanBam(forward, reverse, forward_1, reverse_1, ubamNameA, ubamNameB, name, path);
-//            GermlineSNP.getVCFilteredFromMultiBAM(reference, name, path + "BAM/", path + "VCF/", ubamNameA, ubamNameB);
-//        } else {
-//            String ubamName = forward.substring(forward.lastIndexOf("/") + 1, forward.lastIndexOf("_"));
-//            cleanBam(forward, reverse, ubamName, name, path);
-//            GermlineSNP.getVCFilteredFromSingelBAM(reference, name, path + "BAM/", path + "VCF/");
-//        }
+        String name = null;
+        String forward = null;
+        String reverse = null;
+        String forward_1 = null;
+        String reverse_1 = null;
+        String path = null;
+        if (args.length != 4 && args.length != 6) {
+            System.out.println("error en parámetros");
+            return;
+        }
+        for (String arg : args) {
+            if (arg.contains("NAME")) name = arg.split("=")[1] + "_" +
+                    DateTimeFormatter.ofPattern("yyyyMMdd").format(LocalDate.now()) + "_" +
+                    "GATK_GRCH38";
+            if (arg.contains("FQ1")) forward = arg.split("=")[1];
+            if (arg.contains("FQ2")) reverse = arg.split("=")[1];
+            if (arg.contains("FQ3")) forward_1 = arg.split("=")[1];
+            if (arg.contains("FQ4")) reverse_1 = arg.split("=")[1];
+            if (arg.contains("PATH")) path = arg.split("=")[1];
+        }
+        if (args.length == 6) {
+            String ubamNameA = forward.substring(forward.lastIndexOf("/") + 1, forward.lastIndexOf("_"));
+            String ubamNameB = forward_1.substring(forward_1.lastIndexOf("/") + 1, forward.lastIndexOf("_"));
+            cleanBam(forward, reverse, forward_1, reverse_1, ubamNameA, ubamNameB, name, path);
+            GermlineSNP.getVCFilteredFromMultiBAM(reference, name, path + "BAM/", path + "VCF/", ubamNameA, ubamNameB);
+        } else {
+            String ubamName = forward.substring(forward.lastIndexOf("/") + 1, forward.lastIndexOf("_"));
+            cleanBam(forward, reverse, ubamName, name, path);
+            GermlineSNP.getVCFilteredFromSingelBAM(reference, name, path + "BAM/", path + "VCF/");
+        }
     }
 
     private static void cleanBam(String forward, String reverse, String ubamName, String name, String path) {
