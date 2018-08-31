@@ -81,6 +81,7 @@ public class Algorithm {
         AligningTask task = taskSelection(alignerType, forwardPath, reversePath, reference);
 
         Fitness.clearMap();
+        Fitness.loadBWAKnowledge(new File("/home/juanfrapc/GENOME_DATA/out" + name + alignerType + ".txt.filtrado"), getInitialValues(alignerType));
         FreqFitness fitness = new FreqFitness(task, alignerType + "FrequencyGeneticAlgorithm");
         FalsePositiveFitness falsePositiveFitness = new FalsePositiveFitness(reference, name, pathFull, alignerType);
         Population population = new Population();

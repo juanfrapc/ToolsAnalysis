@@ -20,6 +20,14 @@ public class Individual implements Comparable<Individual>, Cloneable {
         this.fitness = fitness;
     }
 
+    public Individual(String[] line, Parameter[] defaultValues){
+        this.parameters = new Parameter[defaultValues.length];
+        for (int i = 0; i < defaultValues.length; i++) {
+            this.parameters[i] = new Parameter(defaultValues[i].getName(), line[i+1]);
+        }
+        this.fitness = Float.parseFloat(line[0]);
+    }
+
     @NotNull
     public static Individual getInitialRandom(Fitness fitness, Parameter[] initialValues, char[] floats, char[] negatives) {
         for (Parameter value : initialValues) {
